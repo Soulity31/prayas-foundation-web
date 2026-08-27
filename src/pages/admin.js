@@ -13,6 +13,7 @@ import {
   openWhatsAppReceipt,
   printOfficial80GReceipt,
   downloadOfficial80GPdf,
+  openReceiptModal,
   PRAYAS_TRUST_DETAILS
 } from '../utils/receiptService.js';
 import {
@@ -927,41 +928,87 @@ async function loadActiveTable(tab) {
 
         if (!email) return;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '⏳ Dispatching Test Email...';
+        submitBtn.innerHTML = '⏳ Generating Test 80G Receipt...';
         resBox.style.display = 'none';
 
-        try {
-          const res = await fetchWithRetry('/admin/send-test-receipt', {
-            method: 'POST',
-            body: JSON.stringify({ recipient_email: email })
-          }, 1, 1000);
+        const testDonation = {
+          id: 9999,
+          donor_name: 'Shaurya Shetty (Trustee / Donor)',
+          donor_email: email,
+          donor_phone: '+91-9820500726',
+          donor_pan: 'AAATP4928P',
+          amount: 5000,
+          payment_mode: 'UPI (QR Code)',
+          transaction_id: `UPI-TEST-${Math.floor(100000 + Math.random() * 900000)}`,
+          tax_80g_receipt_no: '80G-PF-2026-TEST99',
+          is_80g: 1,
+          cause: 'Mumbai Public School (MPS) Malvani',
+          status: 'COMPLETED',
+          created_at: new Date().toISOString()
+        };
 
-          const json = await res.json();
-          const d = json.data || {};
+        const links = getReceiptEmailLinks(testDonation, email);
 
-          resBox.style.display = 'block';
-          if (json.status === 'success' && d.sent_live_smtp) {
-            resBox.style.background = 'rgba(16, 185, 129, 0.15)';
-            resBox.style.borderColor = '#10b981';
-            resBox.style.color = '#047857';
-            resBox.innerHTML = `✅ <strong>Success!</strong> Live test 80G tax receipt was dispatched to <u>${email}</u>. Please check your inbox (and spam/promotions folder).`;
-            loadEmailLogs();
-          } else {
-            resBox.style.background = 'rgba(239, 68, 68, 0.12)';
-            resBox.style.borderColor = '#fca5a5';
-            resBox.style.color = '#dc2626';
-            resBox.innerHTML = `⚠️ <strong>Delivery Note:</strong> ${d.smtp_error || 'SMTP not configured or authentication failed. Make sure to use a 16-char Gmail App Password.'}`;
-          }
-        } catch (err) {
-          resBox.style.display = 'block';
-          resBox.style.background = 'rgba(239, 68, 68, 0.12)';
-          resBox.style.borderColor = '#fca5a5';
-          resBox.style.color = '#dc2626';
-          resBox.innerHTML = `⚠️ <strong>Server Note:</strong> ${err.message}. Check that the backend server is running on port 8000.`;
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '✉️ Send Test 80G Receipt';
+        if (isServerOnline()) {
+          try {
+            const res = await fetchWithRetry('/admin/send-test-receipt', {
+              method: 'POST',
+              body: JSON.stringify({ recipient_email: email })
+            }, 1, 1000);
+
+            const json = await res.json();
+            const d = json.data || {};
+
+            resBox.style.display = 'block';
+            if (json.status === 'success' && d.sent_live_smtp) {
+              resBox.style.background = 'rgba(16, 185, 129, 0.15)';
+              resBox.style.borderColor = '#10b981';
+              resBox.style.color = '#047857';
+              resBox.innerHTML = `✅ <strong>Success!</strong> Live test 80G tax receipt was dispatched via SMTP to <u>${email}</u>. Please check your inbox.`;
+              loadEmailLogs();
+              return;
+            }
+          } catch (err) {}
         }
+
+        // Standalone Mode / 1-Click Dispatch Mode
+        resBox.style.display = 'block';
+        resBox.style.background = 'rgba(16, 185, 129, 0.12)';
+        resBox.style.borderColor = '#10b981';
+        resBox.style.color = '#047857';
+        resBox.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span style="font-size: 1.15rem;">📄</span>
+              <strong>Official Section 80G Certificate Ready for <u>${email}</u></strong>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--foreground); line-height: 1.5;">
+              The website is in <strong>Standalone Mode</strong>. You can view/print the official receipt as a PDF, or open Gmail to send it with 1-click:
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem;">
+              <button type="button" id="btn-view-test-rec-modal" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.84rem; font-weight: 700;">
+                🖨️ View & Print 80G Receipt (PDF)
+              </button>
+              <a href="${links.gmail}" target="_blank" rel="noopener" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.84rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; color: #0284c7; border-color: #0284c7;">
+                ✉️ 1-Click Send via Gmail
+              </a>
+              <a href="${links.mailto}" class="btn btn-secondary" style="padding: 0.5rem 0.85rem; font-size: 0.84rem; font-weight: 700; text-decoration: none;">
+                📬 Open Mail Client
+              </a>
+            </div>
+            <div style="font-size: 0.76rem; color: var(--foreground-muted); margin-top: 0.35rem; border-top: 1px dashed var(--border); padding-top: 0.4rem;">
+              ℹ️ <em>To send automated background SMTP emails directly from cloud without opening an email client, connect a free FastAPI backend container (e.g. Render) in the API Settings above.</em>
+            </div>
+          </div>
+        `;
+
+        const viewBtn = document.getElementById('btn-view-test-rec-modal');
+        if (viewBtn) {
+          viewBtn.onclick = () => openReceiptModal(testDonation);
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '✉️ Send Test 80G Receipt';
       });
     }
 

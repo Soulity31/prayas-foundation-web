@@ -386,17 +386,22 @@ export function createDonateModal(content, currentLang) {
 
           <!-- Direct Status Banner: Automatically Sent to Email -->
           <div id="email-receipt-status-banner" style="margin-bottom: 1.25rem; font-size: 0.92rem; padding: 0.85rem 1.1rem; border-radius: 12px; background: rgba(16, 185, 129, 0.15); color: #047857; border: 1.5px solid #10b981; text-align: center; font-weight: 700; line-height: 1.45;">
-            ✅ Your official Section 80G receipt has been sent to your email.
+            ✅ Your official Section 80G receipt has been generated successfully.
           </div>
 
-          <!-- 2 Clean Action Buttons: Download PDF & Share Receipt Link -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
-            <button type="button" id="btn-action-print-receipt" class="btn btn-primary" style="padding: 0.85rem 1rem; font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 12px;">
-              🖨️ Download / Print PDF
+          <!-- 3 Instant Action Buttons: View/Print PDF, Email via Gmail, Send WhatsApp -->
+          <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1rem;">
+            <button type="button" id="btn-action-print-receipt" class="btn btn-primary hover-lift" style="padding: 0.85rem 1rem; font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 12px; width: 100%;">
+              🖨️ View & Print Official 80G Receipt (PDF)
             </button>
-            <button type="button" id="btn-action-share-link" class="btn btn-secondary" style="padding: 0.85rem 1rem; font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 12px; border-color: var(--primary); color: var(--primary);">
-              🔗 Share Receipt Link
-            </button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;">
+              <button type="button" id="btn-action-email-receipt" class="btn btn-secondary hover-lift" style="padding: 0.75rem 0.85rem; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.4rem; border-radius: 12px; color: #0284c7; border-color: #0284c7;">
+                ✉️ Email via Gmail
+              </button>
+              <button type="button" id="btn-action-whatsapp-receipt" class="btn btn-secondary hover-lift" style="padding: 0.75rem 0.85rem; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.4rem; border-radius: 12px; color: #16a34a; border-color: #16a34a;">
+                📱 Send on WhatsApp
+              </button>
+            </div>
           </div>
 
           <div style="text-align: center; margin-top: 0.5rem;">
@@ -842,7 +847,8 @@ export function setupDonateModalComponent(currentLang) {
         }
 
         const btnPrintReceipt = document.getElementById('btn-action-print-receipt');
-        const btnShareLink = document.getElementById('btn-action-share-link');
+        const btnEmailReceipt = document.getElementById('btn-action-email-receipt');
+        const btnWhatsappReceipt = document.getElementById('btn-action-whatsapp-receipt');
 
         if (btnPrintReceipt) {
           btnPrintReceipt.onclick = () => {
@@ -850,32 +856,15 @@ export function setupDonateModalComponent(currentLang) {
           };
         }
 
-        if (btnShareLink) {
-          const pdfLink = `${window.location.origin.replace(':3000', ':8000')}/api/donations/${currentDonation.id}/download-pdf`;
-          btnShareLink.onclick = async () => {
-            if (navigator.share) {
-              try {
-                await navigator.share({
-                  title: `Prayas Foundation Receipt #${currentDonation.tax_80g_receipt_no || currentDonation.id}`,
-                  text: `Official donation receipt for INR ₹${Number(currentDonation.amount || 0).toLocaleString('en-IN')} - Prayas Foundation`,
-                  url: pdfLink
-                });
-                return;
-              } catch (e) {}
-            }
-            try {
-              await navigator.clipboard.writeText(pdfLink);
-              btnShareLink.innerHTML = '✓ Link Copied!';
-              btnShareLink.style.background = '#10b981';
-              btnShareLink.style.color = '#ffffff';
-              setTimeout(() => {
-                btnShareLink.innerHTML = '🔗 Share Receipt Link';
-                btnShareLink.style.background = '';
-                btnShareLink.style.color = '';
-              }, 2500);
-            } catch (err) {
-              prompt('Receipt Download Link (Ctrl+C, Enter):', pdfLink);
-            }
+        if (btnEmailReceipt) {
+          btnEmailReceipt.onclick = () => {
+            openEmailReceipt(currentDonation, email);
+          };
+        }
+
+        if (btnWhatsappReceipt) {
+          btnWhatsappReceipt.onclick = () => {
+            openWhatsAppReceipt(currentDonation, phone);
           };
         }
 

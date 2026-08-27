@@ -248,74 +248,173 @@ export function openWhatsAppReceipt(donation, targetPhone) {
 }
 
 /**
+ * Universal In-Page 80G Tax Exemption Receipt Viewer Modal
+ * 100% compatible with Mobile & Desktop (Zero popup blocker issues)
+ */
+export function openReceiptModal(donation) {
+  if (!donation) return;
+
+  let modal = document.getElementById('receipt-viewer-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'receipt-viewer-modal';
+    modal.className = 'modal-backdrop';
+    modal.style.cssText = 'position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 1rem;';
+    document.body.appendChild(modal);
+  }
+
+  const htmlContent = generate80GReceiptHtml(donation);
+  const emailLinks = getReceiptEmailLinks(donation);
+  const is80g = Boolean(donation.is_80g || (donation.tax_80g_receipt_no && String(donation.tax_80g_receipt_no).startsWith('80G')));
+
+  modal.innerHTML = `
+    <div class="modal-panel" style="max-width: 760px; width: 100%; max-height: 92vh; overflow-y: auto; background: #ffffff; color: #0f172a; border-radius: 24px; padding: 1.5rem 1.75rem; position: relative; box-shadow: 0 35px 90px rgba(0,0,0,0.6); border: 2px solid #10b981;">
+      
+      <!-- Close Corner Button -->
+      <button id="close-receipt-viewer-btn" class="modal-close-corner-btn hover-lift" type="button" aria-label="Close Receipt Viewer" title="Close" style="position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border-radius: 50%; background: #f1f5f9; color: #0f172a; border: 1.5px solid #cbd5e1; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 900; cursor: pointer; z-index: 100;">
+        ✕
+      </button>
+
+      <!-- Action Buttons Bar at Top -->
+      <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.25rem; padding-right: 3.2rem; align-items: center;">
+        <button id="btn-print-modal-receipt" class="btn btn-primary btn-sm hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; font-size: 0.88rem; border-radius: 10px; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <span>🖨️ Print / Save as PDF</span>
+        </button>
+        <a href="${emailLinks.gmail}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm hover-lift" style="padding: 0.55rem 0.95rem; font-weight: 700; font-size: 0.88rem; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; color: #0284c7; border-color: #0284c7;">
+          <span>✉️ Email via Gmail</span>
+        </a>
+        <button id="btn-copy-receipt-txt" class="btn btn-secondary btn-sm hover-lift" style="padding: 0.55rem 0.95rem; font-weight: 700; font-size: 0.88rem; border-radius: 10px; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <span>📋 Copy Text</span>
+        </button>
+      </div>
+
+      <!-- Live 80G Certificate Content -->
+      <div id="printable-receipt-card" style="border: 1.5px solid #e2e8f0; border-radius: 18px; overflow: hidden; background: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+        ${htmlContent}
+      </div>
+
+    </div>
+  `;
+
+  modal.classList.add('open');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+
+  // Modal Event Listeners
+  const closeBtn = modal.querySelector('#close-receipt-viewer-btn');
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+  }
+
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+
+  const printBtn = modal.querySelector('#btn-print-modal-receipt');
+  if (printBtn) {
+    printBtn.onclick = () => {
+      printOfficial80GReceipt(donation);
+    };
+  }
+
+  const copyBtn = modal.querySelector('#btn-copy-receipt-txt');
+  if (copyBtn) {
+    copyBtn.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(generate80GReceiptText(donation));
+        copyBtn.innerHTML = '<span>✓ Copied to Clipboard!</span>';
+        copyBtn.style.background = '#10b981';
+        copyBtn.style.color = '#ffffff';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span>📋 Copy Text</span>';
+          copyBtn.style.background = '';
+          copyBtn.style.color = '';
+        }, 2000);
+      } catch (e) {
+        prompt('Copy Official 80G Receipt Text (Ctrl+C, Enter):', generate80GReceiptText(donation));
+      }
+    };
+  }
+}
+
+/**
  * High-resolution Print / PDF generator for the 80G Certificate
  */
 export function printOfficial80GReceipt(donation) {
   const htmlContent = generate80GReceiptHtml(donation);
-  const printWindow = window.open('', '_blank', 'width=800,height=900');
-  if (!printWindow) {
-    window.print();
-    return;
-  }
+  
+  // Try popup window first
+  try {
+    const printWindow = window.open('', '_blank', 'width=800,height=900');
+    if (printWindow && printWindow.document) {
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>80G Tax Exemption Receipt - Prayas Foundation</title>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <style>
+              @page { size: auto; margin: 12mm; }
+              body { margin: 0; padding: 20px; background: #ffffff; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: sans-serif; }
+              @media print {
+                .no-print { display: none !important; }
+              }
+              .print-header-actions {
+                max-width: 650px;
+                margin: 0 auto 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+              .btn-print {
+                background: #059669;
+                color: #ffffff;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 8px;
+                font-weight: 700;
+                cursor: pointer;
+                font-size: 14px;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="print-header-actions no-print">
+              <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <span style="font-size: 13px; color: #64748b;">Prayas Foundation Official Tax Certificate</span>
+            </div>
+            ${htmlContent}
+            <script>
+              setTimeout(() => {
+                window.print();
+              }, 350);
+            <\/script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      return;
+    }
+  } catch (e) {}
 
-  printWindow.document.write(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>80G Tax Exemption Receipt - Prayas Foundation</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
-          @page { size: auto; margin: 15mm; }
-          body { margin: 0; padding: 20px; background: #ffffff; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: sans-serif; }
-          @media print {
-            .no-print { display: none !important; }
-          }
-          .print-header-actions {
-            max-width: 650px;
-            margin: 0 auto 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          }
-          .btn-print {
-            background: #059669;
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 14px;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="print-header-actions no-print">
-          <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
-          <span style="font-size: 13px; color: #64748b;">Prayas Foundation Official Tax Certificate</span>
-        </div>
-        ${htmlContent}
-        <script>
-          setTimeout(() => {
-            window.print();
-          }, 400);
-        <\/script>
-      </body>
-    </html>
-  `);
-  printWindow.document.close();
+  // Fallback if popup blocked
+  window.print();
 }
 
 /**
- * 1-Click Direct Vector PDF Downloader from FastAPI Server
+ * Universal Official 80G Receipt Viewer & PDF Downloader
  */
 export function downloadOfficial80GPdf(donation) {
-  if (donation && donation.id) {
-    const pdfUrl = getDonationPdfUrl(donation.id);
-    window.open(pdfUrl, '_blank');
-  } else {
-    printOfficial80GReceipt(donation);
-  }
+  openReceiptModal(donation);
 }
+
 
