@@ -4,13 +4,13 @@ export function createNavbar(content, currentLang, activePage = 'home') {
   const t = (content[currentLang] || content['mr']).nav;
 
   const pages = [
-    { id: 'home', href: '/index.html', label: t.home, icon: '🏠' },
-    { id: 'about', href: '/about.html', label: t.about, icon: '📖' },
-    { id: 'school', href: '/school.html', label: t.school, icon: '🏫' },
-    { id: 'programs', href: '/programs.html', label: t.programs, icon: '🎯' },
-    { id: 'work', href: '/work.html', label: t.work || (isMr ? 'आमचे कार्य' : isHi ? 'हमारा कार्य' : 'Our Work'), icon: '🌟' },
-    { id: 'impact', href: '/impact.html', label: t.impact, icon: '📊' },
-    { id: 'contact', href: '/contact.html', label: t.contact, icon: '📞' }
+    { id: 'home', href: './index.html', label: t.home, icon: '🏠' },
+    { id: 'about', href: './about.html', label: t.about, icon: '📖' },
+    { id: 'school', href: './school.html', label: t.school, icon: '🏫' },
+    { id: 'programs', href: './programs.html', label: t.programs, icon: '🎯' },
+    { id: 'work', href: './work.html', label: t.work || (isMr ? 'आमचे कार्य' : isHi ? 'हमारा कार्य' : 'Our Work'), icon: '🌟' },
+    { id: 'impact', href: './impact.html', label: t.impact, icon: '📊' },
+    { id: 'contact', href: './contact.html', label: t.contact, icon: '📞' }
   ];
 
   const langBtnText = isMr ? 'भाषा' : isHi ? 'भाषा' : 'Language';
@@ -20,8 +20,8 @@ export function createNavbar(content, currentLang, activePage = 'home') {
       <div class="nav-inner-container flex items-center justify-between" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         
         <!-- Brand Logo & Name -->
-        <a href="/index.html" class="nav-brand flex items-center hover-scale" style="display: flex; align-items: center; text-decoration: none; min-width: 0;">
-          <img src="/assets/prayas-logo.png" alt="Prayas Foundation Logo" class="nav-brand-logo" />
+        <a href="./index.html" class="nav-brand flex items-center hover-scale" style="display: flex; align-items: center; text-decoration: none; min-width: 0;">
+          <img src="./assets/prayas-logo.png" alt="Prayas Foundation Logo" class="nav-brand-logo" />
           <span class="nav-brand-text font-display font-bold text-foreground block">Prayas Foundation</span>
         </a>
 
@@ -29,7 +29,7 @@ export function createNavbar(content, currentLang, activePage = 'home') {
         <div class="nav-tools-wrap flex items-center" style="display: flex; align-items: center;">
           
           <!-- Home Button (Icon-only on mobile, Icon+Text on desktop) -->
-          <a href="/index.html" class="nav-btn nav-home-btn hover-lift ${activePage === 'home' ? 'active' : ''}" title="${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}" aria-label="Home">
+          <a href="./index.html" class="nav-btn nav-home-btn hover-lift ${activePage === 'home' ? 'active' : ''}" title="${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}" aria-label="Home">
             <span class="nav-btn-icon" style="font-size: 1.05rem; line-height: 1;">🏠</span>
             <span class="nav-btn-text nav-home-text">${isMr ? 'होम' : isHi ? 'होम' : 'Home'}</span>
           </a>
@@ -91,7 +91,7 @@ export function createNavbar(content, currentLang, activePage = 'home') {
       <!-- Modal Header -->
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 2px solid #e2e8f0;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <img src="/assets/prayas-logo.png" alt="Prayas Logo" style="height: 38px; width: auto;" />
+          <img src="./assets/prayas-logo.png" alt="Prayas Logo" style="height: 38px; width: auto;" />
           <span class="font-display font-bold block" style="font-size: 1.2rem; line-height: 1.2; color: #0f172a;">Prayas Foundation</span>
         </div>
         <button id="close-drawer-btn" type="button" class="hover-lift" style="width: 36px; height: 36px; border-radius: 50%; background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 800;" aria-label="Close Menu" onclick="window.closePrayasMenu ? window.closePrayasMenu() : (window.togglePrayasMenu && window.togglePrayasMenu(false))">

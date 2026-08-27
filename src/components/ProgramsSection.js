@@ -48,7 +48,7 @@ export function createProgramsSection(content, currentLang, showHeader = true) {
               
               <!-- Image Preview Frame (Scales on Row Focus) -->
               <div class="program-img-frame" style="position: relative; height: 190px; width: 100%; overflow: hidden; background: var(--surface-subtle);">
-                <img src="${item.img || '/assets/celebrations.jpg'}" alt="${item.title || ''}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/assets/celebrations.jpg';" style="width: 100%; height: 100%; object-fit: cover;" />
+                <img src="${item.img || './assets/celebrations.jpg'}" alt="${item.title || ''}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='./assets/celebrations.jpg';" style="width: 100%; height: 100%; object-fit: cover;" />
                 <span class="glass-badge" style="position: absolute; top: 0.85rem; left: 0.85rem; font-size: 0.85rem; font-weight: 800; padding: 0.35rem 0.8rem; background: rgba(0, 0, 0, 0.7); color: #ffffff; border-color: rgba(255, 255, 255, 0.3); z-index: 2;">
                   ${(item.category || '').toUpperCase()}
                 </span>

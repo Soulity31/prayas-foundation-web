@@ -66,7 +66,7 @@ export function createAboutSection(content, currentLang) {
             <div style="position: relative; flex-shrink: 0; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
               <div style="width: 145px; height: 145px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); box-shadow: var(--shadow-lg);">
                 <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--surface-card);">
-                  <img src="/assets/brijesh-singh.png" alt="${l.name || 'Shri Brijesh Singh'}" style="width: 100%; height: 100%; object-fit: cover; object-position: top;" />
+                  <img src="./assets/brijesh-singh.png" alt="${l.name || 'Shri Brijesh Singh'}" style="width: 100%; height: 100%; object-fit: cover; object-position: top;" />
                 </div>
               </div>
               <span style="display: inline-block; margin-top: -12px; z-index: 10; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff !important; font-weight: 800; font-size: 0.78rem; padding: 0.25rem 0.85rem; border-radius: 999px; border: 2.5px solid var(--surface-card); box-shadow: 0 4px 12px rgba(0,0,0,0.25); white-space: nowrap;">
@@ -93,7 +93,7 @@ export function createAboutSection(content, currentLang) {
                 </blockquote>
               ` : ''}
               <div>
-                <a href="/about.html" class="btn btn-secondary btn-sm" style="text-decoration: none;">
+                <a href="./about.html" class="btn btn-secondary btn-sm" style="text-decoration: none;">
                   ${isMr ? 'सविस्तर नेतृत्व माहिती वाचा →' : isHi ? 'विस्तृत नेतृत्व प्रोफ़ाइल पढ़ें →' : 'Read Full Leadership Profile →'}
                 </a>
               </div>

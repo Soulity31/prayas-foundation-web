@@ -35,6 +35,8 @@ jobs:
         run: npm ci
 
       - name: Build Website Bundle
+        env:
+          VITE_API_BASE: ${{ secrets.VITE_API_BASE || secrets.BACKEND_URL || '' }}
         run: npm run build
 
       - name: Setup GitHub Pages

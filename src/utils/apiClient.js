@@ -2,7 +2,7 @@
  * Prayas Foundation Unified Resilient API Client & 24/7 Keep-Alive Engine
  * 
  * Features:
- * - Dynamic API Base URL Resolution (supports localhost, custom URLs, and proxies)
+ * - Dynamic API Base URL Resolution (supports localhost, custom URLs, GitHub Pages & cloud proxies)
  * - Automatic Protocol & Mixed-Content Protection (HTTPS/HTTP)
  * - Background Keep-Alive Heartbeat (pings server every 4 mins to prevent cloud sleep)
  * - Proactive Cold-Start Wakeup on initial page load
@@ -14,25 +14,30 @@ import { searchKnowledgeBase } from '../data/botKnowledge.js';
 
 // Auto-determine active API Base URL
 export function getApiBase() {
-  // 1. Environment variable if bundled
+  // 1. Environment variable if bundled (e.g., VITE_API_BASE from GitHub Secrets or build env)
   if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE) {
-    return import.meta.env.VITE_API_BASE.replace(/\/+$/, '');
+    const envUrl = String(import.meta.env.VITE_API_BASE).trim().replace(/\/+$/, '');
+    if (envUrl) return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
   }
 
   // 2. Window-level explicit global
   if (typeof window !== 'undefined' && window.PRAYAS_API_BASE) {
-    return String(window.PRAYAS_API_BASE).replace(/\/+$/, '');
+    const winUrl = String(window.PRAYAS_API_BASE).trim().replace(/\/+$/, '');
+    if (winUrl) return winUrl.endsWith('/api') ? winUrl : `${winUrl}/api`;
   }
 
   // 3. Admin / Developer localStorage override
   if (typeof window !== 'undefined' && window.localStorage) {
     try {
       const stored = localStorage.getItem('prayas_api_url');
-      if (stored && stored.trim()) return stored.trim().replace(/\/+$/, '');
+      if (stored && stored.trim()) {
+        const clean = stored.trim().replace(/\/+$/, '');
+        return clean.endsWith('/api') ? clean : `${clean}/api`;
+      }
     } catch (e) {}
   }
 
-  // 4. In local development or port-based preview
+  // 4. In browser environment
   if (typeof window !== 'undefined') {
     const loc = window.location;
     const isLocalhost = loc.hostname === 'localhost' || loc.hostname === '127.0.0.1' || loc.hostname === '0.0.0.0';
@@ -46,12 +51,31 @@ export function getApiBase() {
       return `${loc.protocol}//${loc.hostname}:8000/api`;
     }
 
-    // In production (Netlify, Custom Domain, Cloud Host)
-    // Use same-origin /api if proxied, or fallback to port 8000 on current hostname
+    // If on GitHub Pages (*.github.io) or static CDN (pages.dev), use cloud backend URL
+    if (loc.hostname.endsWith('.github.io') || loc.hostname.endsWith('.pages.dev')) {
+      return 'https://prayas-backend.onrender.com/api';
+    }
+
+    // In production on custom domain or reverse proxy
     return `${loc.protocol}//${loc.host}/api`;
   }
 
   return 'http://127.0.0.1:8000/api';
+}
+
+export function setCustomApiBase(url) {
+  if (typeof window === 'undefined' || !window.localStorage) return;
+  if (!url || !url.trim()) {
+    localStorage.removeItem('prayas_api_url');
+  } else {
+    localStorage.setItem('prayas_api_url', url.trim());
+  }
+  pingHealthCheck();
+}
+
+export function getCustomApiBase() {
+  if (typeof window === 'undefined' || !window.localStorage) return '';
+  return localStorage.getItem('prayas_api_url') || '';
 }
 
 export function getDonationPdfUrl(donationId) {
@@ -71,6 +95,14 @@ export function onApiStateChange(callback) {
   return () => apiStateListeners.delete(callback);
 }
 
+export function isServerOnline() {
+  return isServerReachable;
+}
+
+export function getLastHeartbeat() {
+  return lastHeartbeatTime;
+}
+
 function notifyStateChange(online) {
   isServerReachable = online;
   lastHeartbeatTime = new Date();
@@ -86,7 +118,7 @@ export async function pingHealthCheck() {
   const base = getApiBase();
   try {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 8000);
+    const timer = setTimeout(() => controller.abort(), 6000);
     const res = await fetch(`${base}/health`, {
       method: 'GET',
       headers: { 'Cache-Control': 'no-cache' },
@@ -136,8 +168,9 @@ if (typeof window !== 'undefined') {
 /**
  * Resilient fetch wrapper with automatic retries, exponential backoff, and cold-start support.
  */
-export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 3, baseDelayMs = 800) {
-  const fullUrl = urlOrPath.startsWith('http') ? urlOrPath : `${getApiBase()}${urlOrPath.startsWith('/') ? '' : '/'}${urlOrPath}`;
+export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 2, baseDelayMs = 600) {
+  const base = getApiBase();
+  const fullUrl = urlOrPath.startsWith('http') ? urlOrPath : `${base}${urlOrPath.startsWith('/') ? '' : '/'}${urlOrPath}`;
   
   let attempt = 0;
   let lastError = null;
@@ -145,8 +178,8 @@ export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 3, ba
   while (attempt <= maxRetries) {
     try {
       const controller = new AbortController();
-      // Generous timeout (up to 30s) on attempt 0 to allow cold start wakeups
-      const timeoutMs = options.timeout || (attempt === 0 ? 25000 : 12000);
+      // Allow up to 10s for potential cold starts, 5s for retries
+      const timeoutMs = options.timeout || (attempt === 0 ? 10000 : 5000);
       const timer = setTimeout(() => controller.abort(), timeoutMs);
 
       const mergedOptions = {
@@ -162,13 +195,20 @@ export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 3, ba
       const res = await fetch(fullUrl, mergedOptions);
       clearTimeout(timer);
 
-      // Server is online
-      notifyStateChange(true);
+      if (res.ok) {
+        notifyStateChange(true);
+        return res;
+      }
+
+      // If server returned 404, route doesn't exist on host; don't retry endlessly
+      if (res.status === 404) {
+        throw new Error(`HTTP 404 Not Found from ${fullUrl}`);
+      }
 
       // If server returned 502/503/504 (cloud container booting), retry
       if ([502, 503, 504].includes(res.status) && attempt < maxRetries) {
         attempt++;
-        const delay = baseDelayMs * Math.pow(1.8, attempt);
+        const delay = baseDelayMs * Math.pow(1.5, attempt);
         await new Promise(r => setTimeout(r, delay));
         continue;
       }
@@ -177,15 +217,17 @@ export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 3, ba
     } catch (err) {
       lastError = err;
       attempt++;
-      if (attempt <= maxRetries) {
-        const delay = baseDelayMs * Math.pow(1.8, attempt);
+      if (attempt <= maxRetries && !err.message?.includes('404')) {
+        const delay = baseDelayMs * Math.pow(1.5, attempt);
         await new Promise(r => setTimeout(r, delay));
+      } else {
+        break;
       }
     }
   }
 
   notifyStateChange(false);
-  throw lastError || new Error(`Failed to fetch from ${fullUrl} after ${maxRetries} retries.`);
+  throw lastError || new Error(`Failed to fetch from ${fullUrl}`);
 }
 
 // ============================================================================
@@ -220,7 +262,7 @@ export async function recordDonation(payload) {
     const res = await fetchWithRetry('/donations', {
       method: 'POST',
       body: JSON.stringify(payload)
-    }, 2, 1000);
+    }, 1, 600);
 
     if (res.ok) {
       const json = await res.json();
@@ -269,7 +311,7 @@ export async function recordVolunteer(payload) {
     const res = await fetchWithRetry('/volunteers', {
       method: 'POST',
       body: JSON.stringify(payload)
-    }, 2, 1000);
+    }, 1, 600);
 
     if (res.ok) {
       const json = await res.json();
@@ -316,7 +358,7 @@ export async function recordContact(payload) {
     const res = await fetchWithRetry('/contact', {
       method: 'POST',
       body: JSON.stringify(payload)
-    }, 2, 1000);
+    }, 1, 600);
 
     if (res.ok) {
       const json = await res.json();
@@ -350,7 +392,7 @@ export async function streamChat(query, currentLang = 'en', { onToken, onMeta, o
 
   try {
     const controller = new AbortController();
-    const timeoutTimer = setTimeout(() => controller.abort(), 20000);
+    const timeoutTimer = setTimeout(() => controller.abort(), 8000);
 
     const res = await fetch(`${base}/chat/stream`, {
       method: 'POST',
@@ -398,7 +440,7 @@ export async function streamChat(query, currentLang = 'en', { onToken, onMeta, o
       return;
     }
   } catch (e) {
-    console.warn('[API Client] Streaming endpoint unreachable. Using instant client-side RAG knowledge.', e.message);
+    console.warn('[API Client] Backend AI chat unreachable. Using instant client-side RAG knowledge.', e.message);
   }
 
   // Graceful Local AI fallback

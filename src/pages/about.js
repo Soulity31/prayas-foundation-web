@@ -135,7 +135,7 @@ function renderPage() {
       <section class="hero-gradient section-padding" style="padding-top: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border);">
         <div class="container text-center" style="max-width: 850px; margin: 0 auto;">
           <div style="margin-bottom: 1rem;">
-            <a href="/index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
+            <a href="./index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
               ${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}
             </a>
             <span style="color: var(--foreground-subtle); margin: 0 0.65rem; font-size: 1.05rem;">/</span>
@@ -192,7 +192,7 @@ function renderPage() {
               <div class="lg:col-span-4 text-center" style="display: flex; flex-direction: column; align-items: center;">
                 <div style="position: relative; width: 230px; height: 230px; border-radius: 50%; padding: 6px; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); box-shadow: var(--shadow-lg); margin-bottom: 1.5rem;">
                   <img 
-                    src="/assets/brijesh-singh.png" 
+                    src="./assets/brijesh-singh.png" 
                     alt="Shri Brijesh Singh - Founder & Chairman, Prayas Foundation" 
                     style="width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 50%; background: var(--surface-card);"
                     loading="lazy"
@@ -258,7 +258,7 @@ function renderPage() {
                 : 'Prayas Foundation is fully compliant with Section 135 of the Companies Act for CSR implementations. We provide detailed impact reporting, utilization certificates, and annual audits.'}
             </p>
             <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
-              <a href="/contact.html" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.75rem 1.75rem;">
+              <a href="./contact.html" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.75rem 1.75rem;">
                 ${isMr ? 'CSR भागीदारीसाठी संपर्क साधा' : isHi ? 'CSR साझेदारी हेतु संपर्क करें' : 'Contact for CSR Collaboration'}
               </a>
               <a href="tel:+919820500726" class="btn btn-secondary" style="font-size: 1.05rem; padding: 0.75rem 1.75rem;">

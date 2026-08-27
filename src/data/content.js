@@ -59,9 +59,9 @@ export const siteContent = {
           { name: "Shri Suresh Bhageria", role: "Patron / Advisory Board", desc: "Guiding institutional governance and philanthropic outreach." },
           { name: "Shri Sushil Jaju", role: "Advisory Council", desc: "Advising strategic development and community support programs." },
           { name: "Shri Kamal Poddar", role: "Advisory Council", desc: "Providing expert counsel on educational welfare and youth initiatives." },
-          { name: "CG Power Limited", role: "Corporate Partner", desc: "Providing invaluable infrastructure and digital education support.", logo: "/assets/cg-power.png" },
-          { name: "Shri Sunil Patodia", role: "Patron & Philanthropist", desc: "Supporting student welfare, education and community growth.", image: "/assets/sunil-patodia.png" },
-          { name: "Navchetna Trust", role: "Community Partner", desc: "Partnering for grassroots community welfare and education.", logo: "/assets/navchetna.png" }
+          { name: "CG Power Limited", role: "Corporate Partner", desc: "Providing invaluable infrastructure and digital education support.", logo: "./assets/cg-power.png" },
+          { name: "Shri Sunil Patodia", role: "Patron & Philanthropist", desc: "Supporting student welfare, education and community growth.", image: "./assets/sunil-patodia.png" },
+          { name: "Navchetna Trust", role: "Community Partner", desc: "Partnering for grassroots community welfare and education.", logo: "./assets/navchetna.png" }
         ]
       }
     },
@@ -105,8 +105,8 @@ export const siteContent = {
         { name: "Shri Suresh Bhageria", role: "Patron / Advisory Board" },
         { name: "Shri Sushil Jaju", role: "Advisory Council" },
         { name: "Shri Kamal Poddar", role: "Advisory Council" },
-        { name: "Shri Brijesh Singh", role: "Founder & Chairman", image: "/assets/brijesh-singh.png" },
-        { name: "CG Power Limited", role: "Corporate Partner", logo: "/assets/cg-power.png" },
+        { name: "Shri Brijesh Singh", role: "Founder & Chairman", image: "./assets/brijesh-singh.png" },
+        { name: "CG Power Limited", role: "Corporate Partner", logo: "./assets/cg-power.png" },
         { name: "Shri Anil Kainya", role: "Managing Committee" },
         { name: "Smt. Ruchi Mane", role: "Education Specialist" },
         { name: "Shri Ankit Gupta", role: "Operations Lead" },
@@ -141,7 +141,7 @@ export const siteContent = {
       items: [
         {
           id: "remedial-learning",
-          img: "/assets/slow-learners.jpg",
+          img: "./assets/slow-learners.jpg",
           title: "Remedial Learning Program",
           category: "Education",
           badge: "Unique Initiative",
@@ -150,7 +150,7 @@ export const siteContent = {
         },
         {
           id: "postcard-parents",
-          img: "/assets/postcard-activity.jpg",
+          img: "./assets/postcard-activity.jpg",
           title: "Postcard to Parents",
           category: "Health & Wellbeing",
           badge: "Unique Initiative",
@@ -159,7 +159,7 @@ export const siteContent = {
         },
         {
           id: "raksha-bandhan",
-          img: "/assets/raksha-bandhan.jpg",
+          img: "./assets/raksha-bandhan.jpg",
           title: "Raksha Bandhan with Heroes",
           category: "Life Skills & Civic",
           badge: "Featured Event",
@@ -168,91 +168,91 @@ export const siteContent = {
         },
         {
           id: "khan-academy",
-          img: "/assets/khan-academy.jpg",
+          img: "./assets/khan-academy.jpg",
           title: "Khan Academy Digital Integration",
           category: "Education",
           desc: "Leveraging Khan Academy's world-class platform for personalized STEM learning, with 487+ students actively mastering concepts and diagnostics at their own pace."
         },
         {
           id: "creative-writing",
-          img: "/assets/english-writing.jpg",
+          img: "./assets/english-writing.jpg",
           title: "English Creative Writing",
           category: "Education",
           desc: "Helping young minds find their voice and expressive vocabulary through guided English writing workshops that spark imagination, essays, and confidence."
         },
         {
           id: "reading-saturdays",
-          img: "/assets/reading-saturday.jpg",
+          img: "./assets/reading-saturday.jpg",
           title: "Reading Saturdays",
           category: "Education",
           desc: "Weekly storytelling and literature sessions led by Ms. Reeta Gupta, building a lifelong love for books, critical comprehension, and strong communication skills."
         },
         {
           id: "digital-safety",
-          img: "/assets/cyber-literacy.jpg",
+          img: "./assets/cyber-literacy.jpg",
           title: "Cyber Literacy & Digital Safety",
           category: "Education",
           desc: "Equipping students with modern computer skills, online safety protocols, and cybersecurity awareness to navigate the internet responsibly."
         },
         {
           id: "emotional-wellness",
-          img: "/assets/mental-health.jpg",
+          img: "./assets/mental-health.jpg",
           title: "Emotional Wellness & Mental Health",
           category: "Health & Wellbeing",
           desc: "Expert-led sessions by renowned psychiatrist Dr. Harish Shetty, guiding children through stress management, emotional resilience, and positive coping mechanisms."
         },
         {
           id: "sports-excellence",
-          img: "/assets/football.jpg",
+          img: "./assets/football.jpg",
           title: "Sports Excellence & Football",
           category: "Sports & Fitness",
           desc: "Over 80 aspiring athletes trained across 100 teams, with our school team qualifying and traveling to Bangalore for national tournaments!"
         },
         {
           id: "vision-care",
-          img: "/assets/eye-camp.jpg",
+          img: "./assets/eye-camp.jpg",
           title: "Vision Care Camp",
           category: "Health & Wellbeing",
           desc: "Free comprehensive eye checkups and custom prescription spectacles distributed to students in classes 6–10, ensuring no child is held back by preventable vision defects."
         },
         {
           id: "self-defence",
-          img: "/assets/kung-fu.jpg",
+          img: "./assets/kung-fu.jpg",
           title: "Self-Defence Training (Kung Fu)",
           category: "Sports & Fitness",
           desc: "Three days a week, boys and girls in classes 6–10 learn martial arts discipline, physical fitness, situational awareness, and practical self-defence."
         },
         {
           id: "mindfulness",
-          img: "/assets/meditation.jpg",
+          img: "./assets/meditation.jpg",
           title: "Mindfulness & Meditation",
           category: "Health & Wellbeing",
           desc: "Daily guided meditation and breathing exercises that cultivate inner calm, sharper classroom focus, and emotional harmony."
         },
         {
           id: "patriotic-celebrations",
-          img: "/assets/celebrations.jpg",
+          img: "./assets/celebrations.jpg",
           title: "Patriotic & Cultural Celebrations",
           category: "Life Skills & Civic",
           desc: "Tree plantation drives, Independence Day, Kargil Vijay Diwas, and Constitution Day assemblies instilling national pride and social responsibility."
         },
         {
           id: "rangeet-session",
-          img: "/assets/rangeet-session.jpg",
+          img: "./assets/rangeet-session.jpg",
           title: "Life Skills with Rangeet",
           category: "Life Skills & Civic",
           desc: "Partnering with global social enterprise Rangeet to empower students aged 6–16 with essential skills: collaboration, empathy, ecological mindfulness, and problem solving."
         },
         {
           id: "science-exhibition",
-          img: "/assets/science-exhibition.jpg",
+          img: "./assets/science-exhibition.jpg",
           title: "Science Exhibition & STEM Lab",
           category: "Education",
           desc: "Students build and exhibit working science models, robotics experiments, and environmental projects, sparking scientific curiosity across all grade levels."
         },
         {
           id: "constitution-day",
-          img: "/assets/constitution-day.jpg",
+          img: "./assets/constitution-day.jpg",
           title: "Constitution Day Assembly",
           category: "Life Skills & Civic",
           desc: "Special workshops on fundamental rights, democratic values, and civic duties to build responsible future citizens of India."
@@ -264,10 +264,10 @@ export const siteContent = {
       heading: "Collaborating for Grassroots Impact",
       desc: "Our work is made possible through trusted institutional partners, philanthropic trusts, and visionary corporate leaders.",
       list: [
-        { name: "Navchetna Charitable Trust", logo: "/assets/navchetna.png", type: "Charitable Trust Partner" },
-        { name: "Narayan Reiki Satsang Parivar Trust", logo: "/assets/narayan-reiki.png", type: "Welfare Partner" },
-        { name: "Sunil Patodia Welfare Foundation", logo: "/assets/sunil-patodia.png", type: "Philanthropic Foundation" },
-        { name: "CG Power and Industrial Solutions", logo: "/assets/cg-power.png", type: "CSR & Institutional Partner" }
+        { name: "Navchetna Charitable Trust", logo: "./assets/navchetna.png", type: "Charitable Trust Partner" },
+        { name: "Narayan Reiki Satsang Parivar Trust", logo: "./assets/narayan-reiki.png", type: "Welfare Partner" },
+        { name: "Sunil Patodia Welfare Foundation", logo: "./assets/sunil-patodia.png", type: "Philanthropic Foundation" },
+        { name: "CG Power and Industrial Solutions", logo: "./assets/cg-power.png", type: "CSR & Institutional Partner" }
       ]
     },
     contact: {
@@ -421,9 +421,9 @@ export const siteContent = {
           { name: "श्री सुरेश भगेरिया", role: "संरक्षक / सलाहकार बोर्ड", desc: "संस्थागत मार्गदर्शन और परोपकारी पहलों का नेतृत्व।" },
           { name: "श्री सुशील जाजू", role: "सलाहकार परिषद", desc: "रणनीतिक विकास और सामुदायिक सहायता कार्यक्रमों में मार्गदर्शन।" },
           { name: "श्री कमल पोद्दार", role: "सलाहकार परिषद", desc: "शैक्षिक कल्याण और युवा पहलों पर विशेषज्ञ परामर्श।" },
-          { name: "सीजी पावर लिमिटेड", role: "कॉर्पोरेट पार्टनर", desc: "बुनियादी ढांचे और डिजिटल शिक्षा में अमूल्य सहयोग।", logo: "/assets/cg-power.png" },
-          { name: "श्री सुनील पाटोदिया", role: "संरक्षक एवं समाज सेवी", desc: "छात्र कल्याण और शिक्षा के विस्तार में निरंतर सहयोग।", image: "/assets/sunil-patodia.png" },
-          { name: "नवचेतना ट्रस्ट", role: "सामुदायिक सहयोगी", desc: "जमीनी स्तर पर कल्याणकारी कार्यों में सक्रिय साझेदारी।", logo: "/assets/navchetna.png" }
+          { name: "सीजी पावर लिमिटेड", role: "कॉर्पोरेट पार्टनर", desc: "बुनियादी ढांचे और डिजिटल शिक्षा में अमूल्य सहयोग।", logo: "./assets/cg-power.png" },
+          { name: "श्री सुनील पाटोदिया", role: "संरक्षक एवं समाज सेवी", desc: "छात्र कल्याण और शिक्षा के विस्तार में निरंतर सहयोग।", image: "./assets/sunil-patodia.png" },
+          { name: "नवचेतना ट्रस्ट", role: "सामुदायिक सहयोगी", desc: "जमीनी स्तर पर कल्याणकारी कार्यों में सक्रिय साझेदारी।", logo: "./assets/navchetna.png" }
         ]
       }
     },
@@ -467,8 +467,8 @@ export const siteContent = {
         { name: "श्री सुरेश भगेरिया", role: "मार्गदर्शक / सलाहकार बोर्ड" },
         { name: "श्री सुशील जाजू", role: "सलाहकार परिषद" },
         { name: "श्री कमल पोद्दार", role: "सलाहकार परिषद" },
-        { name: "श्री ब्रिजेश सिंह", role: "संस्थापक एवं अध्यक्ष", image: "/assets/brijesh-singh.png" },
-        { name: "सीजी पावर लिमिटेड", role: "कॉर्पोरेट सहयोगी", logo: "/assets/cg-power.png" },
+        { name: "श्री ब्रिजेश सिंह", role: "संस्थापक एवं अध्यक्ष", image: "./assets/brijesh-singh.png" },
+        { name: "सीजी पावर लिमिटेड", role: "कॉर्पोरेट सहयोगी", logo: "./assets/cg-power.png" },
         { name: "श्री अनिल कैन्या", role: "प्रबंध समिति" },
         { name: "श्रीमती रुचि माने", role: "शिक्षा विशेषज्ञ" },
         { name: "श्री अंकित गुप्ता", role: "संचालन प्रमुख" },
@@ -503,7 +503,7 @@ export const siteContent = {
       items: [
         {
           id: "remedial-learning",
-          img: "/assets/slow-learners.jpg",
+          img: "./assets/slow-learners.jpg",
           title: "उपचारात्मक शिक्षण कार्यक्रम",
           category: "शिक्षा",
           badge: "अनूठी पहल",
@@ -512,7 +512,7 @@ export const siteContent = {
         },
         {
           id: "postcard-parents",
-          img: "/assets/postcard-activity.jpg",
+          img: "./assets/postcard-activity.jpg",
           title: "माता-पिता को पोस्टकार्ड",
           category: "स्वास्थ्य एवं कल्याण",
           badge: "अनूठी पहल",
@@ -521,7 +521,7 @@ export const siteContent = {
         },
         {
           id: "raksha-bandhan",
-          img: "/assets/raksha-bandhan.jpg",
+          img: "./assets/raksha-bandhan.jpg",
           title: "वीरों के साथ रक्षाबंधन",
           category: "जीवन कौशल एवं नागरिक",
           badge: "प्रमुख आयोजन",
@@ -530,91 +530,91 @@ export const siteContent = {
         },
         {
           id: "khan-academy",
-          img: "/assets/khan-academy.jpg",
+          img: "./assets/khan-academy.jpg",
           title: "खान अकादमी डिजिटल एकीकरण",
           category: "शिक्षा",
           desc: "व्यक्तिगत STEM शिक्षा के लिए खान अकादमी के विश्वस्तरीय मंच का उपयोग, जहाँ 487+ पंजीकृत छात्र 96% सक्रियता के साथ अपनी गति से सीखते हैं।"
         },
         {
           id: "creative-writing",
-          img: "/assets/english-writing.jpg",
+          img: "./assets/english-writing.jpg",
           title: "रचनात्मक अंग्रेजी लेखन",
           category: "शिक्षा",
           desc: "निर्देशित लेखन कार्यशालाओं के माध्यम से बच्चों को अपनी कल्पना, अभिव्यक्ति और आत्मविश्वास को शब्द देने में मदद करना।"
         },
         {
           id: "reading-saturdays",
-          img: "/assets/reading-saturday.jpg",
+          img: "./assets/reading-saturday.jpg",
           title: "पठन शनिवार",
           category: "शिक्षा",
           desc: "सुश्री रीता गुप्ता द्वारा संचालित साप्ताहिक कहानी सत्र, जो किताबों के प्रति प्रेम, गहरी समझ और मजबूत शब्दावली का निर्माण करते हैं।"
         },
         {
           id: "digital-safety",
-          img: "/assets/cyber-literacy.jpg",
+          img: "./assets/cyber-literacy.jpg",
           title: "डिजिटल सुरक्षा एवं साइबर साक्षरता",
           category: "शिक्षा",
           desc: "छात्रों को सुरक्षित इंटरनेट उपयोग, साइबर खतरों से बचाव और जिम्मेदार डिजिटल नागरिकता के गुर सिखाना।"
         },
         {
           id: "emotional-wellness",
-          img: "/assets/mental-health.jpg",
+          img: "./assets/mental-health.jpg",
           title: "भावनात्मक कल्याण एवं मानसिक स्वास्थ्य",
           category: "स्वास्थ्य एवं कल्याण",
           desc: "प्रसिद्ध मनोचिकित्सक डॉ. हरीश शेट्टी द्वारा विशेषज्ञ सत्र, जो बच्चों को तनाव प्रबंधन और भावनात्मक मजबूती सिखाते हैं।"
         },
         {
           id: "sports-excellence",
-          img: "/assets/football.jpg",
+          img: "./assets/football.jpg",
           title: "खेल उत्कृष्टता एवं फुटबॉल",
           category: "खेल एवं फिटनेस",
           desc: "80+ महत्वाकांक्षी एथलीटों को फुटबॉल प्रशिक्षण दिया गया, जिसमें हमारी स्कूल टीम ने बैंगलोर में राष्ट्रीय टूर्नामेंट के लिए क्वालीफाई किया!"
         },
         {
           id: "vision-care",
-          img: "/assets/eye-camp.jpg",
+          img: "./assets/eye-camp.jpg",
           title: "नेत्र देखभाल शिविर",
           category: "स्वास्थ्य एवं कल्याण",
           desc: "कक्षा 6-10 के छात्रों के लिए मुफ्त व्यापक नेत्र जांच और चश्मे का वितरण, यह सुनिश्चित करते हुए कि कमजोर दृष्टि किसी बच्चे की पढ़ाई में बाधा न बने।"
         },
         {
           id: "self-defence",
-          img: "/assets/kung-fu.jpg",
+          img: "./assets/kung-fu.jpg",
           title: "आत्मरक्षा प्रशिक्षण (कुंग फू)",
           category: "खेल एवं फिटनेस",
           desc: "सप्ताह में तीन दिन कक्षा 6-10 के छात्र-छात्राएं कुंग फू के माध्यम से शारीरिक फिटनेस, अनुशासन और व्यावहारिक आत्मरक्षा सीखते हैं।"
         },
         {
           id: "mindfulness",
-          img: "/assets/meditation.jpg",
+          img: "./assets/meditation.jpg",
           title: "माइंडफुलनेस एवं ध्यान अभ्यास",
           category: "स्वास्थ्य एवं कल्याण",
           desc: "दैनिक निर्देशित ध्यान सत्र जो छात्रों को मानसिक शांति, कक्षा में एकाग्रता और भावनात्मक संतुलन विकसित करने में मदद करते हैं।"
         },
         {
           id: "patriotic-celebrations",
-          img: "/assets/celebrations.jpg",
+          img: "./assets/celebrations.jpg",
           title: "देशभक्ति एवं सांस्कृतिक समारोह",
           category: "जीवन कौशल एवं नागरिक",
           desc: "वृक्षारोपण अभियान, स्वतंत्रता दिवस, कारगिल विजय दिवस और संविधान दिवस के माध्यम से राष्ट्र के प्रति गर्व और नागरिक कर्तव्य की भावना।"
         },
         {
           id: "rangeet-session",
-          img: "/assets/rangeet-session.jpg",
+          img: "./assets/rangeet-session.jpg",
           title: "रंगीत के साथ जीवन कौशल",
           category: "जीवन कौशल एवं नागरिक",
           desc: "रंगीत के साथ साझेदारी कर 6-16 वर्ष के बच्चों को सहयोग, सहानुभूति, पारिस्थितिक जागरूकता और समस्या समाधान जैसे आवश्यक जीवन कौशल सिखाना।"
         },
         {
           id: "science-exhibition",
-          img: "/assets/science-exhibition.jpg",
+          img: "./assets/science-exhibition.jpg",
           title: "विज्ञान प्रदर्शनी एवं STEM लैब",
           category: "शिक्षा",
           desc: "छात्र रचनात्मक विज्ञान मॉडल, रोबोटिक्स और पर्यावरणीय प्रयोगों का प्रदर्शन करते हैं, जिससे वैज्ञानिक दृष्टिकोण को बढ़ावा मिलता है।"
         },
         {
           id: "constitution-day",
-          img: "/assets/constitution-day.jpg",
+          img: "./assets/constitution-day.jpg",
           title: "संविधान दिवस समारोह",
           category: "जीवन कौशल एवं नागरिक",
           desc: "भारतीय संविधान के सिद्धांतों, मौलिक अधिकारों और कर्तव्यों पर विशेष कार्यशालाएं।"
@@ -626,10 +626,10 @@ export const siteContent = {
       heading: "सामूहिक सहयोग से जमीनी बदलाव",
       desc: "हमारा कार्य प्रतिष्ठित ट्रस्टों, परोपकारी संस्थाओं और दूरदर्शी कॉर्पोरेट भागीदारों के सहयोग से संभव हुआ है।",
       list: [
-        { name: "नवचेतना चैरिटेबल ट्रस्ट", logo: "/assets/navchetna.png", type: "चेरिटेबल ट्रस्ट पार्टनर" },
-        { name: "नारायण रेकी सत्संग परिवार ट्रस्ट", logo: "/assets/narayan-reiki.png", type: "कल्याण पार्टनर" },
-        { name: "सुनील पटोदिया वेलफेयर फाउंडेशन", logo: "/assets/sunil-patodia.png", type: "परोपकारी फाउंडेशन" },
-        { name: "सीजी पावर एंड इंडस्ट्रियल सॉल्यूशंस", logo: "/assets/cg-power.png", type: "CSR एवं संस्थागत पार्टनर" }
+        { name: "नवचेतना चैरिटेबल ट्रस्ट", logo: "./assets/navchetna.png", type: "चेरिटेबल ट्रस्ट पार्टनर" },
+        { name: "नारायण रेकी सत्संग परिवार ट्रस्ट", logo: "./assets/narayan-reiki.png", type: "कल्याण पार्टनर" },
+        { name: "सुनील पटोदिया वेलफेयर फाउंडेशन", logo: "./assets/sunil-patodia.png", type: "परोपकारी फाउंडेशन" },
+        { name: "सीजी पावर एंड इंडस्ट्रियल सॉल्यूशंस", logo: "./assets/cg-power.png", type: "CSR एवं संस्थागत पार्टनर" }
       ]
     },
     contact: {
@@ -810,19 +810,19 @@ export const siteContent = {
                     "name": "सीजी पॉवर लिमिटेड",
                     "role": "संस्थात्मक भागीदार",
                     "desc": "शाळेच्या डिजिटल लॅब आणि पायाभूत सुविधांचे प्रमुख सहयोगी.",
-                    "logo": "/assets/cg-power.png"
+                    "logo": "./assets/cg-power.png"
                 },
                 {
                     "name": "श्री सुनील पटोदिया",
                     "role": "मार्गदर्शक व दाते",
                     "desc": "विद्यार्थी कल्याण आणि शिक्षण विस्तारासाठी सतत सहकार्य.",
-                    "image": "/assets/sunil-patodia.png"
+                    "image": "./assets/sunil-patodia.png"
                 },
                 {
                     "name": "नवचेतना ट्रस्ट",
                     "role": "सामाजिक भागीदार",
                     "desc": "तळागाळातील सामाजिक कार्य आणि शैक्षणिक सक्षमीकरणासाठी भागीदार.",
-                    "logo": "/assets/navchetna.png"
+                    "logo": "./assets/navchetna.png"
                 }
             ]
         }
@@ -867,12 +867,12 @@ export const siteContent = {
             {
                 "name": "श्री ब्रिजेश सिंह",
                 "role": "संस्थापक आणि अध्यक्ष",
-                "image": "/assets/brijesh-singh.png"
+                "image": "./assets/brijesh-singh.png"
             },
             {
                 "name": "सीजी पॉवर लिमिटेड",
                 "role": "संस्थात्मक भागीदार",
-                "logo": "/assets/cg-power.png"
+                "logo": "./assets/cg-power.png"
             },
             {
                 "name": "श्री अनिल कैन्या",
@@ -975,7 +975,7 @@ export const siteContent = {
         "items": [
             {
                 "id": "remedial-learning",
-                "img": "/assets/slow-learners.jpg",
+                "img": "./assets/slow-learners.jpg",
                 "title": "उपचारात्मक शिक्षण कार्यक्रम (Remedial)",
                 "category": "Education",
                 "badge": "विशेष उपक्रम",
@@ -984,7 +984,7 @@ export const siteContent = {
             },
             {
                 "id": "postcard-parents",
-                "img": "/assets/postcard-activity.jpg",
+                "img": "./assets/postcard-activity.jpg",
                 "title": "पालकांसाठी पोस्टकार्ड मोहीम",
                 "category": "Health & Wellbeing",
                 "badge": "भावनिक उपक्रम",
@@ -993,7 +993,7 @@ export const siteContent = {
             },
             {
                 "id": "raksha-bandhan",
-                "img": "/assets/raksha-bandhan.jpg",
+                "img": "./assets/raksha-bandhan.jpg",
                 "title": "देशाच्या रक्षकांसोबत रक्षाबंधन",
                 "category": "Life Skills & Civic",
                 "badge": "देशभक्ती उपक्रम",
@@ -1002,91 +1002,91 @@ export const siteContent = {
             },
             {
                 "id": "khan-academy",
-                "img": "/assets/khan-academy.jpg",
+                "img": "./assets/khan-academy.jpg",
                 "title": "खान अकादमी डिजिटल शिक्षण",
                 "category": "Education",
                 "desc": "४८७+ विद्यार्थ्यांना खान अकादमीच्या डिजिटल प्लॅटफॉर्मद्वारे गणित आणि विज्ञानाचे वैयक्तिक शिक्षण, ज्यामुळे संकल्पना समजणे अत्यंत सुलभ झाले आहे."
             },
             {
                 "id": "creative-writing",
-                "img": "/assets/english-writing.jpg",
+                "img": "./assets/english-writing.jpg",
                 "title": "इंग्रजी सर्जनशील लेखन कार्यशाळा",
                 "category": "Education",
                 "desc": "विद्यार्थ्यांना इंग्रजी भाषेमध्ये आत्मविश्वासू बनवण्यासाठी निबंध लेखन, कथा निर्मिती आणि व्याकरण सराव कार्यशाळा."
             },
             {
                 "id": "parent-teachers",
-                "img": "/assets/parent-teachers.jpg",
+                "img": "./assets/postcard-activity.jpg",
                 "title": "पालक-शिक्षक संवाद परिषद",
                 "category": "Life Skills & Civic",
                 "desc": "विद्यार्थ्यांच्या शैक्षणिक प्रगतीवर नियमित चर्चा, मार्गदर्शन आणि पालकांचा शाळेच्या व्यवस्थापनात सक्रिय सहभाग."
             },
             {
                 "id": "counseling",
-                "img": "/assets/mental-health.jpg",
+                "img": "./assets/mental-health.jpg",
                 "title": "मानसिक आरोग्य व समुपदेशन केंद्र",
                 "category": "Health & Wellbeing",
                 "desc": "तज्ज्ञ समुपदेशकांद्वारे विद्यार्थ्यांमधील ताणतणाव, परीक्षेची भीती आणि कौटुंबिक समस्यांवर मार्गदर्शन."
             },
             {
                 "id": "sports-meet",
-                "img": "/assets/sports-meet.jpg",
+                "img": "./assets/football.jpg",
                 "title": "वार्षिक क्रीडा महोत्सव व स्पर्धा",
                 "category": "Sports & Fitness",
                 "desc": "धावणे, फुटबॉल, खो-खो आणि विविध मैदानी खेळांच्या माध्यमातून विद्यार्थ्यांमध्ये खिलाडूवृत्ती आणि तंदुरुस्तीचा विकास."
             },
             {
                 "id": "kungfu",
-                "img": "/assets/kungfu.jpg",
+                "img": "./assets/kung-fu.jpg",
                 "title": "कुंग फू व स्वसंरक्षण प्रशिक्षण",
                 "category": "Sports & Fitness",
                 "desc": "मुली आणि मुलांसाठी ब्लॅक-बेल्ट प्रशिक्षकांद्वारे मार्शल आर्ट्स, शारीरिक शिस्त आणि स्वसंरक्षण तंत्रांचे नियमित प्रशिक्षण."
             },
             {
                 "id": "yoga-meditation",
-                "img": "/assets/yoga-day.jpg",
+                "img": "./assets/meditation.jpg",
                 "title": "योग आणि ध्यान साधना",
                 "category": "Health & Wellbeing",
                 "desc": "दररोज सकाळी प्राणायाम आणि ध्यान साधनेमुळे विद्यार्थ्यांची एकाग्रता आणि स्मरणशक्ती सुधारते."
             },
             {
                 "id": "eye-checkup",
-                "img": "/assets/eye-camp.jpg",
+                "img": "./assets/eye-camp.jpg",
                 "title": "मोफत नेत्र तपासणी व चष्मे वाटप",
                 "category": "Health & Wellbeing",
                 "desc": "१२,००० हून अधिक नागरिक आणि विद्यार्थ्यांची नेत्र तपासणी करून गरजू विद्यार्थ्यांना मोफत चष्मे वाटप."
             },
             {
                 "id": "republic-day",
-                "img": "/assets/republic-day.jpg",
+                "img": "./assets/celebrations.jpg",
                 "title": "प्रजासत्ताक दिन व स्वातंत्र्य दिन उत्सव",
                 "category": "Life Skills & Civic",
                 "desc": "ध्वजारोहण, संचलन, देशभक्तीपर सांस्कृतिक कार्यक्रम आणि स्वातंत्र्यसैनिकांच्या बलिदानाचे स्मरण."
             },
             {
                 "id": "science-exhibition",
-                "img": "/assets/science-exhibition.jpg",
+                "img": "./assets/science-exhibition.jpg",
                 "title": "विज्ञान प्रदर्शन व तंत्रज्ञान मेळावा",
                 "category": "Education",
                 "desc": "विद्यार्थ्यांनी तयार केलेले विज्ञानाचे कार्यक्षम मॉडेल्स, रोबोटिक्स आणि पर्यावरणपूरक प्रयोगांचे सादरीकरण."
             },
             {
                 "id": "art-craft",
-                "img": "/assets/art-craft.jpg",
+                "img": "./assets/english-writing.jpg",
                 "title": "कला, हस्तकला व रेखाचित्र स्पर्धा",
                 "category": "Education",
                 "desc": "रंगकाम, मातीकाम आणि हस्तकलेच्या माध्यमातून विद्यार्थ्यांच्या सुप्त कलागुणांना वाव देणारे उपक्रम."
             },
             {
                 "id": "tree-plantation",
-                "img": "/assets/tree-plantation.jpg",
+                "img": "./assets/rangeet-session.jpg",
                 "title": "वृक्षारोपण व पर्यावरण संवर्धन",
                 "category": "Life Skills & Civic",
                 "desc": "परिसरात झाडे लावणे, प्लास्टिकमुक्ती आणि पर्यावरण रक्षणासाठी विद्यार्थ्यांची जनजागृती रॅली."
             },
             {
                 "id": "food-distribution",
-                "img": "/assets/food-distribution.jpg",
+                "img": "./assets/eye-camp.jpg",
                 "title": "अन्नदान व पोषण आहार सहाय्य",
                 "category": "Health & Wellbeing",
                 "desc": "अल्प उत्पन्न कुटुंबातील विद्यार्थ्यांना पौष्टिक अल्पोपहार, दूध आणि प्रथिनेयुक्त पोषण सहाय्य."
@@ -1100,22 +1100,22 @@ export const siteContent = {
         "list": [
             {
                 "name": "नवचेतना चॅरिटेबल ट्रस्ट",
-                "logo": "/assets/navchetna.png",
+                "logo": "./assets/navchetna.png",
                 "type": "चॅरिटेबल ट्रस्ट भागीदार"
             },
             {
                 "name": "नारायण रेकी सत्संग परिवार ट्रस्ट",
-                "logo": "/assets/narayan-reiki.png",
+                "logo": "./assets/narayan-reiki.png",
                 "type": "कल्याणकारी भागीदार"
             },
             {
                 "name": "सुनील पटोदिया वेल्फेअर फाउंडेशन",
-                "logo": "/assets/sunil-patodia.png",
+                "logo": "./assets/sunil-patodia.png",
                 "type": "परोपकारी संस्था"
             },
             {
                 "name": "सीजी पॉवर अँड इंडस्ट्रियल सोल्युशन्स",
-                "logo": "/assets/cg-power.png",
+                "logo": "./assets/cg-power.png",
                 "type": "सीएसआर व संस्थात्मक भागीदार"
             }
         ]

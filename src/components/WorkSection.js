@@ -63,7 +63,7 @@ export function createWorkSection(content, currentLang, showHeader = true) {
                     alt="${title}" 
                     loading="lazy" 
                     decoding="async" 
-                    onerror="this.onerror=null; this.src='${album.remote_cover || '/assets/celebrations.jpg'}';"
+                    onerror="this.onerror=null; this.src='${album.remote_cover || './assets/celebrations.jpg'}';"
                     style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" 
                     class="album-cover-img"
                   />

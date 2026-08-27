@@ -13,7 +13,7 @@ export function createFooter(content, currentLang) {
           <!-- Col 1: Brand & Bio Centered -->
           <div class="lg:col-span-5" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; justify-content: center;">
-              <img src="/assets/prayas-logo.png" alt="Prayas Foundation" style="height: 48px; object-fit: contain;" />
+              <img src="./assets/prayas-logo.png" alt="Prayas Foundation" style="height: 48px; object-fit: contain;" />
               <span class="font-display font-bold text-foreground block" style="font-size: 1.35rem;">Prayas Foundation</span>
             </div>
 
@@ -44,13 +44,13 @@ export function createFooter(content, currentLang) {
               ${f.quickLinks}
             </h4>
             <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 1.05rem; font-weight: 600; padding: 0; margin: 0; align-items: center;">
-              <li><a href="/index.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.home}</a></li>
-              <li><a href="/about.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.about}</a></li>
-              <li><a href="/school.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.school}</a></li>
-              <li><a href="/programs.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.programs}</a></li>
-              <li><a href="/work.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.work || (currentLang === 'mr' ? 'आमचे कार्य' : currentLang === 'hi' ? 'हमारा कार्य' : 'Our Work')}</a></li>
-              <li><a href="/impact.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.impact}</a></li>
-              <li><a href="/contact.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.contact}</a></li>
+              <li><a href="./index.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.home}</a></li>
+              <li><a href="./about.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.about}</a></li>
+              <li><a href="./school.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.school}</a></li>
+              <li><a href="./programs.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.programs}</a></li>
+              <li><a href="./work.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.work || (currentLang === 'mr' ? 'आमचे कार्य' : currentLang === 'hi' ? 'हमारा कार्य' : 'Our Work')}</a></li>
+              <li><a href="./impact.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.impact}</a></li>
+              <li><a href="./contact.html" class="hover-lift text-foreground-muted" style="display: inline-block;">${nav.contact}</a></li>
             </ul>
           </div>
 
@@ -73,7 +73,7 @@ export function createFooter(content, currentLang) {
               <button id="open-terms-btn" class="hover-lift" style="color: var(--primary); text-decoration: underline; cursor: pointer; background: none; border: none; font-weight: 700; font-size: 0.95rem;">
                 ${f.termsOfUse}
               </button>
-              <a href="/admin.html" class="hover-lift" style="color: #059669; background: rgba(5, 150, 105, 0.1); border: 1px solid #059669; padding: 0.25rem 0.65rem; border-radius: 6px; font-weight: 700; font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
+              <a href="./admin.html" class="hover-lift" style="color: #059669; background: rgba(5, 150, 105, 0.1); border: 1px solid #059669; padding: 0.25rem 0.65rem; border-radius: 6px; font-weight: 700; font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
                 <span>🗄️ SQL Admin</span>
               </a>
             </div>
