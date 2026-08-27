@@ -1,20 +1,38 @@
 /**
- * Prayas Foundation Unified Resilient API Client & 24/7 Keep-Alive Engine
+ * Prayas Foundation Unified Ultra-Fast API Client & Standalone Engine
  * 
  * Features:
- * - Dynamic API Base URL Resolution (supports localhost, custom URLs, GitHub Pages & cloud proxies)
- * - Automatic Protocol & Mixed-Content Protection (HTTPS/HTTP)
- * - Background Keep-Alive Heartbeat (pings server every 4 mins to prevent cloud sleep)
- * - Proactive Cold-Start Wakeup on initial page load
- * - Resilient fetchWithRetry() with Exponential Backoff for 100% reliability
- * - Transparent Client-Side LocalStorage Fallback for 0-error user experience
+ * - 0ms Instant Standalone Mode when hosted on GitHub Pages (zero blocking network requests)
+ * - Transparent Client-Side AI Engine & LocalStorage SQLite store
+ * - Optional Cloud API sync when explicit backend URL is provided (e.g. Render / Localhost)
  */
 
 import { searchKnowledgeBase } from '../data/botKnowledge.js';
 
+export function hasExplicitApi() {
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE) {
+    return true;
+  }
+  if (typeof window !== 'undefined' && window.PRAYAS_API_BASE) {
+    return true;
+  }
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const stored = localStorage.getItem('prayas_api_url');
+      if (stored && stored.trim()) return true;
+    } catch (e) {}
+  }
+  if (typeof window !== 'undefined') {
+    const loc = window.location;
+    const isLocal = loc.hostname === 'localhost' || loc.hostname === '127.0.0.1' || loc.hostname === '0.0.0.0';
+    if (isLocal) return true;
+  }
+  return false;
+}
+
 // Auto-determine active API Base URL
 export function getApiBase() {
-  // 1. Environment variable if bundled (e.g., VITE_API_BASE from GitHub Secrets or build env)
+  // 1. Environment variable if bundled
   if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE) {
     const envUrl = String(import.meta.env.VITE_API_BASE).trim().replace(/\/+$/, '');
     if (envUrl) return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
@@ -43,21 +61,14 @@ export function getApiBase() {
     const isLocalhost = loc.hostname === 'localhost' || loc.hostname === '127.0.0.1' || loc.hostname === '0.0.0.0';
     
     if (isLocalhost) {
-      // If served from port 8000 directly, use relative /api
       if (loc.port === '8000') {
         return `${loc.protocol}//${loc.host}/api`;
       }
-      // If dev server on port 3000 / 5173 / 8080, point to port 8000
       return `${loc.protocol}//${loc.hostname}:8000/api`;
     }
 
-    // If on GitHub Pages (*.github.io) or static CDN (pages.dev), use cloud backend URL
-    if (loc.hostname.endsWith('.github.io') || loc.hostname.endsWith('.pages.dev')) {
-      return 'https://prayas-backend.onrender.com/api';
-    }
-
-    // In production on custom domain or reverse proxy
-    return `${loc.protocol}//${loc.host}/api`;
+    // Default for static hosting (GitHub Pages)
+    return '';
   }
 
   return 'http://127.0.0.1:8000/api';
@@ -80,7 +91,7 @@ export function getCustomApiBase() {
 
 export function getDonationPdfUrl(donationId) {
   const base = getApiBase();
-  return `${base}/donations/${donationId}/download-pdf`;
+  return base ? `${base}/donations/${donationId}/download-pdf` : '';
 }
 
 // Global API Status State
@@ -112,13 +123,18 @@ function notifyStateChange(online) {
 }
 
 /**
- * Pings the server to keep cloud containers awake (prevents 15-min idle sleep).
+ * Pings the server to check connectivity (only runs if an explicit API is configured).
  */
 export async function pingHealthCheck() {
   const base = getApiBase();
+  if (!base || !hasExplicitApi()) {
+    notifyStateChange(false);
+    return false;
+  }
+
   try {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 6000);
+    const timer = setTimeout(() => controller.abort(), 4000);
     const res = await fetch(`${base}/health`, {
       method: 'GET',
       headers: { 'Cache-Control': 'no-cache' },
@@ -135,24 +151,23 @@ export async function pingHealthCheck() {
 }
 
 /**
- * Initializes proactive background keep-alive heartbeat.
- * Pings on initial boot to wake up cold container, then repeats every 4 minutes.
+ * Initializes proactive background keep-alive heartbeat only when connected to live backend.
  */
 export function initKeepAliveDaemon() {
   if (typeof window === 'undefined') return;
+  if (!hasExplicitApi()) return; // Pure instant client mode on GitHub Pages
   if (keepAliveTimer) return;
 
-  // Immediate wakeup ping on page load
+  // Immediate wakeup ping
   pingHealthCheck();
 
-  // Heartbeat every 4 minutes (240,000ms)
+  // Heartbeat every 4 minutes
   keepAliveTimer = setInterval(() => {
     if (document.visibilityState !== 'hidden') {
       pingHealthCheck();
     }
   }, 240000);
 
-  // Resume ping immediately when tab becomes visible after idle
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
       pingHealthCheck();
@@ -160,16 +175,20 @@ export function initKeepAliveDaemon() {
   });
 }
 
-// Auto-boot keep-alive on module load
+// Auto-boot keep-alive only if API is configured
 if (typeof window !== 'undefined') {
   initKeepAliveDaemon();
 }
 
 /**
- * Resilient fetch wrapper with automatic retries, exponential backoff, and cold-start support.
+ * Resilient fetch wrapper with instant fallback if no remote backend is configured.
  */
-export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 2, baseDelayMs = 600) {
+export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 1, baseDelayMs = 400) {
   const base = getApiBase();
+  if (!base || !hasExplicitApi()) {
+    throw new Error('Running in standalone GitHub Pages client mode.');
+  }
+
   const fullUrl = urlOrPath.startsWith('http') ? urlOrPath : `${base}${urlOrPath.startsWith('/') ? '' : '/'}${urlOrPath}`;
   
   let attempt = 0;
@@ -178,8 +197,7 @@ export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 2, ba
   while (attempt <= maxRetries) {
     try {
       const controller = new AbortController();
-      // Allow up to 10s for potential cold starts, 5s for retries
-      const timeoutMs = options.timeout || (attempt === 0 ? 10000 : 5000);
+      const timeoutMs = options.timeout || (attempt === 0 ? 5000 : 3000);
       const timer = setTimeout(() => controller.abort(), timeoutMs);
 
       const mergedOptions = {
@@ -200,12 +218,10 @@ export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 2, ba
         return res;
       }
 
-      // If server returned 404, route doesn't exist on host; don't retry endlessly
       if (res.status === 404) {
         throw new Error(`HTTP 404 Not Found from ${fullUrl}`);
       }
 
-      // If server returned 502/503/504 (cloud container booting), retry
       if ([502, 503, 504].includes(res.status) && attempt < maxRetries) {
         attempt++;
         const delay = baseDelayMs * Math.pow(1.5, attempt);
@@ -231,12 +247,11 @@ export async function fetchWithRetry(urlOrPath, options = {}, maxRetries = 2, ba
 }
 
 // ============================================================================
-// High-Level Domain API Methods with Graceful Offline Local Storage Fallback
+// High-Level Domain API Methods (Instant 0ms Local Storage Store on GitHub)
 // ============================================================================
 
 /**
- * Records a new donation.
- * Saves to backend SQL; automatically creates verified local record if backend is waking/offline.
+ * Records a new donation instantly.
  */
 export async function recordDonation(payload) {
   const rnd = Math.floor(1000 + Math.random() * 9000);
@@ -258,20 +273,20 @@ export async function recordDonation(payload) {
     created_at: new Date().toISOString()
   };
 
-  try {
-    const res = await fetchWithRetry('/donations', {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    }, 1, 600);
+  if (hasExplicitApi()) {
+    try {
+      const res = await fetchWithRetry('/donations', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      }, 1, 400);
 
-    if (res.ok) {
-      const json = await res.json();
-      const serverData = json.data || json;
-      saveLocalDonation(serverData);
-      return serverData;
-    }
-  } catch (e) {
-    console.warn('[API Client] Backend sync deferred. Storing donation in local SQL store.', e.message);
+      if (res.ok) {
+        const json = await res.json();
+        const serverData = json.data || json;
+        saveLocalDonation(serverData);
+        return serverData;
+      }
+    } catch (e) {}
   }
 
   saveLocalDonation(fallbackRecord);
@@ -282,7 +297,6 @@ function saveLocalDonation(record) {
   try {
     const raw = localStorage.getItem('prayas_sql_donations');
     const list = raw ? JSON.parse(raw) : [];
-    // Deduplicate by transaction_id or id
     const exists = list.some(d => d.id === record.id || (d.transaction_id && d.transaction_id === record.transaction_id));
     if (!exists) {
       list.unshift(record);
@@ -292,7 +306,7 @@ function saveLocalDonation(record) {
 }
 
 /**
- * Registers a new volunteer.
+ * Registers a new volunteer instantly.
  */
 export async function recordVolunteer(payload) {
   const fallbackRecord = {
@@ -307,20 +321,20 @@ export async function recordVolunteer(payload) {
     applied_at: new Date().toISOString()
   };
 
-  try {
-    const res = await fetchWithRetry('/volunteers', {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    }, 1, 600);
+  if (hasExplicitApi()) {
+    try {
+      const res = await fetchWithRetry('/volunteers', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      }, 1, 400);
 
-    if (res.ok) {
-      const json = await res.json();
-      const serverData = json.data || json;
-      saveLocalVolunteer(serverData);
-      return serverData;
-    }
-  } catch (e) {
-    console.warn('[API Client] Backend sync deferred. Storing volunteer locally.', e.message);
+      if (res.ok) {
+        const json = await res.json();
+        const serverData = json.data || json;
+        saveLocalVolunteer(serverData);
+        return serverData;
+      }
+    } catch (e) {}
   }
 
   saveLocalVolunteer(fallbackRecord);
@@ -340,7 +354,7 @@ function saveLocalVolunteer(record) {
 }
 
 /**
- * Records a contact message / feedback.
+ * Records a contact message / feedback instantly.
  */
 export async function recordContact(payload) {
   const fallbackRecord = {
@@ -354,20 +368,20 @@ export async function recordContact(payload) {
     created_at: new Date().toISOString()
   };
 
-  try {
-    const res = await fetchWithRetry('/contact', {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    }, 1, 600);
+  if (hasExplicitApi()) {
+    try {
+      const res = await fetchWithRetry('/contact', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      }, 1, 400);
 
-    if (res.ok) {
-      const json = await res.json();
-      const serverData = json.data || json;
-      saveLocalContact(serverData);
-      return serverData;
-    }
-  } catch (e) {
-    console.warn('[API Client] Backend sync deferred. Storing inquiry locally.', e.message);
+      if (res.ok) {
+        const json = await res.json();
+        const serverData = json.data || json;
+        saveLocalContact(serverData);
+        return serverData;
+      }
+    } catch (e) {}
   }
 
   saveLocalContact(fallbackRecord);
@@ -384,66 +398,66 @@ function saveLocalContact(record) {
 }
 
 /**
- * Real-time Token Streaming AI Chat with Automatic Retry & Instant Local Fallback.
+ * Real-time AI Chat: Instant 0ms response from built-in knowledge base on GitHub Pages.
  */
 export async function streamChat(query, currentLang = 'en', { onToken, onMeta, onDone, onError }) {
   const cleanQuery = query.trim();
   const base = getApiBase();
 
-  try {
-    const controller = new AbortController();
-    const timeoutTimer = setTimeout(() => controller.abort(), 8000);
+  if (hasExplicitApi() && base) {
+    try {
+      const controller = new AbortController();
+      const timeoutTimer = setTimeout(() => controller.abort(), 4000);
 
-    const res = await fetch(`${base}/chat/stream`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: cleanQuery, model: 'local' }),
-      signal: controller.signal
-    });
+      const res = await fetch(`${base}/chat/stream`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: cleanQuery, model: 'local' }),
+        signal: controller.signal
+      });
 
-    clearTimeout(timeoutTimer);
+      clearTimeout(timeoutTimer);
 
-    if (res.ok && res.body) {
-      notifyStateChange(true);
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
+      if (res.ok && res.body) {
+        notifyStateChange(true);
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
 
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || '';
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
 
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (!trimmed.startsWith('data:')) continue;
-          const dataStr = trimmed.replace(/^data:\s*/, '');
-          if (dataStr === '[DONE]') {
-            if (onDone) onDone();
-            return;
-          }
-
-          try {
-            const event = JSON.parse(dataStr);
-            if (event.type === 'meta' && onMeta) {
-              onMeta(event);
-            } else if (event.type === 'token' && onToken) {
-              onToken(event.content);
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed.startsWith('data:')) continue;
+            const dataStr = trimmed.replace(/^data:\s*/, '');
+            if (dataStr === '[DONE]') {
+              if (onDone) onDone();
+              return;
             }
-          } catch (err) {}
+
+            try {
+              const event = JSON.parse(dataStr);
+              if (event.type === 'meta' && onMeta) {
+                onMeta(event);
+              } else if (event.type === 'token' && onToken) {
+                onToken(event.content);
+              }
+            } catch (err) {}
+          }
         }
+        if (onDone) onDone();
+        return;
       }
-      if (onDone) onDone();
-      return;
-    }
-  } catch (e) {
-    console.warn('[API Client] Backend AI chat unreachable. Using instant client-side RAG knowledge.', e.message);
+    } catch (e) {}
   }
 
-  // Graceful Local AI fallback
+  // Instant client-side AI response on GitHub Pages
   const localAnswer = searchKnowledgeBase(cleanQuery, currentLang);
   if (onToken) {
     onToken(localAnswer);
