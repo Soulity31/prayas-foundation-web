@@ -1,0 +1,24 @@
+name: 24/7 Backend Keep-Alive Pinger
+
+on:
+  schedule:
+    # Trigger every 5 minutes (standard cron expression)
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Prayas Backend API Health Endpoint
+        run: |
+          TARGET_URL="${{ secrets.BACKEND_URL || 'https://prayas-backend.onrender.com' }}"
+          echo "Pinging ${TARGET_URL}/api/health at $(date -u)..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "${TARGET_URL}/api/health" || echo "000")
+          echo "Response HTTP Status: ${HTTP_STATUS}"
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "✅ Backend is healthy and container idle timer has been refreshed."
+          else
+            echo "⚠️ Health check returned status ${HTTP_STATUS}. Attempting fallback wakeup ping..."
+            curl -s -o /dev/null --max-time 30 "${TARGET_URL}/api/ping" || true
+          fi

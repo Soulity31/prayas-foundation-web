@@ -1,0 +1,641 @@
+{
+  "metadata": {
+    "project": "Prayas Foundation",
+    "scraped_at": "2026-08-26",
+    "total_html_pages": 8,
+    "total_knowledge_modules": 25
+  },
+  "html_pages": [
+    {
+      "id": "page_index",
+      "source": "index.html",
+      "url_path": "/",
+      "title": "Prayas Foundation | Empowering Mumbai's Grassroots Through Education & Welfare",
+      "description": "Prayas Foundation is a Mumbai-based non-profit NGO dedicated to quality education at Mumbai Public School Malvani, health, digital literacy, and community welfare.",
+      "keywords": "Prayas Foundation, NGO Mumbai, Mumbai Public School Malvani, Brijesh Singh NGO, Khan Academy Mumbai School, Free Education NGO Malad West, 80G Tax Exemption NGO",
+      "json_ld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "NGO",
+          "name": "Prayas Foundation",
+          "url": "https://www.prayasfoundation.co.in/",
+          "logo": "/assets/prayas-logo.png",
+          "image": "/assets/hero-prayas.jpg",
+          "description": "Mumbai-based non-profit organisation advancing education and welfare at Mumbai Public School Malvani.",
+          "founder": {
+            "@type": "Person",
+            "name": "Brijesh Singh"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "6/B/15, Asmita Chs, New Mhada Colony, Dindoshi, Goregaon East",
+            "addressLocality": "Mumbai",
+            "addressRegion": "Maharashtra",
+            "postalCode": "400065",
+            "addressCountry": "IN"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-9820500726",
+            "contactType": "general inquiries",
+            "email": "info@prayasfoundation.co.in"
+          }
+        }
+      ],
+      "sections": [],
+      "full_text": "Prayas Foundation | Empowering Mumbai's Grassroots Through Education & Welfare"
+    },
+    {
+      "id": "page_about",
+      "source": "about.html",
+      "url_path": "/about.html",
+      "title": "About Prayas Foundation | Leadership, Vision & Organisational Hierarchy",
+      "description": "Discover Prayas Foundation's mission, founder Brijesh Singh's leadership journey, and our governing council guiding Mumbai Public School at Malvani, Mumbai.",
+      "keywords": "About Prayas Foundation, Brijesh Singh, Mumbai NGO Leadership, Mumbai Public School Governance, Malvani NGO, Social Welfare Mumbai",
+      "json_ld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About Prayas Foundation",
+          "description": "Our story, our mission, our people and governing structure.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Prayas Foundation",
+            "founder": {
+              "@type": "Person",
+              "name": "Brijesh Singh"
+            }
+          }
+        }
+      ],
+      "sections": [],
+      "full_text": "About Prayas Foundation | Leadership, Vision & Organisational Hierarchy"
+    },
+    {
+      "id": "page_programs",
+      "source": "programs.html",
+      "url_path": "/programs.html",
+      "title": "Programs & Activities | 16 Flagship Initiatives | Prayas Foundation",
+      "description": "Explore 16 flagship programs of Prayas Foundation including Remedial Learning, Postcard to Parents, Khan Academy, Kung Fu, Free Eye Camps, Football, and Digital Literacy.",
+      "keywords": "Prayas Foundation Programs, Postcard to Parents, Remedial Learning Mumbai, Free Eye Camp Malvani, Khan Academy Mumbai, Kung Fu Self Defence Mumbai",
+      "json_ld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Programs & Activities of Prayas Foundation",
+          "description": "Comprehensive gallery of student welfare, education, healthcare, and sports initiatives."
+        }
+      ],
+      "sections": [],
+      "full_text": "Programs & Activities | 16 Flagship Initiatives | Prayas Foundation"
+    },
+    {
+      "id": "page_impact",
+      "source": "impact.html",
+      "url_path": "/impact.html",
+      "title": "Proven Impact & Khan Academy Analytics | Prayas Foundation",
+      "description": "Explore real student growth metrics and interactive Khan Academy prelim exam score progression at Mumbai Public School, Malvani, managed by Prayas Foundation.",
+      "keywords": "Prayas Foundation Impact, Khan Academy Mumbai School, Student Score Growth, Prelim Exam Results Malvani, Educational Impact Mumbai",
+      "json_ld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Proven Impact & Assessment Analytics",
+          "description": "Interactive data analytics tracking student score improvements through Khan Academy and Prayas Foundation management.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Prayas Foundation"
+          }
+        }
+      ],
+      "sections": [],
+      "full_text": "Proven Impact & Khan Academy Analytics | Prayas Foundation"
+    },
+    {
+      "id": "page_school",
+      "source": "school.html",
+      "url_path": "/school.html",
+      "title": "Mumbai Public School Malvani | Prayas Foundation Flagship Campus",
+      "description": "Explore Mumbai Public School at Malvani Township, Malad West, managed by Prayas Foundation. Offering CBSE & SSC curriculum, remedial support, sports, and digital labs.",
+      "keywords": "Mumbai Public School, Malvani School, Malad West School, Prayas Foundation School, Free Quality Education Mumbai, CBSE BMC School Malvani",
+      "json_ld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "School",
+          "name": "Mumbai Public School (Managed by Prayas Foundation)",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Malvani Township, Malad West",
+            "addressRegion": "Mumbai, Maharashtra",
+            "postalCode": "400095",
+            "addressCountry": "IN"
+          }
+        }
+      ],
+      "sections": [],
+      "full_text": "Mumbai Public School Malvani | Prayas Foundation Flagship Campus"
+    },
+    {
+      "id": "page_contact",
+      "source": "contact.html",
+      "url_path": "/contact.html",
+      "title": "Contact & Volunteer | 80G Tax Exempt Donations | Prayas Foundation",
+      "description": "Get in touch with Prayas Foundation, volunteer for our educational programs, or support Mumbai Public School students with 80G tax-exempt donations.",
+      "keywords": "Contact Prayas Foundation, Volunteer Mumbai NGO, 80G Donation NGO Mumbai, Malvani School Volunteer, Malad West NGO Office",
+      "json_ld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Prayas Foundation",
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "Prayas Foundation",
+            "telephone": "+91-9820500726",
+            "email": "info@prayasfoundation.co.in",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "6/B/15, Asmita Chs, New Mhada Colony, Dindoshi, Goregaon East",
+              "addressLocality": "Mumbai",
+              "postalCode": "400065",
+              "addressCountry": "IN"
+            }
+          }
+        }
+      ],
+      "sections": [],
+      "full_text": "Contact & Volunteer | 80G Tax Exempt Donations | Prayas Foundation"
+    },
+    {
+      "id": "page_work",
+      "source": "work.html",
+      "url_path": "/work.html",
+      "title": "Our Work: Initiatives & Events | Prayas Foundation",
+      "description": "Explore photos and stories of Prayas Foundation grassroots initiatives: Ram Katha, Haldi KumKum, Dahi Handi, Chhath Pooja, Community Bhandara, education, and social welfare in Mumbai.",
+      "keywords": "Prayas Foundation Work, Ram Katha 2024, Haldi Kumkum, Dahi Handi Malad, Chhath Pooja Mumbai, Bhandara Malvani, Social Welfare Mumbai",
+      "json_ld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Our Work & Event Albums | Prayas Foundation",
+          "description": "Gallery and photo albums of grassroots initiatives and social service events."
+        }
+      ],
+      "sections": [],
+      "full_text": "Our Work: Initiatives & Events | Prayas Foundation"
+    },
+    {
+      "id": "page_partners",
+      "source": "partners.html",
+      "url_path": "/partners.html",
+      "title": "Partners & Collaborations | Prayas Foundation",
+      "description": "",
+      "keywords": "",
+      "json_ld": [],
+      "sections": [],
+      "full_text": "Partners & Collaborations | Prayas Foundation Redirecting to About Us & Partners..."
+    }
+  ],
+  "structured_knowledge": [
+    {
+      "id": "bot_qa_about",
+      "source": "src/data/botKnowledge.js",
+      "topic": "about",
+      "keywords": [
+        "about",
+        "who are you",
+        "what is prayas",
+        "prayas foundation",
+        "history",
+        "founded",
+        "संस्था",
+        "प्रयास फाउंडेशन",
+        "परिचय",
+        "माहिती"
+      ],
+      "en": "Prayas Foundation is a registered Education and Social Welfare NGO established in 2012 in Mumbai. Founded by Shri Brijesh Singh, the foundation's primary mission is grassroots community empowerment through school management (Mumbai Public School in Malvani Township), digital learning, healthcare, and child welfare.",
+      "hi": "प्रयास फाउंडेशन 2012 में मुंबई में स्थापित एक पंजीकृत शिक्षा और समाज कल्याण एनजीओ है। श्री ब्रिजेश सिंह द्वारा स्थापित, इसका मुख्य उद्देश्य मालवणी टाउनशिप में मुंबई पब्लिक स्कूल का प्रबंधन, डिजिटल शिक्षा, स्वास्थ्य देखभाल और बाल कल्याण के माध्यम से जमीनी स्तर पर सशक्तिकरण करना है।",
+      "mr": "प्रयास फाउंडेशन ही २०१२ मध्ये मुंबईत स्थापन झालेली एक नोंदणीकृत शैक्षणिक व सामाजिक संस्था आहे. श्री ब्रिजेश सिंह यांच्याद्वारे स्थापित या संस्थेचे मुख्य ध्येय मुंबई पब्लिक स्कूल (मालवणी) व्यवस्थापन, डिजिटल शिक्षण, आरोग्य आणि बाल कल्याणाद्वारे तळागाळातील सक्षमीकरण करणे हे आहे.",
+      "full_text": "Topic: About\nKeywords: about, who are you, what is prayas, prayas foundation, history, founded, संस्था, प्रयास फाउंडेशन, परिचय, माहिती\nEnglish: Prayas Foundation is a registered Education and Social Welfare NGO established in 2012 in Mumbai. Founded by Shri Brijesh Singh, the foundation's primary mission is grassroots community empowerment through school management (Mumbai Public School in Malvani Township), digital learning, healthcare, and child welfare.\nHindi: प्रयास फाउंडेशन 2012 में मुंबई में स्थापित एक पंजीकृत शिक्षा और समाज कल्याण एनजीओ है। श्री ब्रिजेश सिंह द्वारा स्थापित, इसका मुख्य उद्देश्य मालवणी टाउनशिप में मुंबई पब्लिक स्कूल का प्रबंधन, डिजिटल शिक्षा, स्वास्थ्य देखभाल और बाल कल्याण के माध्यम से जमीनी स्तर पर सशक्तिकरण करना है।\nMarathi: प्रयास फाउंडेशन ही २०१२ मध्ये मुंबईत स्थापन झालेली एक नोंदणीकृत शैक्षणिक व सामाजिक संस्था आहे. श्री ब्रिजेश सिंह यांच्याद्वारे स्थापित या संस्थेचे मुख्य ध्येय मुंबई पब्लिक स्कूल (मालवणी) व्यवस्थापन, डिजिटल शिक्षण, आरोग्य आणि बाल कल्याणाद्वारे तळागाळातील सक्षमीकरण करणे हे आहे."
+    },
+    {
+      "id": "bot_qa_founder",
+      "source": "src/data/botKnowledge.js",
+      "topic": "founder",
+      "keywords": [
+        "founder",
+        "chairman",
+        "brijesh",
+        "brijesh singh",
+        "leader",
+        "who started",
+        "संस्थापक",
+        "अध्यक्ष",
+        "ब्रिजेश सिंह",
+        "ब्रिजेश"
+      ],
+      "en": "Shri Brijesh Singh is the Founder & Chairman of Prayas Foundation. Born in Maharashtra (Sept 15, 1968) and a Ruia College BSc alumnus, he has dedicated over 14 years to public welfare, civic rights in Malad, temple reconstructions, and opening 1,100 bank accounts with assistance to 10,000+ beneficiaries.",
+      "hi": "श्री ब्रिजेश सिंह प्रयास फाउंडेशन के संस्थापक और अध्यक्ष हैं। रुइया कॉलेज से बीएससी स्नातक, उन्होंने 14 से अधिक वर्षों तक जन कल्याण, मलाड में नागरिक अधिकारों, 1,100 बैंक खाते खोलने और 10,000+ लाभार्थियों की सहायता के लिए समर्पित कार्य किया है।",
+      "mr": "श्री ब्रिजेश सिंह हे प्रयास फाउंडेशनचे संस्थापक आणि अध्यक्ष आहेत. रुईया महाविद्यालयातून बी.एस्सी. पदवीधर असलेले श्री सिंह यांनी १४ हून अधिक वर्षे समाजसेवा, स्थानिक हक्क, ११०० बँक खाती उघडणे आणि १०,०००+ लाभार्थ्यांना साहाय्य करण्यासाठी आपले जीवन समर्पित केले आहे.",
+      "full_text": "Topic: Founder\nKeywords: founder, chairman, brijesh, brijesh singh, leader, who started, संस्थापक, अध्यक्ष, ब्रिजेश सिंह, ब्रिजेश\nEnglish: Shri Brijesh Singh is the Founder & Chairman of Prayas Foundation. Born in Maharashtra (Sept 15, 1968) and a Ruia College BSc alumnus, he has dedicated over 14 years to public welfare, civic rights in Malad, temple reconstructions, and opening 1,100 bank accounts with assistance to 10,000+ beneficiaries.\nHindi: श्री ब्रिजेश सिंह प्रयास फाउंडेशन के संस्थापक और अध्यक्ष हैं। रुइया कॉलेज से बीएससी स्नातक, उन्होंने 14 से अधिक वर्षों तक जन कल्याण, मलाड में नागरिक अधिकारों, 1,100 बैंक खाते खोलने और 10,000+ लाभार्थियों की सहायता के लिए समर्पित कार्य किया है।\nMarathi: श्री ब्रिजेश सिंह हे प्रयास फाउंडेशनचे संस्थापक आणि अध्यक्ष आहेत. रुईया महाविद्यालयातून बी.एस्सी. पदवीधर असलेले श्री सिंह यांनी १४ हून अधिक वर्षे समाजसेवा, स्थानिक हक्क, ११०० बँक खाती उघडणे आणि १०,०००+ लाभार्थ्यांना साहाय्य करण्यासाठी आपले जीवन समर्पित केले आहे."
+    },
+    {
+      "id": "bot_qa_school",
+      "source": "src/data/botKnowledge.js",
+      "topic": "school",
+      "keywords": [
+        "school",
+        "mumbai public school",
+        "mps",
+        "malvani",
+        "malad",
+        "cbse",
+        "ssc",
+        "admission",
+        "स्कूल",
+        "मुंबई पब्लिक स्कूल",
+        "मालवणी",
+        "प्रवेश",
+        "शाळा"
+      ],
+      "en": "Prayas Foundation manages Mumbai Public School located at Malvani Township, Malad West, Mumbai. The school offers both CBSE and SSC streams, providing state-of-the-art education, computer labs, sports training, and remedial learning to hundreds of local students.",
+      "hi": "प्रयास फाउंडेशन मालवणी टाउनशिप, मालाड वेस्ट, मुंबई स्थित संपूर्ण मुंबई पब्लिक स्कूल (सीबीएसई और एसएससी) का प्रबंधन करता है। स्कूल सैकड़ों स्थानीय छात्रों को आधुनिक शिक्षा, कंप्यूटर लैब, खेल प्रशिक्षण और उपचारात्मक शिक्षण प्रदान करता है।",
+      "mr": "प्रयास फाउंडेशन मालवणी टाउनशिप, मालाड पश्चिम, मुंबई येथील मुंबई पब्लिक स्कूलचे (CBSE व SSC) व्यवस्थापन करते. ही शाळा शेकडो विद्यार्थ्यांना आधुनिक डिजिटल वर्ग, कॉम्प्युटर लॅब, क्रीडा प्रशिक्षण आणि गुणवत्तापूर्ण मोफत शिक्षण देते.",
+      "full_text": "Topic: School\nKeywords: school, mumbai public school, mps, malvani, malad, cbse, ssc, admission, स्कूल, मुंबई पब्लिक स्कूल, मालवणी, प्रवेश, शाळा\nEnglish: Prayas Foundation manages Mumbai Public School located at Malvani Township, Malad West, Mumbai. The school offers both CBSE and SSC streams, providing state-of-the-art education, computer labs, sports training, and remedial learning to hundreds of local students.\nHindi: प्रयास फाउंडेशन मालवणी टाउनशिप, मालाड वेस्ट, मुंबई स्थित संपूर्ण मुंबई पब्लिक स्कूल (सीबीएसई और एसएससी) का प्रबंधन करता है। स्कूल सैकड़ों स्थानीय छात्रों को आधुनिक शिक्षा, कंप्यूटर लैब, खेल प्रशिक्षण और उपचारात्मक शिक्षण प्रदान करता है।\nMarathi: प्रयास फाउंडेशन मालवणी टाउनशिप, मालाड पश्चिम, मुंबई येथील मुंबई पब्लिक स्कूलचे (CBSE व SSC) व्यवस्थापन करते. ही शाळा शेकडो विद्यार्थ्यांना आधुनिक डिजिटल वर्ग, कॉम्प्युटर लॅब, क्रीडा प्रशिक्षण आणि गुणवत्तापूर्ण मोफत शिक्षण देते."
+    },
+    {
+      "id": "bot_qa_khan_academy",
+      "source": "src/data/botKnowledge.js",
+      "topic": "khan_academy",
+      "keywords": [
+        "khan academy",
+        "scores",
+        "marks",
+        "prelim",
+        "progress",
+        "results",
+        "ankur",
+        "arun",
+        "arunuday",
+        "खान अकादमी",
+        "परिणाम",
+        "अंक",
+        "प्रगति",
+        "गुण"
+      ],
+      "en": "Through Khan Academy digital integration, 487+ students are registered with 96% active accounts. Over 5 prelim exams across 2024 and 2025, average scores have continuously climbed: Ankur group rose from 15% to 40%, Arun group from 20% to 55%, and Arunuday group from 30% to 60%!",
+      "hi": "खान अकादमी डिजिटल एकीकरण के माध्यम से 487+ छात्र 96% सक्रियता के साथ जुड़े हैं। 2024 और 2025 में 5 प्रीलिम परीक्षाओं में छात्रों के औसत अंकों में जबरदस्त सुधार हुआ है: अंकुर समूह 15% से 40%, अरुण समूह 20% से 55%, और अरुणोदय समूह 30% से 60% तक पहुंचा!",
+      "mr": "खान अकादमी डिजिटल शिक्षणाद्वारे ४८७+ विद्यार्थी ९६% सक्रियतेसह जोडलेले आहेत. ५ पूर्वपरीक्षांमध्ये विद्यार्थ्यांच्या गुणांत मोठी वाढ झाली आहे: अंकुर गट १५% वरून ४०%, अरुण गट २०% वरून ५५%, आणि अरुणोदय गट ३०% वरून ६०% पर्यंत पोहोचला आहे!",
+      "full_text": "Topic: Khan Academy\nKeywords: khan academy, scores, marks, prelim, progress, results, ankur, arun, arunuday, खान अकादमी, परिणाम, अंक, प्रगति, गुण\nEnglish: Through Khan Academy digital integration, 487+ students are registered with 96% active accounts. Over 5 prelim exams across 2024 and 2025, average scores have continuously climbed: Ankur group rose from 15% to 40%, Arun group from 20% to 55%, and Arunuday group from 30% to 60%!\nHindi: खान अकादमी डिजिटल एकीकरण के माध्यम से 487+ छात्र 96% सक्रियता के साथ जुड़े हैं। 2024 और 2025 में 5 प्रीलिम परीक्षाओं में छात्रों के औसत अंकों में जबरदस्त सुधार हुआ है: अंकुर समूह 15% से 40%, अरुण समूह 20% से 55%, और अरुणोदय समूह 30% से 60% तक पहुंचा!\nMarathi: खान अकादमी डिजिटल शिक्षणाद्वारे ४८७+ विद्यार्थी ९६% सक्रियतेसह जोडलेले आहेत. ५ पूर्वपरीक्षांमध्ये विद्यार्थ्यांच्या गुणांत मोठी वाढ झाली आहे: अंकुर गट १५% वरून ४०%, अरुण गट २०% वरून ५५%, आणि अरुणोदय गट ३०% वरून ६०% पर्यंत पोहोचला आहे!"
+    },
+    {
+      "id": "bot_qa_remedial",
+      "source": "src/data/botKnowledge.js",
+      "topic": "remedial",
+      "keywords": [
+        "slow learners",
+        "remedial",
+        "extra classes",
+        "study support",
+        "धीमे सीखने वाले",
+        "उपचारात्मक",
+        "विशेष वर्ग"
+      ],
+      "en": "The Remedial Learning Program provides dedicated halls and specialised teachers for students needing extra academic support, boosting slow learners' comprehension, confidence, and board exam pass rates.",
+      "hi": "उपचारात्मक शिक्षण कार्यक्रम (Remedial Learning) धीमे सीखने वाले छात्रों के लिए विशेष हॉल और समर्पित शिक्षकों के माध्यम से अतिरिक्त सहायता प्रदान करता है, जिससे उनका आत्मविश्वास और परीक्षा परिणाम बेहतर होता है।",
+      "mr": "रेमेडियल लर्निंग (उपचारात्मक शिक्षण) उपक्रमाद्वारे विशेष मार्गदर्शन आवश्यक असणाऱ्या विद्यार्थ्यांना स्वतंत्र वर्ग आणि समर्पित शिक्षकांच्या मदतीने अतिरिक्त सराव दिला जातो, ज्यामुळे त्यांचे निकाल लक्षणीय सुधारतात.",
+      "full_text": "Topic: Remedial\nKeywords: slow learners, remedial, extra classes, study support, धीमे सीखने वाले, उपचारात्मक, विशेष वर्ग\nEnglish: The Remedial Learning Program provides dedicated halls and specialised teachers for students needing extra academic support, boosting slow learners' comprehension, confidence, and board exam pass rates.\nHindi: उपचारात्मक शिक्षण कार्यक्रम (Remedial Learning) धीमे सीखने वाले छात्रों के लिए विशेष हॉल और समर्पित शिक्षकों के माध्यम से अतिरिक्त सहायता प्रदान करता है, जिससे उनका आत्मविश्वास और परीक्षा परिणाम बेहतर होता है।\nMarathi: रेमेडियल लर्निंग (उपचारात्मक शिक्षण) उपक्रमाद्वारे विशेष मार्गदर्शन आवश्यक असणाऱ्या विद्यार्थ्यांना स्वतंत्र वर्ग आणि समर्पित शिक्षकांच्या मदतीने अतिरिक्त सराव दिला जातो, ज्यामुळे त्यांचे निकाल लक्षणीय सुधारतात."
+    },
+    {
+      "id": "bot_qa_postcard",
+      "source": "src/data/botKnowledge.js",
+      "topic": "postcard",
+      "keywords": [
+        "postcard",
+        "parents",
+        "mental health",
+        "emotion",
+        "letter",
+        "पोस्टकार्ड",
+        "माता-पिता",
+        "भावनात्मक",
+        "पालक",
+        "पत्र"
+      ],
+      "en": "The 'Postcard to Parents' initiative is a unique emotional wellness program where students write heartfelt letters expressing emotions, gratitude, and feelings they've never shared before, strengthening family bonds and mental peace.",
+      "hi": "'माता-पिता को पोस्टकार्ड' एक अनूठी भावनात्मक कल्याण पहल है जहाँ छात्र अपने माता-पिता को दिल से पत्र लिखकर अनकही भावनाएं और कृतज्ञता साझा करते हैं, जिससे पारिवारिक रिश्ते मजबूत होते हैं।",
+      "mr": "'पालकांना पोस्टकार्ड' हा एक भावनिक व मानसिक आरोग्यासाठीचा नाविन्यपूर्ण उपक्रम आहे, ज्यामध्ये विद्यार्थी आपल्या आई-वडिलांना मनमोकळे पत्र लिहून कृतज्ञता आणि भावना व्यक्त करतात.",
+      "full_text": "Topic: Postcard\nKeywords: postcard, parents, mental health, emotion, letter, पोस्टकार्ड, माता-पिता, भावनात्मक, पालक, पत्र\nEnglish: The 'Postcard to Parents' initiative is a unique emotional wellness program where students write heartfelt letters expressing emotions, gratitude, and feelings they've never shared before, strengthening family bonds and mental peace.\nHindi: 'माता-पिता को पोस्टकार्ड' एक अनूठी भावनात्मक कल्याण पहल है जहाँ छात्र अपने माता-पिता को दिल से पत्र लिखकर अनकही भावनाएं और कृतज्ञता साझा करते हैं, जिससे पारिवारिक रिश्ते मजबूत होते हैं।\nMarathi: 'पालकांना पोस्टकार्ड' हा एक भावनिक व मानसिक आरोग्यासाठीचा नाविन्यपूर्ण उपक्रम आहे, ज्यामध्ये विद्यार्थी आपल्या आई-वडिलांना मनमोकळे पत्र लिहून कृतज्ञता आणि भावना व्यक्त करतात."
+    },
+    {
+      "id": "bot_qa_volunteer",
+      "source": "src/data/botKnowledge.js",
+      "topic": "volunteer",
+      "keywords": [
+        "volunteer",
+        "join",
+        "help",
+        "mentor",
+        "teach",
+        "support",
+        "स्वयंसेवक",
+        "मदद",
+        "जुड़ें",
+        "पढ़ाएं",
+        "स्वयंसेवा",
+        "सहभाग"
+      ],
+      "en": "You can volunteer with Prayas Foundation in teaching, sports coaching, reading sessions, or administrative support! Fill out the Contact form on our website selecting 'Volunteering' or message us directly on WhatsApp at +91-9820500726.",
+      "hi": "आप अध्यापन, खेल प्रशिक्षण, पठन सत्र या आयोजनों में प्रयास फाउंडेशन के साथ स्वयंसेवा कर सकते हैं! हमारी वेबसाइट पर संपर्क फॉर्म भरें या +91-9820500726 पर व्हाट्सएप संदेश भेजें।",
+      "mr": "आपण प्रयास फाउंडेशनमध्ये अध्यापन, क्रीडा प्रशिक्षण, वाचन सत्रे किंवा सामाजिक उपक्रमांमध्ये स्वयंसेवा करू शकता! आमच्या वेबसाइटवर संपर्क फॉर्म भरा किंवा व्हॉट्सॲपवर +91-9820500726 वर मेसेज करा.",
+      "full_text": "Topic: Volunteer\nKeywords: volunteer, join, help, mentor, teach, support, स्वयंसेवक, मदद, जुड़ें, पढ़ाएं, स्वयंसेवा, सहभाग\nEnglish: You can volunteer with Prayas Foundation in teaching, sports coaching, reading sessions, or administrative support! Fill out the Contact form on our website selecting 'Volunteering' or message us directly on WhatsApp at +91-9820500726.\nHindi: आप अध्यापन, खेल प्रशिक्षण, पठन सत्र या आयोजनों में प्रयास फाउंडेशन के साथ स्वयंसेवा कर सकते हैं! हमारी वेबसाइट पर संपर्क फॉर्म भरें या +91-9820500726 पर व्हाट्सएप संदेश भेजें।\nMarathi: आपण प्रयास फाउंडेशनमध्ये अध्यापन, क्रीडा प्रशिक्षण, वाचन सत्रे किंवा सामाजिक उपक्रमांमध्ये स्वयंसेवा करू शकता! आमच्या वेबसाइटवर संपर्क फॉर्म भरा किंवा व्हॉट्सॲपवर +91-9820500726 वर मेसेज करा."
+    },
+    {
+      "id": "bot_qa_donation",
+      "source": "src/data/botKnowledge.js",
+      "topic": "donation",
+      "keywords": [
+        "donate",
+        "donation",
+        "money",
+        "bank",
+        "80g",
+        "tax",
+        "csr",
+        "sponsor",
+        "दान",
+        "सहयोग",
+        "टैक्स",
+        "कर छूट",
+        "देणगी",
+        "मदत"
+      ],
+      "en": "All donations to Prayas Foundation are 50% tax-exempt under Section 80G of the Income Tax Act. We also partner with corporates under CSR mandates. Click the 'Donate' button in the navbar or call +91-9820500726 for bank NEFT/RTGS details.",
+      "hi": "प्रयास फाउंडेशन को दिया जाने वाला सभी दान आयकर अधिनियम की धारा 80G के तहत 50% कर कटौती के पात्र है। बैंक ट्रांसफर और CSR साझेदारी के लिए नेवबार में 'दान करें' बटन पर क्लिक करें या +91-9820500726 पर संपर्क करें।",
+      "mr": "प्रयास फाउंडेशनला दिली जाणारी देणगी आयकर कायद्याच्या कलम 80G अंतर्गत ५०% करसवलतीस पात्र आहे. बँक ट्रान्सफर किंवा CSR भागीदारीसाठी नेव्हबारमधील 'देणगी द्या' बटणावर क्लिक करा किंवा +91-9820500726 वर संपर्क साधा.",
+      "full_text": "Topic: Donation\nKeywords: donate, donation, money, bank, 80g, tax, csr, sponsor, दान, सहयोग, टैक्स, कर छूट, देणगी, मदत\nEnglish: All donations to Prayas Foundation are 50% tax-exempt under Section 80G of the Income Tax Act. We also partner with corporates under CSR mandates. Click the 'Donate' button in the navbar or call +91-9820500726 for bank NEFT/RTGS details.\nHindi: प्रयास फाउंडेशन को दिया जाने वाला सभी दान आयकर अधिनियम की धारा 80G के तहत 50% कर कटौती के पात्र है। बैंक ट्रांसफर और CSR साझेदारी के लिए नेवबार में 'दान करें' बटन पर क्लिक करें या +91-9820500726 पर संपर्क करें।\nMarathi: प्रयास फाउंडेशनला दिली जाणारी देणगी आयकर कायद्याच्या कलम 80G अंतर्गत ५०% करसवलतीस पात्र आहे. बँक ट्रान्सफर किंवा CSR भागीदारीसाठी नेव्हबारमधील 'देणगी द्या' बटणावर क्लिक करा किंवा +91-9820500726 वर संपर्क साधा."
+    },
+    {
+      "id": "bot_qa_contact",
+      "source": "src/data/botKnowledge.js",
+      "topic": "contact",
+      "keywords": [
+        "contact",
+        "phone",
+        "number",
+        "email",
+        "address",
+        "location",
+        "where",
+        "संपर्क",
+        "फोन",
+        "ईमेल",
+        "पता",
+        "पत्ता"
+      ],
+      "en": "You can reach Prayas Foundation at:\\n• Phone: +91-9820500726\\n• Email: info@prayasfoundation.co.in\\n• Address: Mumbai Public School, Malvani Township, Malad West, Mumbai - 400095.",
+      "hi": "आप प्रयास फाउंडेशन से संपर्क कर सकते हैं:\\n• फोन: +91-9820500726\\n• ईमेल: info@prayasfoundation.co.in\\n• पता: मुंबई पब्लिक स्कूल, मालवणी टाउनशिप, मालाड वेस्ट, मुंबई - 400095।",
+      "mr": "आपण प्रयास फाउंडेशनशी संपर्क साधू शकता:\\n• फोन: +91-9820500726\\n• ईमेल: info@prayasfoundation.co.in\\n• पत्ता: मुंबई पब्लिक स्कूल, मालवणी टाउनशिप, मालाड पश्चिम, मुंबई - ४०००९५.",
+      "full_text": "Topic: Contact\nKeywords: contact, phone, number, email, address, location, where, संपर्क, फोन, ईमेल, पता, पत्ता\nEnglish: You can reach Prayas Foundation at:\\n• Phone: +91-9820500726\\n• Email: info@prayasfoundation.co.in\\n• Address: Mumbai Public School, Malvani Township, Malad West, Mumbai - 400095.\nHindi: आप प्रयास फाउंडेशन से संपर्क कर सकते हैं:\\n• फोन: +91-9820500726\\n• ईमेल: info@prayasfoundation.co.in\\n• पता: मुंबई पब्लिक स्कूल, मालवणी टाउनशिप, मालाड वेस्ट, मुंबई - 400095।\nMarathi: आपण प्रयास फाउंडेशनशी संपर्क साधू शकता:\\n• फोन: +91-9820500726\\n• ईमेल: info@prayasfoundation.co.in\\n• पत्ता: मुंबई पब्लिक स्कूल, मालवणी टाउनशिप, मालाड पश्चिम, मुंबई - ४०००९५."
+    },
+    {
+      "id": "bot_qa_partners",
+      "source": "src/data/botKnowledge.js",
+      "topic": "partners",
+      "keywords": [
+        "partners",
+        "navchetna",
+        "narayan reiki",
+        "sunil patodia",
+        "cg power",
+        "sponsors",
+        "भागीदार",
+        "सहयोगी",
+        "सहकार्य"
+      ],
+      "en": "Our primary partners in progress include Navchetna Charitable Trust, Narayan Reiki Satsang Parivar Trust, Sunil Patodia Welfare Foundation, and CG Power & Industrial Solutions.",
+      "hi": "हमारे प्रमुख सहयोगियों में नवचेतना चैरिटेबल ट्रस्ट, नारायण रेकी सत्संग परिवार ट्रस्ट, सुनील पटोदिया वेलफेयर फाउंडेशन, और सीजी पावर एंड इंडस्ट्रियल सॉल्यूशंस शामिल हैं।",
+      "mr": "आमच्या प्रमुख भागीदारांमध्ये नवचेतना चॅरिटेबल ट्रस्ट, नारायण रेकी सत्संग परिवार ट्रस्ट, सुनील पटोदिया वेलफेअर फाउंडेशन, आणि सीजी पॉवर अँड इंडस्ट्रियल सोल्युशन्स यांचा समावेश आहे.",
+      "full_text": "Topic: Partners\nKeywords: partners, navchetna, narayan reiki, sunil patodia, cg power, sponsors, भागीदार, सहयोगी, सहकार्य\nEnglish: Our primary partners in progress include Navchetna Charitable Trust, Narayan Reiki Satsang Parivar Trust, Sunil Patodia Welfare Foundation, and CG Power & Industrial Solutions.\nHindi: हमारे प्रमुख सहयोगियों में नवचेतना चैरिटेबल ट्रस्ट, नारायण रेकी सत्संग परिवार ट्रस्ट, सुनील पटोदिया वेलफेयर फाउंडेशन, और सीजी पावर एंड इंडस्ट्रियल सॉल्यूशंस शामिल हैं।\nMarathi: आमच्या प्रमुख भागीदारांमध्ये नवचेतना चॅरिटेबल ट्रस्ट, नारायण रेकी सत्संग परिवार ट्रस्ट, सुनील पटोदिया वेलफेअर फाउंडेशन, आणि सीजी पॉवर अँड इंडस्ट्रियल सोल्युशन्स यांचा समावेश आहे."
+    },
+    {
+      "id": "bot_qa_technical_support",
+      "source": "src/data/botKnowledge.js",
+      "topic": "technical_support",
+      "keywords": [
+        "payment failed",
+        "transaction failed",
+        "money deducted",
+        "glitch",
+        "glitching",
+        "website glitching",
+        "error",
+        "bug",
+        "receipt",
+        "not working",
+        "website not working",
+        "भुगतान",
+        "पैसे कट गए",
+        "अडचण",
+        "वेबसाइट चालत नाही"
+      ],
+      "en": "If your payment failed, money was debited without a receipt, or the website is glitching: 1. Bank/UPI transactions usually reconcile within 24-48 hours. 2. Share your UTR reference number or screenshot on WhatsApp at +91-9820500726 or email info@prayasfoundation.co.in to get your 80G tax receipt immediately. If a web form is glitching, you can register or donate directly over phone/WhatsApp.",
+      "hi": "यदि भुगतान विफल हो गया, पैसे कट गए लेकिन रसीद नहीं मिली, या वेबसाइट में कोई समस्या है: 1. बैंक 24-48 घंटे में समाधान करते हैं। 2. अपना UTR नंबर या स्क्रीनशॉट व्हाट्सएप +91-9820500726 पर या info@prayasfoundation.co.in पर भेजें। हमारी टीम तुरंत 80G रसीद जारी करेगी। फॉर्म न चलने पर सीधे फोन पर संपर्क करें।",
+      "mr": "जर पेमेंट अयशस्वी झाले, पैसे कापले गेले पण पावती मिळाली नाही, किंवा वेबसाइटवर अडचण येत असेल: 1. बँक व्यवहारांचे 24-48 तासांत निवारण होते. 2. UTR नंबर किंवा स्क्रीनशॉट +91-9820500726 वर WhatsApp करा किंवा info@prayasfoundation.co.in वर पाठवा. आमची टीम तात्काळ 80G पावती देईल. वेबसाइट चालत नसल्यास आपण फोनवरही संपर्क करू शकता.",
+      "full_text": "Topic: Technical Support\nKeywords: payment failed, transaction failed, money deducted, glitch, glitching, website glitching, error, bug, receipt, not working, website not working, भुगतान, पैसे कट गए, अडचण, वेबसाइट चालत नाही\nEnglish: If your payment failed, money was debited without a receipt, or the website is glitching: 1. Bank/UPI transactions usually reconcile within 24-48 hours. 2. Share your UTR reference number or screenshot on WhatsApp at +91-9820500726 or email info@prayasfoundation.co.in to get your 80G tax receipt immediately. If a web form is glitching, you can register or donate directly over phone/WhatsApp.\nHindi: यदि भुगतान विफल हो गया, पैसे कट गए लेकिन रसीद नहीं मिली, या वेबसाइट में कोई समस्या है: 1. बैंक 24-48 घंटे में समाधान करते हैं। 2. अपना UTR नंबर या स्क्रीनशॉट व्हाट्सएप +91-9820500726 पर या info@prayasfoundation.co.in पर भेजें। हमारी टीम तुरंत 80G रसीद जारी करेगी। फॉर्म न चलने पर सीधे फोन पर संपर्क करें।\nMarathi: जर पेमेंट अयशस्वी झाले, पैसे कापले गेले पण पावती मिळाली नाही, किंवा वेबसाइटवर अडचण येत असेल: 1. बँक व्यवहारांचे 24-48 तासांत निवारण होते. 2. UTR नंबर किंवा स्क्रीनशॉट +91-9820500726 वर WhatsApp करा किंवा info@prayasfoundation.co.in वर पाठवा. आमची टीम तात्काळ 80G पावती देईल. वेबसाइट चालत नसल्यास आपण फोनवरही संपर्क करू शकता."
+    },
+    {
+      "id": "bot_qa_school_timing_holidays",
+      "source": "src/data/botKnowledge.js",
+      "topic": "school_timing_holidays",
+      "keywords": [
+        "timing",
+        "hours",
+        "open today",
+        "holiday",
+        "is there holiday",
+        "sunday",
+        "schedule",
+        "समय",
+        "सुट्टी",
+        "अवकाश",
+        "शाळा कधी भरते",
+        "आज सुट्टी आहे का",
+        "आज छुट्टी है क्या"
+      ],
+      "en": "Mumbai Public School (MPS Malvani) operates Monday to Friday from 7:30 AM to 1:30 PM (CBSE & SSC shifts). The administrative office is open Monday to Saturday from 9:00 AM to 6:00 PM (closed Sundays). The school follows official Maharashtra State Government and BMC holiday calendars. For today's holiday confirmation, please call the office directly at +91-9820500726.",
+      "hi": "मुंबई पब्लिक स्कूल (मालवणी) सोमवार से शुक्रवार सुबह 7:30 बजे से दोपहर 1:30 बजे तक संचालित होता है। प्रशासनिक कार्यालय सोमवार से शनिवार सुबह 9:00 बजे से शाम 6:00 बजे तक खुला रहता है (रविवार बंद)। स्कूल सरकारी अवकाशों का पालन करता है। आज के अवकाश की पुष्टि के लिए +91-9820500726 पर कॉल करें।",
+      "mr": "मुंबई पब्लिक स्कूल (मालवणी) सोमवार ते शुक्रवार सकाळी ७:३० ते दुपारी १:३० या वेळेत भरते. कार्यालय सोमवार ते शनिवार सकाळी ९:०० ते संध्याकाळी ६:०० पर्यंत सुरू असते. आजच्या सुट्टीबद्दल माहितीसाठी +91-9820500726 वर संपर्क साधा.",
+      "full_text": "Topic: School Timing Holidays\nKeywords: timing, hours, open today, holiday, is there holiday, sunday, schedule, समय, सुट्टी, अवकाश, शाळा कधी भरते, आज सुट्टी आहे का, आज छुट्टी है क्या\nEnglish: Mumbai Public School (MPS Malvani) operates Monday to Friday from 7:30 AM to 1:30 PM (CBSE & SSC shifts). The administrative office is open Monday to Saturday from 9:00 AM to 6:00 PM (closed Sundays). The school follows official Maharashtra State Government and BMC holiday calendars. For today's holiday confirmation, please call the office directly at +91-9820500726.\nHindi: मुंबई पब्लिक स्कूल (मालवणी) सोमवार से शुक्रवार सुबह 7:30 बजे से दोपहर 1:30 बजे तक संचालित होता है। प्रशासनिक कार्यालय सोमवार से शनिवार सुबह 9:00 बजे से शाम 6:00 बजे तक खुला रहता है (रविवार बंद)। स्कूल सरकारी अवकाशों का पालन करता है। आज के अवकाश की पुष्टि के लिए +91-9820500726 पर कॉल करें।\nMarathi: मुंबई पब्लिक स्कूल (मालवणी) सोमवार ते शुक्रवार सकाळी ७:३० ते दुपारी १:३० या वेळेत भरते. कार्यालय सोमवार ते शनिवार सकाळी ९:०० ते संध्याकाळी ६:०० पर्यंत सुरू असते. आजच्या सुट्टीबद्दल माहितीसाठी +91-9820500726 वर संपर्क साधा."
+    },
+    {
+      "id": "bot_qa_upcoming_events",
+      "source": "src/data/botKnowledge.js",
+      "topic": "upcoming_events",
+      "keywords": [
+        "events",
+        "when is next event",
+        "upcoming events",
+        "ram katha",
+        "medical camp",
+        "eye camp",
+        "sports day",
+        "कार्यक्रम",
+        "सोहळा",
+        "शिबिर",
+        "उत्सव",
+        "पुढील कार्यक्रम"
+      ],
+      "en": "Prayas Foundation regularly hosts events including: 1. Annual Ram Katha & Spiritual Mahotsav. 2. Free Eye Checkup & Health Camps in Malvani. 3. 'Postcard to Parents' wellness workshops. 4. Inter-school Sports meets & Martial Arts. 5. Festive welfare drives. Check our 'Our Work' page on the website or message +91-9820500726 for dates of upcoming events.",
+      "hi": "प्रयास फाउंडेशन वर्ष भर कई कार्यक्रम आयोजित करता है: 1. वार्षिक राम कथा महोत्सव। 2. निःशुल्क नेत्र एवं स्वास्थ्य जांच शिविर। 3. 'माता-पिता को पोस्टकार्ड' कार्यशाला। 4. खेलकूद प्रतियोगिताएं। 5. उत्सव सेवा शिविर। आगामी तिथियों के लिए वेबसाइट पर 'Our Work' पेज देखें या +91-9820500726 पर संपर्क करें।",
+      "mr": "प्रयास फाउंडेशनतर्फे वर्षभरात वार्षिक राम कथा सोहळा, मोफत नेत्र व आरोग्य तपासणी शिबिरे, 'पालकांना पोस्टकार्ड' उपक्रम, आणि क्रीडा स्पर्धा आयोजित केल्या जातात. आगामी कार्यक्रमांच्या तारखांसाठी +91-9820500726 वर संपर्क साधा.",
+      "full_text": "Topic: Upcoming Events\nKeywords: events, when is next event, upcoming events, ram katha, medical camp, eye camp, sports day, कार्यक्रम, सोहळा, शिबिर, उत्सव, पुढील कार्यक्रम\nEnglish: Prayas Foundation regularly hosts events including: 1. Annual Ram Katha & Spiritual Mahotsav. 2. Free Eye Checkup & Health Camps in Malvani. 3. 'Postcard to Parents' wellness workshops. 4. Inter-school Sports meets & Martial Arts. 5. Festive welfare drives. Check our 'Our Work' page on the website or message +91-9820500726 for dates of upcoming events.\nHindi: प्रयास फाउंडेशन वर्ष भर कई कार्यक्रम आयोजित करता है: 1. वार्षिक राम कथा महोत्सव। 2. निःशुल्क नेत्र एवं स्वास्थ्य जांच शिविर। 3. 'माता-पिता को पोस्टकार्ड' कार्यशाला। 4. खेलकूद प्रतियोगिताएं। 5. उत्सव सेवा शिविर। आगामी तिथियों के लिए वेबसाइट पर 'Our Work' पेज देखें या +91-9820500726 पर संपर्क करें।\nMarathi: प्रयास फाउंडेशनतर्फे वर्षभरात वार्षिक राम कथा सोहळा, मोफत नेत्र व आरोग्य तपासणी शिबिरे, 'पालकांना पोस्टकार्ड' उपक्रम, आणि क्रीडा स्पर्धा आयोजित केल्या जातात. आगामी कार्यक्रमांच्या तारखांसाठी +91-9820500726 वर संपर्क साधा."
+    },
+    {
+      "id": "exam_progression_khan_academy",
+      "source": "src/data/examData.js",
+      "topic": "khan_academy_exam_metrics",
+      "title": "Khan Academy Assessment Metrics and Prelim Examination Score Progression",
+      "full_text": "Khan Academy Digital Learning Assessment Metrics at Mumbai Public School Malvani: 487+ students registered with 96% active accounts and 100% prelim participation. Average Score Growth: +30%. Prelim Examination Score Progression (2024 vs 2025): Prelim 1: Ankur 15% to 20%, Arun 20% to 25%, Arunuday 30% to 35%. Prelim 2: Ankur 20% to 25%, Arun 30% to 40%, Arunuday 40% to 50%. Prelim 3: Ankur 25% to 35%, Arun 30% to 45%, Arunuday 40% to 50%. Prelim 4: Ankur 30% to 40%, Arun 35% to 50%, Arunuday 45% to 50%. Prelim 5: Ankur 35% to 40%, Arun 40% to 55%, Arunuday 45% to 60%. Conclusion: Tremendous consistent growth in student academic mastery across all three learning tiers."
+    },
+    {
+      "id": "work_album_ram-katha-2024",
+      "source": "src/data/workContent.js",
+      "topic": "Community Work: Ram Katha 2024",
+      "category": "Cultural & Spiritual",
+      "title": "Ram Katha 2024 (Cultural & Spiritual)",
+      "en": "A grand community spiritual and cultural gathering organized by Prayas Foundation celebrating divine wisdom, social cohesion, and righteous living with thousands of devotees and families in attendance.",
+      "hi": "प्रयास फाउंडेशन द्वारा आयोजित भव्य आध्यात्मिक एवं सांस्कृतिक राम कथा, जिसमें हजारों श्रद्धालुओं व परिवारों ने भाग लिया और सामाजिक समरसता का संदेश दिया।",
+      "mr": "प्रयास फाउंडेशनद्वारे आयोजित भव्य आध्यात्मिक व सांस्कृतिक राम कथा, ज्यात हजारो भाविक व कुटुंबीयांनी सहभाग घेऊन सामाजिक समरसतेचा संदेश दिला.",
+      "full_text": "Prayas Social Initiative: Ram Katha 2024 (Cultural & Spiritual).\nDescription: A grand community spiritual and cultural gathering organized by Prayas Foundation celebrating divine wisdom, social cohesion, and righteous living with thousands of devotees and families in attendance.\nHindi: प्रयास फाउंडेशन द्वारा आयोजित भव्य आध्यात्मिक एवं सांस्कृतिक राम कथा, जिसमें हजारों श्रद्धालुओं व परिवारों ने भाग लिया और सामाजिक समरसता का संदेश दिया।\nMarathi: प्रयास फाउंडेशनद्वारे आयोजित भव्य आध्यात्मिक व सांस्कृतिक राम कथा, ज्यात हजारो भाविक व कुटुंबीयांनी सहभाग घेऊन सामाजिक समरसतेचा संदेश दिला."
+    },
+    {
+      "id": "work_album_haldi-kumkum",
+      "source": "src/data/workContent.js",
+      "topic": "Community Work: Haldi KumKum Celebration",
+      "category": "Women Welfare & Festivities",
+      "title": "Haldi KumKum Celebration (Women Welfare & Festivities)",
+      "en": "A joyous traditional gathering honoring women in the local community, promoting sisterhood, empowerment, mutual support, and cultural heritage.",
+      "hi": "स्थानीय महिलाओं के सम्मान, सशक्तिकरण और पारस्परिक सहयोग को समर्पित पारंपरिक हळदी कुंकू स्नेह मिलन समारोह।",
+      "mr": "स्थानिक महिलांचा सन्मान, सक्षमीकरण आणि परस्पर सहकार्याला समर्पित पारंपरिक हळदी कुंकू स्नेह मेळावा.",
+      "full_text": "Prayas Social Initiative: Haldi KumKum Celebration (Women Welfare & Festivities).\nDescription: A joyous traditional gathering honoring women in the local community, promoting sisterhood, empowerment, mutual support, and cultural heritage.\nHindi: स्थानीय महिलाओं के सम्मान, सशक्तिकरण और पारस्परिक सहयोग को समर्पित पारंपरिक हळदी कुंकू स्नेह मिलन समारोह।\nMarathi: स्थानिक महिलांचा सन्मान, सक्षमीकरण आणि परस्पर सहकार्याला समर्पित पारंपरिक हळदी कुंकू स्नेह मेळावा."
+    },
+    {
+      "id": "work_album_dahi-handi",
+      "source": "src/data/workContent.js",
+      "topic": "Community Work: Dahi Handi Utsav",
+      "category": "Youth & Sports",
+      "title": "Dahi Handi Utsav (Youth & Sports)",
+      "en": "Energetic Janmashtami celebration fostering sportsmanship, teamwork, youth engagement, safety, and community spirit across Malad West.",
+      "hi": "युवाओं में ऊर्जा, टीम भावना, साहस और एकजुटता को बढ़ावा देने वाला भव्य श्रीकृष्ण जन्माष्टमी दही हांडी उत्सव।",
+      "mr": "तरुणांमध्ये ऊर्जा, सांघिक भावना, शौर्य आणि एकता वाढवणारा भव्य श्रीकृष्ण जन्माष्टमी दहीहंडी उत्सव.",
+      "full_text": "Prayas Social Initiative: Dahi Handi Utsav (Youth & Sports).\nDescription: Energetic Janmashtami celebration fostering sportsmanship, teamwork, youth engagement, safety, and community spirit across Malad West.\nHindi: युवाओं में ऊर्जा, टीम भावना, साहस और एकजुटता को बढ़ावा देने वाला भव्य श्रीकृष्ण जन्माष्टमी दही हांडी उत्सव।\nMarathi: तरुणांमध्ये ऊर्जा, सांघिक भावना, शौर्य आणि एकता वाढवणारा भव्य श्रीकृष्ण जन्माष्टमी दहीहंडी उत्सव."
+    },
+    {
+      "id": "work_album_chhath-pooja",
+      "source": "src/data/workContent.js",
+      "topic": "Community Work: Chhath Mahaparv Mahotsav",
+      "category": "Community Welfare",
+      "title": "Chhath Mahaparv Mahotsav (Community Welfare)",
+      "en": "Facilitating safe, hygienic, well-lit, and spiritually uplifting arrangements for thousands of fasting devotees paying homage to the Sun God.",
+      "hi": "छठ व्रतियों एवं श्रद्धालुओं की सुविधा हेतु सुव्यवस्थित घाट, प्रकाश व्यवस्था, स्वच्छ जल और सेवा शिविर का सफल आयोजन।",
+      "mr": "छठ व्रती व भाविकांच्या सोयीसाठी सुसज्ज घाट, प्रकाश व्यवस्था, शुद्ध पाणी आणि सेवा शिबिराचे यशस्वी आयोजन.",
+      "full_text": "Prayas Social Initiative: Chhath Mahaparv Mahotsav (Community Welfare).\nDescription: Facilitating safe, hygienic, well-lit, and spiritually uplifting arrangements for thousands of fasting devotees paying homage to the Sun God.\nHindi: छठ व्रतियों एवं श्रद्धालुओं की सुविधा हेतु सुव्यवस्थित घाट, प्रकाश व्यवस्था, स्वच्छ जल और सेवा शिविर का सफल आयोजन।\nMarathi: छठ व्रती व भाविकांच्या सोयीसाठी सुसज्ज घाट, प्रकाश व्यवस्था, शुद्ध पाणी आणि सेवा शिबिराचे यशस्वी आयोजन."
+    },
+    {
+      "id": "work_album_bhandara",
+      "source": "src/data/workContent.js",
+      "topic": "Community Work: Community Bhandara & Annadaan",
+      "category": "Social Welfare & Food Relief",
+      "title": "Community Bhandara & Annadaan (Social Welfare & Food Relief)",
+      "en": "Serving nutritious, hygienic hot meals to thousands of local families, underprivileged children, and community members in the spirit of selfless seva.",
+      "hi": "निःस्वार्थ सेवा की भावना से हजारों जरूरतमंदों, बच्चों व स्थानीय नागरिकों को शुद्ध व पौष्टिक महाप्रसाद भोजन वितरण।",
+      "mr": "निःस्वार्थ सेवेच्या भावनेतून हजारो गरजू, मुले व स्थानिक नागरिकांना शुद्ध व पौष्टिक महाप्रसाद वाटप.",
+      "full_text": "Prayas Social Initiative: Community Bhandara & Annadaan (Social Welfare & Food Relief).\nDescription: Serving nutritious, hygienic hot meals to thousands of local families, underprivileged children, and community members in the spirit of selfless seva.\nHindi: निःस्वार्थ सेवा की भावना से हजारों जरूरतमंदों, बच्चों व स्थानीय नागरिकों को शुद्ध व पौष्टिक महाप्रसाद भोजन वितरण।\nMarathi: निःस्वार्थ सेवेच्या भावनेतून हजारो गरजू, मुले व स्थानिक नागरिकांना शुद्ध व पौष्टिक महाप्रसाद वाटप."
+    },
+    {
+      "id": "founder_brijesh_singh_detailed",
+      "source": "src/data/content.js",
+      "topic": "Founder & Chairman Brijesh Singh",
+      "full_text": "Shri Brijesh Singh is the Founder & Chairman of Prayas Foundation. Born on September 15, 1968 in Maharashtra, he earned a BSc degree from Ruia College in Mumbai. Dedicated volunteer since 1998 with 14+ years of selfless public service in Malad and Malvani. He advocated for citizen civic rights, supported temple reconstructions, organized pilgrim welfare initiatives, and facilitated the opening of 1,100 bank accounts with assistance to over 10,000 beneficiaries. Quote: 'I vow to continue fighting for the underprivileged and the common man of our society.'"
+    },
+    {
+      "id": "school_mumbai_public_school_malvani",
+      "source": "src/data/content.js",
+      "topic": "Mumbai Public School Malvani",
+      "full_text": "Mumbai Public School (MPS) Malvani Township, Malad West, Mumbai: Managed by Prayas Foundation in collaboration with BMC. Offers CBSE and SSC curriculums, digital classrooms, Khan Academy mathematics integration, computer labs, sports training (football, martial arts, yoga), remedial learning classes, and comprehensive health/eye checkup camps. 100% pass rate in board examinations."
+    },
+    {
+      "id": "donation_80g_tax_exemption",
+      "source": "src/data/content.js",
+      "topic": "80G Tax Exemption & Donations",
+      "full_text": "Prayas Foundation Donation & 80G Tax Exemption: All monetary contributions to Prayas Foundation are 50% tax-exempt under Section 80G of the Income Tax Act. Tax exemption receipts are issued immediately for all donations. Direct bank transfer (NEFT/RTGS/IMPS), UPI, and Cheque donations are accepted. Contact for donation assistance: Phone: +91-9820500726 | Email: info@prayasfoundation.co.in | Office Address: 6/B/15, Asmita Chs, New Mhada Colony, Dindoshi, Goregaon East, Mumbai 400065, Maharashtra, India."
+    },
+    {
+      "id": "technical_and_payment_support",
+      "source": "support_guide",
+      "topic": "payment_failure_website_support",
+      "title": "Payment Failure & Website Technical Support",
+      "keywords": [
+        "payment failed",
+        "transaction failed",
+        "money deducted",
+        "glitch",
+        "website glitching",
+        "error",
+        "bug",
+        "receipt",
+        "not working",
+        "भुगतान",
+        "पैसे कट गए",
+        "अडचण"
+      ],
+      "en": "If your payment failed, money was deducted without an instant receipt, or the website is glitching: 1. If money was debited from your bank/UPI, banks usually reconcile within 24-48 hours. 2. Please share your transaction UTR / Reference number or screenshot directly on WhatsApp at +91-9820500726 or email info@prayasfoundation.co.in. Our team will verify and issue your 80G tax exemption receipt immediately. If a page or form is glitching, you can register or donate directly over WhatsApp/Phone.",
+      "hi": "यदि आपका भुगतान विफल हो गया, पैसे कट गए लेकिन रसीद नहीं मिली, या वेबसाइट में कोई समस्या आ रही है: 1. यूपीआई या बैंक से पैसे कटने पर बैंक 24-48 घंटे में समाधान करते हैं। 2. कृपया अपना यूटीआर (UTR) नंबर या स्क्रीनशॉट सीधे व्हाट्सएप +91-9820500726 पर या ईमेल info@prayasfoundation.co.in पर भेजें। हमारी टीम तुरंत आपकी 80G रसीद जारी करेगी। वेबसाइट पर फॉर्म न चलने पर आप सीधे फोन पर संपर्क कर सकते हैं।",
+      "mr": "जर आपले पेमेंट अयशस्वी झाले, पैसे कापले गेले पण पावती मिळाली नाही, किंवा वेबसाइटवर अडचण येत असेल: 1. बँक खात्यातून पैसे कापले असल्यास 24-48 तासांत ते पूर्ववत होतात. 2. कृपया व्यवहाराचा UTR नंबर किंवा स्क्रीनशॉट +91-9820500726 वर WhatsApp करा किंवा info@prayasfoundation.co.in वर पाठवा. आमची टीम तात्काळ 80G पावती देईल. वेबसाइट फॉर्म चालत नसल्यास आपण थेट फोनवरही नोंदणी करू शकता."
+    },
+    {
+      "id": "school_schedule_timings_holidays",
+      "source": "school_operations",
+      "topic": "school_timing_holidays_office_hours",
+      "title": "School Schedule, Timings, Holidays & Office Hours",
+      "keywords": [
+        "timing",
+        "hours",
+        "open today",
+        "holiday",
+        "is there holiday",
+        "sunday",
+        "schedule",
+        "समय",
+        "सुट्टी",
+        "अवकाश",
+        "शाळा कधी भरते"
+      ],
+      "en": "Mumbai Public School (MPS Malvani) operates Monday to Friday from 7:30 AM to 1:30 PM (CBSE & SSC shifts). The administrative office is open Monday to Saturday from 9:00 AM to 6:00 PM (closed on Sundays). The school follows all official Maharashtra State Government, BMC Education Department, and national public holidays. For today's holiday confirmation or emergency notice, please call the office directly at +91-9820500726.",
+      "hi": "मुंबई पब्लिक स्कूल (मालवणी) सोमवार से शुक्रवार सुबह 7:30 बजे से दोपहर 1:30 बजे तक संचालित होता है। प्रशासनिक कार्यालय सोमवार से शनिवार सुबह 9:00 बजे से शाम 6:00 बजे तक खुला रहता है (रविवार को अवकाश)। स्कूल सभी आधिकारिक महाराष्ट्र सरकार और बीएमसी अवकाश नियमों का पालन करता है। आज के अवकाश या समय की जानकारी के लिए +91-9820500726 पर कॉल करें।",
+      "mr": "मुंबई पब्लिक स्कूल (मालवणी) सोमवार ते शुक्रवार सकाळी ७:३० ते दुपारी १:३० या वेळेत भरते. संस्थेचे कार्यालय सोमवार ते शनिवार सकाळी ९:०० ते संध्याकाळी ६:०० पर्यंत सुरू असते (रविवारी बंद). शाळा महाराष्ट्र शासन व BMC च्या अधिकृत सुट्ट्यांचे पालन करते. आजच्या सुट्टीबद्दल खात्री करण्यासाठी +91-9820500726 वर संपर्क साधा."
+    },
+    {
+      "id": "events_festivals_camps",
+      "source": "events_guide",
+      "topic": "events_festivals_medical_camps",
+      "title": "Upcoming Events, Camps, and Cultural Activities",
+      "keywords": [
+        "events",
+        "when is next event",
+        "upcoming events",
+        "ram katha",
+        "medical camp",
+        "eye camp",
+        "sports day",
+        "कार्यक्रम",
+        "सोहळा",
+        "शिबिर",
+        "उत्सव"
+      ],
+      "en": "Prayas Foundation regularly organizes student and social welfare events: 1. Annual Ram Katha & Spiritual Mahotsav with thousands of devotees. 2. Free Eye Checkup and Pediatric Health Camps in Malvani. 3. 'Postcard to Parents' wellness workshops. 4. Inter-school Sports meets & Martial Arts. 5. Festive welfare drives during Diwali and Chhath Puja. For dates of upcoming events, check the 'Our Work' page on the website or message +91-9820500726.",
+      "hi": "प्रयास फाउंडेशन पूरे वर्ष विभिन्न कार्यक्रमों का आयोजन करता है: 1. वार्षिक राम कथा महोत्सव। 2. निःशुल्क नेत्र एवं स्वास्थ्य जांच शिविर। 3. 'माता-पिता को पोस्टकार्ड' कार्यशाला। 4. खेलकूद व आत्मरक्षा प्रतियोगिताएं। 5. दीपावली और छठ पूजा सेवा शिविर। आगामी कार्यक्रमों की तिथियों के लिए 'Our Work' पेज देखें या +91-9820500726 पर व्हाट्सएप करें।",
+      "mr": "प्रयास फाउंडेशन वर्षभरात विविध कार्यक्रम आयोजित करते: १. वार्षिक राम कथा सोहळा. २. मोफत नेत्र व आरोग्य तपासणी शिबिरे. ३. 'पालकांना पोस्टकार्ड' उपक्रम. ४. क्रीडा स्पर्धा व मार्शल आर्ट्स. ५. सण-उत्सव मदत शिबिरे. आगामी कार्यक्रमांच्या तारखांसाठी 'Our Work' पेज तपासा किंवा +91-9820500726 वर मेसेज करा."
+    }
+  ]
+}

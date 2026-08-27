@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>SQL Database & Operations Dashboard | Prayas Foundation</title>
+  <meta name="description" content="Prayas Foundation real-time SQL database management, donations telemetry, volunteer roster, and AI chatbot query logs." />
+  
+  <link rel="icon" type="image/png" href="/assets/prayas-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles/index.css" />
+  <style>
+    .admin-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .kpi-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--foreground-muted);
+    }
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--foreground);
+      font-family: var(--font-display);
+    }
+    .tab-btn {
+      padding: 0.65rem 1.25rem;
+      font-weight: 700;
+      border-radius: 999px;
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--foreground-muted);
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+    }
+    .sql-table-container {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+    }
+    .sql-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    .sql-table th {
+      background: var(--surface-subtle);
+      padding: 0.9rem 1.1rem;
+      font-weight: 700;
+      color: var(--foreground);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .sql-table td {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--foreground);
+    }
+    .sql-table tr:hover {
+      background: var(--surface-subtle);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-success { background: rgba(16, 185, 129, 0.15); color: #059669; border: 1px solid #10b981; }
+    .badge-info { background: rgba(59, 130, 246, 0.15); color: #2563eb; border: 1px solid #3b82f6; }
+    .badge-warning { background: rgba(245, 158, 11, 0.15); color: #d97706; border: 1px solid #f59e0b; }
+    .code-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      background: var(--surface-subtle);
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-foreground antialiased font-sans transition-colors duration-300">
+  <div id="app" class="min-h-screen flex flex-col relative overflow-x-hidden">
+    <!-- Admin Page Root Component Mounts Here -->
+  </div>
+
+  <script type="module" src="/src/pages/admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,896 @@
+/* ==========================================================================
+   Prayas Foundation - Apple-Grade Ultra-Smooth 60/120 FPS Spatial Design System
+   Ethereal Emerald & Mint Palette, Liquid Glassmorphism & Spring Physics
+   ========================================================================== */
+
+:root {
+  /* Apple Signature Physics Easing Tokens */
+  --ease-apple-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-apple-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-apple-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-apple-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-apple-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast: 0.18s;
+  --duration-normal: 0.32s;
+  --duration-slow: 0.5s;
+
+  /* Lighter, Ethereal Emerald & Mint Palette */
+  --primary: #10b981;                        /* Radiant Pure Emerald */
+  --primary-hover: #059669;                  /* Medium Emerald */
+  --primary-deep: #065f46;                   /* Deep Pine Accent */
+  --primary-light: #d1fae5;                  /* Soft Mint Tint */
+  --primary-subtle: #f0fdf4;                 /* Ethereal Mint Mist */
+  --primary-glow: rgba(16, 185, 129, 0.18);
+
+  --secondary: #0d9488;                      /* Luminous Sage Teal */
+  --secondary-light: #f0fdfa;
+
+  --accent: #f59e0b;                          /* Warm Honey Gold */
+  --accent-light: #fef3c7;
+  --accent-glow: rgba(245, 158, 11, 0.15);
+
+  /* Light Theme Surfaces (Apple Frosted Glass) */
+  --surface: #f7fcf9;
+  --surface-card: rgba(255, 255, 255, 0.95);
+  --surface-alt: #f0f9f4;
+  --surface-subtle: #e8f5ee;
+  
+  --surface-glass: rgba(255, 255, 255, 0.82);
+  --surface-glass-border: rgba(16, 185, 129, 0.18);
+  --surface-glass-hover: rgba(255, 255, 255, 0.96);
+
+  --foreground: #0e291e;                      /* Deep Forest Charcoal */
+  --foreground-muted: #3d5e4f;                /* Slate Sage */
+  --foreground-subtle: #6c9180;
+  --border: rgba(16, 185, 129, 0.14);
+  --divider: rgba(16, 185, 129, 0.08);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #f0fdf4 0%, #ffffff 40%, #ecfdf5 70%, #f6fcf8 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(240, 253, 244, 0.92) 100%);
+  --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --gradient-gold: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px -2px rgba(14, 41, 30, 0.04);
+  --shadow-md: 0 10px 28px -6px rgba(16, 185, 129, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 18px 45px -8px rgba(16, 185, 129, 0.12), 0 6px 16px -4px rgba(0, 0, 0, 0.03);
+  --shadow-xl: 0 24px 60px -12px rgba(16, 185, 129, 0.18);
+  --shadow-primary: 0 8px 24px -4px rgba(16, 185, 129, 0.28);
+
+  /* Universal Rounded Squircle Tokens */
+  --radius-sm: 0.65rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 28px;                        /* Standard 28px Rounded Squircle */
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-devanagari: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Dark Theme Palette */
+[data-theme="dark"] {
+  --surface: #06120b;
+  --surface-card: rgba(13, 29, 21, 0.95);
+  --surface-alt: #0a1b12;
+  --surface-subtle: #10261b;
+
+  --surface-glass: rgba(13, 29, 21, 0.9);
+  --surface-glass-border: rgba(52, 211, 153, 0.22);
+  --surface-glass-hover: rgba(18, 38, 28, 0.98);
+
+  --foreground: #f3fcf7;
+  --foreground-muted: #a3ccb8;
+  --foreground-subtle: #6c9984;
+  --border: rgba(52, 211, 153, 0.15);
+  --divider: rgba(52, 211, 153, 0.07);
+
+  --gradient-hero: linear-gradient(135deg, #06120b 0%, #0c1f15 50%, #07150d 100%);
+  --gradient-card: linear-gradient(145deg, rgba(13, 29, 21, 0.96) 0%, rgba(9, 22, 16, 0.9) 100%);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 50px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 25px 70px rgba(0, 0, 0, 0.75);
+  --shadow-primary: 0 8px 28px -4px rgba(52, 211, 153, 0.35);
+}
+
+/* ==========================================================================
+   Universal Rounded Squircle Geometry & Apple Liquid Glassmorphism
+   ========================================================================== */
+.liquid-glass-card,
+.program-card,
+.feature-card,
+.school-card,
+.partner-card,
+.stat-card,
+.modal-box,
+.pill-card,
+.hero-visual-card {
+  border-radius: 28px !important;            /* Smooth Rounded Squircle */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+.liquid-glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.35s var(--ease-apple-spring), 
+              box-shadow 0.35s var(--ease-apple-spring), 
+              border-color 0.25s ease;
+}
+
+[data-theme="dark"] .liquid-glass-card {
+  background: rgba(13, 29, 21, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1.5px solid rgba(52, 211, 153, 0.22);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .liquid-glass-card:hover {
+    transform: translateY(-5px) scale(1.008) translate3d(0, 0, 0);
+    box-shadow: 0 20px 45px -10px rgba(16, 185, 129, 0.25), 0 0 20px rgba(16, 185, 129, 0.15);
+    border-color: var(--primary);
+  }
+}
+
+/* ==========================================================================
+   Home Focus Section View - Crisp, GPU Composited Scrolling
+   ========================================================================== */
+.home-focus-section {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: translate3d(0, 0, 0);
+  margin: 0 !important;
+}
+
+/* Impact Section Chart Frame - Full-Width & Unconstrained */
+#section-impact-chart {
+  transform: translate3d(0, 0, 0);
+  overflow: visible !important;
+}
+
+/* FAQ, Join Us & Contact - Always Crisp & Responsive */
+#section-contact,
+#section-contact .home-focus-section,
+#faq,
+.contact-section,
+.faq-accordion {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Multicolor RGB Gradient for Managed by Prayas Foundation (Hardware Accelerated) */
+.school-managed-by-rgb {
+  background: linear-gradient(90deg, #38bdf8 0%, #818cf8 20%, #c084fc 40%, #f472b6 60%, #fb923c 80%, #4ade80 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rgbShineText 6s linear infinite;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+@keyframes rgbShineText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Low-end devices & reduced-motion fallback: static gradient, 0 animation overhead */
+.low-end-device .school-managed-by-rgb {
+  animation: none !important;
+  background: linear-gradient(90deg, #38bdf8, #c084fc, #fb923c, #4ade80) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .school-managed-by-rgb {
+    animation: none !important;
+    background: linear-gradient(90deg, #38bdf8, #c084fc, #fb923c, #4ade80) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}
+
+#svg-chart-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+#live-interactive-svg {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block;
+  transition: height 0.08s ease-out;
+  will-change: height;
+}
+
+/* ==========================================================================
+   Interactive Chart (Double Size Zoom on Scroll)
+   ========================================================================== */
+#dynamic-zoom-chart-container {
+  width: 100%;
+  max-width: 1550px;
+  min-height: 360px;
+  margin: 1.5rem auto;
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: center center !important;
+  display: block;
+  z-index: 60;
+  position: relative;
+  border-radius: 28px !important;
+  padding: 2.5rem 2.25rem 1.5rem;
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%) !important;
+  color: #f8fafc !important;
+  border: 1.5px solid rgba(52, 211, 153, 0.35);
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.7);
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
+  contain: layout paint;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  #dynamic-zoom-chart-container {
+    padding: 1.5rem 0.85rem 0.85rem !important;
+    border-radius: 20px !important;
+    margin: 1rem auto !important;
+  }
+
+  .chart-baseline-2024 {
+    display: none !important;
+  }
+
+  #live-interactive-svg {
+    height: 240px !important;
+  }
+
+  .chart-hover-tooltip {
+    display: none !important;
+  }
+
+  #chart-mobile-data-cards {
+    grid-template-columns: 1fr !important;
+    gap: 0.55rem !important;
+  }
+
+  .cohort-summary-card {
+    padding: 0.75rem 0.85rem !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* Laptop / PC: Data cards always visible, interactive and cleanly styled */
+@media (min-width: 641px) {
+  #chart-mobile-data-cards {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.85rem !important;
+    opacity: 1 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    margin-top: 1.25rem !important;
+  }
+}
+
+#dynamic-zoom-chart-container.is-fullscreen-zoom {
+  box-shadow: 0 45px 120px -20px rgba(0, 0, 0, 0.85), 0 0 55px rgba(16, 185, 129, 0.45);
+  border-color: #34d399;
+}
+
+#dynamic-zoom-chart-container h3,
+#dynamic-zoom-chart-container p,
+#dynamic-zoom-chart-container span,
+#dynamic-zoom-chart-container text {
+  color: #f8fafc;
+}
+
+#dynamic-zoom-chart-container p {
+  color: #94a3b8 !important;
+}
+
+.chart-interactive-group {
+  cursor: pointer;
+  pointer-events: all;
+  transition: opacity 0.2s ease;
+}
+
+.chart-interactive-path {
+  cursor: pointer;
+  pointer-events: stroke;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 0;
+  transition: stroke-width 0.2s ease, opacity 0.2s ease;
+}
+
+/* Progressive Animated SVG Drawing on Scroll Reveal */
+.chart-draw-animate .chart-interactive-path {
+  animation: drawChartCurve 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes drawChartCurve {
+  0% {
+    stroke-dashoffset: 1400;
+    opacity: 0.2;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.chart-hit-area {
+  cursor: pointer;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.001);
+  stroke-width: 44;
+  pointer-events: stroke;
+}
+
+.chart-interactive-group:hover .chart-interactive-path,
+.chart-interactive-group:focus-within .chart-interactive-path {
+  stroke-width: 8;
+  filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.95));
+}
+
+.chart-hover-tooltip {
+  position: absolute;
+  padding: 0.85rem 1.2rem;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  font-size: 0.85rem;
+  color: #f8fafc;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -125%);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 80;
+  white-space: nowrap;
+}
+
+.chart-hover-tooltip.visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Program Event Cards:
+   - PC / Laptop: Magnifies & shows Gradient Overview Glow ONLY on :hover (No auto zoom during scroll)
+   - Mobile Phones: Magnifies ONLY the single active card on screen with Gradient Overview Glow
+   ========================================================================== */
+.programs-3col-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 640px) {
+  .programs-3col-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .programs-3col-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+.program-card-step,
+.program-card {
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: center center;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.28s ease;
+  position: relative;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.25) !important;
+  box-shadow: 0 16px 45px -4px rgba(16, 185, 129, 0.65), 
+              0 10px 30px -2px rgba(6, 182, 212, 0.55), 
+              0 4px 18px rgba(245, 158, 11, 0.5),
+              0 0 25px rgba(16, 185, 129, 0.45) !important;
+  z-index: 1;
+  overflow: hidden;
+  will-change: transform;
+}
+
+[data-theme="dark"] .program-card-step,
+[data-theme="dark"] .program-card {
+  background: #1e293b !important;
+  border: 1.5px solid rgba(52, 211, 153, 0.4) !important;
+  box-shadow: 0 20px 55px -4px rgba(16, 185, 129, 0.75), 
+              0 12px 35px -2px rgba(6, 182, 212, 0.65), 
+              0 4px 20px rgba(245, 158, 11, 0.6),
+              0 0 35px rgba(16, 185, 129, 0.55) !important;
+}
+
+.program-card-step .program-img-frame,
+.program-card .program-img-frame {
+  height: 190px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+  background: var(--surface-subtle);
+}
+
+.program-card-step .program-img-frame img,
+.program-card .program-img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* PC / Laptop Hover: ONLY on hover it gets bigger with ULTRA bright radiant gradient shadow */
+@media (hover: hover) and (pointer: fine) {
+  .program-card-step:hover,
+  .program-card:hover {
+    transform: translateY(-8px) scale(1.035) !important;
+    border-color: rgba(52, 211, 153, 0.6) !important;
+    box-shadow: 0 28px 75px -6px rgba(16, 185, 129, 0.88), 
+                0 16px 48px -4px rgba(6, 182, 212, 0.8), 
+                0 6px 28px rgba(245, 158, 11, 0.75),
+                0 0 45px rgba(16, 185, 129, 0.65) !important;
+    z-index: 20;
+  }
+
+  .program-card-step:hover .program-img-frame img,
+  .program-card:hover .program-img-frame img {
+    transform: scale(1.06) !important;
+  }
+
+  .program-card-step:hover .program-card-title,
+  .program-card:hover .program-card-title {
+    color: var(--primary) !important;
+  }
+}
+
+/* Mobile Phones: Magnifies ONLY the single active card on screen with ULTRA bright gradient shadow */
+@media (max-width: 768px) {
+  .program-card-step.is-focused-event,
+  .program-card.is-focused-event {
+    transform: translateY(-4px) scale(1.025) !important;
+    border-color: rgba(52, 211, 153, 0.5) !important;
+    box-shadow: 0 22px 60px -4px rgba(16, 185, 129, 0.82), 
+                0 12px 38px -2px rgba(6, 182, 212, 0.72), 
+                0 4px 22px rgba(245, 158, 11, 0.65),
+                0 0 35px rgba(16, 185, 129, 0.55) !important;
+    z-index: 10;
+  }
+
+  .program-card-step.is-focused-event .program-img-frame img,
+  .program-card.is-focused-event .program-img-frame img {
+    transform: scale(1.04) !important;
+  }
+
+  .program-card-step.is-focused-event .program-card-title,
+  .program-card.is-focused-event .program-card-title {
+    color: var(--primary) !important;
+  }
+}
+
+/* ==========================================================================
+   Fluid Iridescent Gradient Avatars with Mouse Sheen (Pillars & Org Structure)
+   ========================================================================== */
+.liquid-avatar-gradient-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #06b6d4 0%, #10b981 35%, #f59e0b 70%, #6366f1 100%);
+  background-size: 300% 300%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  animation: fluidGradientSheen 6s ease infinite alternate;
+}
+
+@keyframes fluidGradientSheen {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.liquid-avatar-gradient-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle 45px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.95) 0%, rgba(56, 189, 248, 0.55) 45%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .liquid-avatar-gradient-icon:hover,
+  .person-wrapper:hover .liquid-avatar-gradient-icon {
+    transform: scale(1.1) rotate(3deg);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.45), 0 0 18px rgba(6, 182, 212, 0.35);
+  }
+  .liquid-avatar-gradient-icon:hover::after,
+  .person-wrapper:hover .liquid-avatar-gradient-icon::after {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Refined Org Hierarchy Tier Zoom, Quotes & Click Modal (Butter Smooth 60+ FPS)
+   ========================================================================== */
+.org-tier-step {
+  opacity: 0.82;
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: center center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.3s ease;
+  margin: 2rem 0;
+  position: relative;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.org-tier-step.is-focused-tier {
+  transform: translate3d(0, 0, 0) scale(1.15) !important;
+  z-index: 25;
+  opacity: 1 !important;
+  filter: drop-shadow(0 15px 35px rgba(16, 185, 129, 0.25));
+}
+
+@media (max-width: 640px) {
+  .org-tier-step {
+    margin: 1.25rem 0;
+  }
+  .org-tier-step.is-focused-tier {
+    transform: translate3d(0, 0, 0) scale(1.08) !important;
+    filter: drop-shadow(0 10px 20px rgba(16, 185, 129, 0.2));
+  }
+  #org-structure-container {
+    padding: 2.25rem 0.85rem !important;
+    border-radius: 20px !important;
+  }
+}
+
+.org-tier-cards-row {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .org-tier-cards-row {
+    gap: 1.25rem !important;
+  }
+}
+
+.tier-quote-box {
+  display: block;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--primary-deep);
+  background: var(--primary-light);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.75rem;
+  margin-top: 0.5rem;
+  line-height: 1.35;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  will-change: opacity, transform;
+}
+
+[data-theme="dark"] .tier-quote-box {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+}
+
+.org-tier-step.is-focused-tier .tier-quote-box,
+.person-card-in-place:hover .tier-quote-box {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.org-stem-line {
+  width: 3px;
+  height: 34px;
+  background: linear-gradient(180deg, var(--primary) 0%, rgba(16, 185, 129, 0.2) 100%);
+  margin: 0.65rem auto;
+  border-radius: var(--radius-full);
+}
+
+.org-complete-tree-banner {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.org-complete-tree-banner.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ==========================================================================
+   Click-to-Open Full Person Detail Modal (Viewport Centered & Highest Z-Index)
+   ========================================================================== */
+#person-full-detail-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(6, 18, 11, 0.78) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  z-index: 9999999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0;
+  pointer-events: none;
+  padding: 1rem !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#person-full-detail-modal.open {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+#person-full-modal-card {
+  background: var(--surface-card) !important;
+  border: 1.5px solid var(--primary) !important;
+  border-radius: 26px !important;
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.65), 0 0 45px rgba(16, 185, 129, 0.25);
+  width: 100% !important;
+  max-width: 580px !important;
+  max-height: 88vh !important;
+  overflow-y: auto !important;
+  padding: 2rem !important;
+  position: relative !important;
+  margin: auto !important;
+  box-sizing: border-box !important;
+  transform: scale(0.95);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 640px) {
+  #person-full-modal-card {
+    padding: 1.5rem 1.15rem !important;
+    border-radius: 20px !important;
+    max-height: 86vh !important;
+    max-width: 94vw !important;
+  }
+}
+
+#person-full-detail-modal.open #person-full-modal-card {
+  transform: scale(1) !important;
+}
+
+/* Person Wrapper In-Place Styling (Zero Layout Reflow, GPU Optimized) */
+.person-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transform-origin: center center;
+  touch-action: manipulation;
+}
+
+.person-card-in-place {
+  background: var(--surface-card);
+  border: 1.5px solid var(--border);
+  border-radius: 24px !important;
+  padding: 1.25rem 1rem;
+  box-shadow: var(--shadow-md);
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .person-card-in-place {
+    width: 100%;
+    max-width: 260px;
+    padding: 1.1rem 0.9rem;
+    border-radius: 20px !important;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .person-wrapper:hover .person-card-in-place {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.person-avatar-large {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.45) 0%, rgba(245, 158, 11, 0.35) 100%);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.16);
+}
+
+.person-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--surface-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.person-name-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--foreground);
+  margin-top: 0.5rem;
+  line-height: 1.25;
+}
+
+.person-role-title {
+  font-size: 0.725rem;
+  color: var(--foreground-muted);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   Rounded Squircle Section End Dividers
+   ========================================================================== */
+.section-squircle-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 2.25rem 0 1rem;
+  margin: 0 auto;
+}
+
+.squircle-chip {
+  width: 48px;
+  height: 48px;
+  border-radius: 20px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--surface-glass-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.squircle-line {
+  width: 75px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   Partner Grid & Prominent Collaborator Styling
+   ========================================================================== */
+.partners-large-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .partners-large-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+}
+
+.partner-logo-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .partner-logo-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary) !important;
+    box-shadow: 0 20px 45px -10px rgba(16, 185, 129, 0.25) !important;
+  }
+
+  .partner-logo-card:hover .partner-logo-img-large {
+    transform: scale(1.06);
+  }
+}
+
+/* ==========================================================================
+   Map Embed Responsive Frame
+   ========================================================================== */
+.map-embed-wrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.map-embed-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ==========================================================================
+   Theme Switcher Icon Visibility (Pure CSS Driven by [data-theme])
+   ========================================================================== */
+.hidden {
+  display: none !important;
+}
+
+[data-theme="dark"] #theme-icon-sun {
+  display: block !important;
+}
+[data-theme="dark"] #theme-icon-moon {
+  display: none !important;
+}
+
+[data-theme="light"] #theme-icon-sun,
+html:not([data-theme="dark"]) #theme-icon-sun {
+  display: none !important;
+}
+[data-theme="light"] #theme-icon-moon,
+html:not([data-theme="dark"]) #theme-icon-moon {
+  display: block !important;
+}
+
+.reduced-motion *, 
+.reduced-motion *::before, 
+.reduced-motion *::after {
+  animation-duration: 0.001s !important;
+  transition-duration: 0.001s !important;
+}
+
