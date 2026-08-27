@@ -957,6 +957,48 @@ html:not([data-theme="dark"]) #theme-icon-moon {
     content-visibility: auto;
     contain-intrinsic-size: 1px 600px;
   }
+
+  /* 5. Mobile Hero Layout Polish */
+  .hero-main-section {
+    padding: 6.5rem 1rem 3.5rem !important;
+    min-height: auto !important;
+  }
+  .hero-main-section h1 {
+    font-size: clamp(2.3rem, 9.5vw, 3.4rem) !important;
+    margin-bottom: 0.85rem !important;
+  }
+  .hero-main-section h2 {
+    font-size: clamp(1.65rem, 6.5vw, 2.3rem) !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .school-managed-by-wrap {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+  .school-managed-by-rgb {
+    font-size: clamp(1.2rem, 4.8vw, 1.75rem) !important;
+  }
+  .hero-location-badge-wrap {
+    margin-bottom: 2rem !important;
+  }
+  .hero-actions-wrap {
+    gap: 0.85rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-actions-wrap .btn {
+    padding: 0.8rem 1.8rem !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+    max-width: 280px !important;
+  }
+  #hero-stats-wrapper {
+    padding: 1.5rem 0.85rem 2.5rem !important;
+  }
+  #hero-dynamic-zoom-stats {
+    padding: 1.25rem 1rem !important;
+    border-radius: 20px !important;
+  }
 }
+
 
 

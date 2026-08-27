@@ -60,22 +60,24 @@ export function createDonateModal(content, currentLang) {
 
   return `
     <div id="donate-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="donate-modal-title">
-      <div class="modal-panel" style="max-width: 680px; max-height: 90vh; padding: 2rem 2.25rem;">
+      <div class="modal-panel" style="max-width: 680px; max-height: 90vh; padding: 2rem 2.25rem; position: relative;">
         
+        <!-- Corner Cross Close Button (Picture 2 Fix) -->
+        <button id="close-donate-modal-btn" class="modal-close-corner-btn hover-lift" type="button" aria-label="Close Donation Modal" title="Close Modal">
+          ✕
+        </button>
+
         <!-- Header -->
-        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; padding-right: 2.8rem;">
           <div>
             <span class="glass-badge-gold" style="margin-bottom: 0.5rem; display: inline-flex; align-items: center; gap: 0.4rem;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
               ${texts.taxBadge}
             </span>
-            <h3 id="donate-modal-title" class="font-display font-bold text-foreground" style="font-size: 1.65rem; line-height: 1.2; margin: 0;">
+            <h3 id="donate-modal-title" class="font-display font-bold text-foreground" style="font-size: clamp(1.3rem, 3.5vw, 1.65rem); line-height: 1.2; margin: 0;">
               ${texts.title}
             </h3>
           </div>
-          <button id="close-donate-modal-btn" class="lightbox-btn" style="background: var(--surface-subtle); color: var(--foreground); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--border);" aria-label="Close Modal">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
         </div>
 
         <p class="text-foreground-muted" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
@@ -439,6 +441,39 @@ export function setupDonateModalComponent(currentLang) {
   const successScreen = document.getElementById('donation-success-screen');
   const feedback = document.getElementById('donation-submit-feedback');
   const closeSuccessBtn = document.getElementById('close-success-donate-btn');
+  const closeCornerBtn = document.getElementById('close-donate-modal-btn');
+
+  window.openDonateModal = function() {
+    if (modal) {
+      modal.classList.add('open');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeDonateModal = function() {
+    if (modal) {
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+      if (form) form.style.display = 'flex';
+      if (successScreen) successScreen.style.display = 'none';
+    }
+  };
+
+  if (closeCornerBtn) {
+    closeCornerBtn.addEventListener('click', () => window.closeDonateModal());
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) window.closeDonateModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      window.closeDonateModal();
+    }
+  });
 
   let selectedAmount = 2500;
   let activePaymentMode = 'UPI (QR Code)';

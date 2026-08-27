@@ -668,39 +668,53 @@ html:not([data-theme="dark"]) #theme-icon-moon {
 /* Mobile Phones (<= 640px) */
 @media (max-width: 640px) {
   .header-sticky {
-    width: calc(100% - 0.85rem) !important;
+    width: calc(100% - 0.75rem) !important;
     top: 0.35rem !important;
     margin: 0.35rem auto 0.75rem !important;
     border-radius: 16px !important;
   }
 
   .nav-inner-container {
-    padding: 0.3rem 0.6rem !important;
+    padding: 0.35rem 0.65rem !important;
     min-height: 48px !important;
-    gap: 0.35rem !important;
+    gap: 0.4rem !important;
   }
 
   .nav-brand {
-    gap: 0.45rem !important;
+    gap: 0.5rem !important;
+    flex: 1 !important;
+    min-width: 0 !important;
   }
 
   .nav-brand-logo {
-    height: 30px !important;
+    height: 32px !important;
+    width: auto !important;
   }
 
   .nav-brand-text {
-    font-size: 0.95rem !important;
+    font-size: 1.05rem !important;
     letter-spacing: -0.2px !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    display: inline-block !important;
+  }
+
+  /* Hide redundant home button on phones to give ample space to brand title */
+  .nav-home-btn,
+  .nav-desktop-only {
+    display: none !important;
   }
 
   .nav-tools-wrap {
-    gap: 0.3rem !important;
+    gap: 0.35rem !important;
+    flex-shrink: 0 !important;
   }
 
   .nav-btn {
-    width: 34px !important;
-    height: 34px !important;
-    border-radius: 9px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
   }
 
   .nav-lang-btn {
@@ -709,27 +723,27 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   }
 
   .nav-lang-short {
-    font-size: 0.72rem !important;
+    font-size: 0.75rem !important;
   }
 }
 
 /* Extra Small Phones (<= 375px) */
 @media (max-width: 375px) {
   .nav-brand-text {
-    font-size: 0.86rem !important;
+    font-size: 0.95rem !important;
   }
 
   .nav-inner-container {
-    padding: 0.25rem 0.45rem !important;
+    padding: 0.3rem 0.45rem !important;
   }
 
   .nav-tools-wrap {
-    gap: 0.2rem !important;
+    gap: 0.25rem !important;
   }
 
   .nav-btn {
-    width: 32px !important;
-    height: 32px !important;
+    width: 33px !important;
+    height: 33px !important;
     border-radius: 8px !important;
   }
 
@@ -1183,10 +1197,40 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   background: linear-gradient(135deg, var(--primary) 0%, hsl(154, 75%, 22%) 100%);
   color: #ffffff;
   box-shadow: 0 8px 30px rgba(22, 122, 76, 0.5);
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, box-shadow 0.25s ease !important;
 }
 
 .chatbot-toggle-btn:hover {
   box-shadow: 0 14px 35px rgba(22, 122, 76, 0.65);
+}
+
+/* Picture 3 Fix: Distinct Close Cross State on Floating Toggle */
+.chatbot-toggle-btn.is-chat-open {
+  background: #ef4444 !important; /* Bold accessible close red */
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.55), 0 0 20px rgba(239, 68, 68, 0.35) !important;
+  transform: rotate(90deg) scale(1.05) !important;
+}
+
+.chatbot-toggle-btn.is-chat-open #bot-icon-open {
+  display: none !important;
+}
+
+.chatbot-toggle-btn.is-chat-open #bot-icon-close {
+  display: block !important;
+  color: #ffffff !important;
+}
+
+.chatbot-toggle-btn:not(.is-chat-open) #bot-icon-open {
+  display: block !important;
+  color: #ffffff !important;
+}
+
+.chatbot-toggle-btn:not(.is-chat-open) #bot-icon-close {
+  display: none !important;
 }
 
 .chatbot-pulse {
@@ -1196,6 +1240,47 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   border: 2px solid var(--primary);
   animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   pointer-events: none;
+}
+
+.chatbot-toggle-btn.is-chat-open .chatbot-pulse {
+  display: none !important;
+}
+
+/* Modal Close Corner Button (Picture 2 Fix) */
+.modal-close-corner-btn {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: var(--surface-subtle, #f1f5f9) !important;
+  color: var(--foreground, #0f172a) !important;
+  border: 1.5px solid var(--border, #cbd5e1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.25rem !important;
+  font-weight: 900 !important;
+  cursor: pointer !important;
+  z-index: 1000 !important;
+  touch-action: manipulation !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.modal-close-corner-btn:hover,
+.modal-close-corner-btn:active {
+  transform: scale(1.1) !important;
+  background: var(--surface-card, #ffffff) !important;
+  color: var(--destructive, #ef4444) !important;
+  border-color: var(--destructive, #ef4444) !important;
+}
+
+[data-theme="dark"] .modal-close-corner-btn {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
 }
 
 /* Mobile Responsiveness: Hide WhatsApp on mobile/tablets, keep Chatbot button */
@@ -1208,8 +1293,15 @@ html:not([data-theme="dark"]) #theme-icon-moon {
     display: none !important;
   }
   .chatbot-toggle-btn {
-    width: 52px;
-    height: 52px;
+    width: 52px !important;
+    height: 52px !important;
+  }
+  .chatbot-window {
+    bottom: 80px !important;
+    right: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-width: 390px !important;
+    max-height: 72vh !important;
   }
 }
 

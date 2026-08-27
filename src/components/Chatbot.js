@@ -29,11 +29,12 @@ export function createChatbot(content, currentLang) {
       <button 
         id="chatbot-toggle-btn" 
         class="floating-btn chatbot-toggle-btn" 
+        type="button"
         aria-label="Open Prayas AI Assistant" 
         title="Prayas AI Assistant"
       >
         <div class="chatbot-pulse"></div>
-        <svg id="bot-icon-open" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="bot-icon-open" class="bot-icon-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 8V4H8"></path>
           <rect width="16" height="12" x="4" y="8" rx="2"></rect>
           <path d="M2 14h2"></path>
@@ -41,7 +42,7 @@ export function createChatbot(content, currentLang) {
           <path d="M15 13v2"></path>
           <path d="M9 13v2"></path>
         </svg>
-        <svg id="bot-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hidden">
+        <svg id="bot-icon-close" class="bot-icon-svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -184,14 +185,36 @@ export function setupChatbotComponent(currentLang = 'en') {
     if (chatWindow) {
       if (isChatbotOpen) {
         chatWindow.classList.add('open');
-        if (openIcon) openIcon.style.display = 'none';
-        if (closeIcon) closeIcon.style.display = 'block';
+        if (toggleBtn) {
+          toggleBtn.classList.add('is-chat-open');
+          toggleBtn.setAttribute('aria-label', 'Close Prayas AI Assistant');
+          toggleBtn.title = 'Close Chat';
+        }
+        if (openIcon) {
+          openIcon.classList.add('hidden');
+          openIcon.style.setProperty('display', 'none', 'important');
+        }
+        if (closeIcon) {
+          closeIcon.classList.remove('hidden');
+          closeIcon.style.setProperty('display', 'block', 'important');
+        }
         if (inputField) setTimeout(() => inputField.focus(), 150);
         if (stack) stack.classList.remove('is-inactive');
       } else {
         chatWindow.classList.remove('open');
-        if (openIcon) openIcon.style.display = 'block';
-        if (closeIcon) closeIcon.style.display = 'none';
+        if (toggleBtn) {
+          toggleBtn.classList.remove('is-chat-open');
+          toggleBtn.setAttribute('aria-label', 'Open Prayas AI Assistant');
+          toggleBtn.title = 'Prayas AI Assistant';
+        }
+        if (openIcon) {
+          openIcon.classList.remove('hidden');
+          openIcon.style.setProperty('display', 'block', 'important');
+        }
+        if (closeIcon) {
+          closeIcon.classList.add('hidden');
+          closeIcon.style.setProperty('display', 'none', 'important');
+        }
         resetInactivity();
       }
     }
