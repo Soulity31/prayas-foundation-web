@@ -625,6 +625,10 @@ def reindex_endpoint():
         return {"status": "success", "message": f"Successfully reindexed {len(engine.chunks)} clean chunks."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+# Mount static workspace files to serve the full website UI directly from the FastAPI server
+workspace_dir = Path(__file__).resolve().parent.parent
+if (workspace_dir / "index.html").exists():
+    app.mount("/", StaticFiles(directory=str(workspace_dir), html=True), name="static_site")
 
 
 if __name__ == "__main__":
