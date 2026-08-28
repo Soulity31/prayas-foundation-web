@@ -4,7 +4,7 @@ import { createProgramsSection } from '../components/ProgramsSection.js';
 import { createGalleryModal } from '../components/GalleryModal.js';
 import { createChatbot, setupChatbotComponent } from '../components/Chatbot.js';
 import { createDonateModal, setupDonateModalComponent } from '../components/DonateModal.js';
-import { createLegalModals } from '../components/LegalModals.js';
+import { createLegalModals, setupLegalModalsComponent } from '../components/LegalModals.js';
 import { createFooter } from '../components/Footer.js';
 import { searchKnowledgeBase } from '../data/botKnowledge.js';
 import { initPerformanceOptimizer, triggerPageLoadProgress, throttleRAF } from '../utils/performance.js';
@@ -383,38 +383,8 @@ function attachPageListeners() {
   }
   setupDonateModalComponent(currentLang);
 
-  // Legal Modals
-  const privacyModal = document.getElementById('privacy-modal');
-  const termsModal = document.getElementById('terms-modal');
-  const openPrivacyBtn = document.getElementById('open-privacy-btn');
-  const openTermsBtn = document.getElementById('open-terms-btn');
-  const closePrivacyBtn = document.getElementById('close-privacy-modal-btn');
-  const closeTermsBtn = document.getElementById('close-terms-modal-btn');
-
-  if (openPrivacyBtn && privacyModal) {
-    openPrivacyBtn.addEventListener('click', () => {
-      privacyModal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  if (closePrivacyBtn && privacyModal) {
-    closePrivacyBtn.addEventListener('click', () => {
-      privacyModal.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  }
-  if (openTermsBtn && termsModal) {
-    openTermsBtn.addEventListener('click', () => {
-      termsModal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  if (closeTermsBtn && termsModal) {
-    closeTermsBtn.addEventListener('click', () => {
-      termsModal.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  }
+  // Legal Modals (Privacy Policy & Terms of Use)
+  setupLegalModalsComponent();
 
   setupChatbot();
   updateThemeIcons();

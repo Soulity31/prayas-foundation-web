@@ -5,7 +5,7 @@ import { createWorkSection } from '../components/WorkSection.js';
 import { createWorkModal } from '../components/WorkModal.js';
 import { createChatbot, setupChatbotComponent } from '../components/Chatbot.js';
 import { createDonateModal, setupDonateModalComponent } from '../components/DonateModal.js';
-import { createLegalModals } from '../components/LegalModals.js';
+import { createLegalModals, setupLegalModalsComponent } from '../components/LegalModals.js';
 import { createFooter } from '../components/Footer.js';
 import { searchKnowledgeBase } from '../data/botKnowledge.js';
 import { initPerformanceOptimizer, triggerPageLoadProgress } from '../utils/performance.js';
@@ -403,6 +403,7 @@ function attachPageListeners() {
       });
     }
     setupDonateModalComponent(currentLang);
+    setupLegalModalsComponent();
 
     // 8. Chatbot Listeners
     setupChatbotComponent(currentLang);

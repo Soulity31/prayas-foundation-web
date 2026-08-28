@@ -11,7 +11,7 @@ import { createContactSection } from './components/ContactSection.js';
 import { createGalleryModal } from './components/GalleryModal.js';
 import { createPersonModal } from './components/PersonModal.js';
 import { createDonateModal, setupDonateModalComponent } from './components/DonateModal.js';
-import { createLegalModals } from './components/LegalModals.js';
+import { createLegalModals, setupLegalModalsComponent } from './components/LegalModals.js';
 import { createChatbot, setupChatbotComponent } from './components/Chatbot.js';
 import { createFooter } from './components/Footer.js';
 import { searchKnowledgeBase } from './data/botKnowledge.js';
@@ -324,44 +324,8 @@ function attachHomeListeners() {
   }
   setupDonateModalComponent(currentLang);
 
-  // 5. Legal Modals
-  const privacyModal = document.getElementById('privacy-modal');
-  const termsModal = document.getElementById('terms-modal');
-  const openPrivacyBtn = document.getElementById('open-privacy-btn');
-  const openTermsBtn = document.getElementById('open-terms-btn');
-  const closePrivacyBtn = document.getElementById('close-privacy-modal-btn');
-  const closeTermsBtn = document.getElementById('close-terms-modal-btn');
-
-  if (openPrivacyBtn && privacyModal) {
-    openPrivacyBtn.addEventListener('click', () => {
-      if (privacyModal.parentElement !== document.body) document.body.appendChild(privacyModal);
-      privacyModal.classList.add('open');
-      privacyModal.style.setProperty('display', 'flex', 'important');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  if (closePrivacyBtn && privacyModal) {
-    closePrivacyBtn.addEventListener('click', () => {
-      privacyModal.classList.remove('open');
-      privacyModal.style.setProperty('display', 'none', 'important');
-      document.body.style.overflow = '';
-    });
-  }
-  if (openTermsBtn && termsModal) {
-    openTermsBtn.addEventListener('click', () => {
-      if (termsModal.parentElement !== document.body) document.body.appendChild(termsModal);
-      termsModal.classList.add('open');
-      termsModal.style.setProperty('display', 'flex', 'important');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  if (closeTermsBtn && termsModal) {
-    closeTermsBtn.addEventListener('click', () => {
-      termsModal.classList.remove('open');
-      termsModal.style.setProperty('display', 'none', 'important');
-      document.body.style.overflow = '';
-    });
-  }
+  // 5. Legal Modals (Privacy Policy & Terms of Use)
+  setupLegalModalsComponent();
 
   // 6. Click-to-Open Full Person Detail Modal
   setupPersonFullDetailModal();

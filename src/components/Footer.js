@@ -67,10 +67,22 @@ export function createFooter(content, currentLang) {
 
             <!-- Legal Modals Trigger Buttons & Admin Link -->
             <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.95rem; justify-content: center; align-items: center;">
-              <button id="open-privacy-btn" class="hover-lift" style="color: var(--primary); text-decoration: underline; cursor: pointer; background: none; border: none; font-weight: 700; font-size: 0.95rem;">
+              <button 
+                id="open-privacy-btn" 
+                class="open-privacy-btn hover-lift" 
+                type="button" 
+                onclick="if(window.openPrivacyModal){window.openPrivacyModal(event);}else{const m=document.getElementById('privacy-modal');if(m){if(m.parentElement!==document.body)document.body.appendChild(m);m.classList.add('open');m.style.setProperty('display','flex','important');document.body.style.overflow='hidden';}} return false;" 
+                style="color: var(--primary); text-decoration: underline; cursor: pointer; background: none; border: none; font-weight: 700; font-size: 0.95rem;"
+              >
                 ${f.privacyPolicy}
               </button>
-              <button id="open-terms-btn" class="hover-lift" style="color: var(--primary); text-decoration: underline; cursor: pointer; background: none; border: none; font-weight: 700; font-size: 0.95rem;">
+              <button 
+                id="open-terms-btn" 
+                class="open-terms-btn hover-lift" 
+                type="button" 
+                onclick="if(window.openTermsModal){window.openTermsModal(event);}else{const m=document.getElementById('terms-modal');if(m){if(m.parentElement!==document.body)document.body.appendChild(m);m.classList.add('open');m.style.setProperty('display','flex','important');document.body.style.overflow='hidden';}} return false;" 
+                style="color: var(--primary); text-decoration: underline; cursor: pointer; background: none; border: none; font-weight: 700; font-size: 0.95rem;"
+              >
                 ${f.termsOfUse}
               </button>
               <a href="./admin.html" class="hover-lift" style="color: #059669; background: rgba(5, 150, 105, 0.1); border: 1px solid #059669; padding: 0.25rem 0.65rem; border-radius: 6px; font-weight: 700; font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
