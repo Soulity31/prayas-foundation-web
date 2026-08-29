@@ -1,7 +1,7 @@
 /**
  * Performance & Device Spec Optimizer
- * Ensures 60/120fps responsiveness, async image decoding, instant link prefetching,
- * and buttery smooth page transitions.
+ * Ensures 60/120fps responsiveness, async image decoding,
+ * and buttery smooth page transitions without blank screen prefetch glitches.
  */
 
 export function initPerformanceOptimizer() {
@@ -13,9 +13,6 @@ export function initPerformanceOptimizer() {
 
   // Ensure all existing images decode asynchronously for smooth main-thread responsiveness
   optimizeImageDecoding();
-
-  // Initialize instant hover/touch prefetcher for 0ms navigation latency
-  initLinkPrefetcher();
 }
 
 /**
@@ -36,43 +33,6 @@ function applyImageOptimizations() {
       img.setAttribute('loading', 'lazy');
     }
   });
-}
-
-/**
- * Instant Link Prefetcher
- * Prefetches linked HTML pages on hover or touchstart so clicks load with 0ms perceived delay
- */
-export function initLinkPrefetcher() {
-  const prefetchedUrls = new Set();
-
-  function prefetch(url) {
-    if (!url || prefetchedUrls.has(url)) return;
-    if (url.startsWith('http') || url.startsWith('#') || url.startsWith('tel:') || url.startsWith('mailto:') || url.startsWith('javascript:')) return;
-    
-    prefetchedUrls.add(url);
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = url;
-    document.head.appendChild(link);
-  }
-
-  // Hover prefetch for fine pointers (mouse)
-  document.addEventListener('mouseover', (e) => {
-    const a = e.target.closest('a[href]');
-    if (a) {
-      const href = a.getAttribute('href');
-      prefetch(href);
-    }
-  }, { passive: true });
-
-  // Touchstart prefetch for mobile/touch devices
-  document.addEventListener('touchstart', (e) => {
-    const a = e.target.closest('a[href]');
-    if (a) {
-      const href = a.getAttribute('href');
-      prefetch(href);
-    }
-  }, { passive: true });
 }
 
 /**

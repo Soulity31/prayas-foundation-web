@@ -563,18 +563,26 @@ function updateThemeIcons() {
   }
 }
 
-// Render on load
-renderPage();
+function init() {
+  triggerPageLoadProgress();
+  renderPage();
 
-// Auto-open album if passed in query string (?album=ram-katha-2024)
-try {
-  const urlParams = new URLSearchParams(window.location.search);
-  const albumParam = urlParams.get('album');
-  if (albumParam) {
-    setTimeout(() => {
-      openAlbumDetail(albumParam);
-    }, 150);
+  // Auto-open album if passed in query string (?album=ram-katha-2024)
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const albumParam = urlParams.get('album');
+    if (albumParam) {
+      setTimeout(() => {
+        openAlbumDetail(albumParam);
+      }, 150);
+    }
+  } catch (e) {
+    // Silent fallback
   }
-} catch (e) {
-  // Silent fallback
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+} else {
+  init();
 }
