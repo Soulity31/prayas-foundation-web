@@ -8,11 +8,14 @@
   /* Green Theme Palette */
   --primary-hue: 152;
   --primary-sat: 68%;
-  --primary-light: 34%;
+  --primary-lightness: 34%;
   
-  --primary: hsl(152, 68%, 34%);            /* Vibrant Emerald */
-  --primary-hover: hsl(152, 72%, 28%);      /* Deep Emerald */
+  --primary: #10b981;                        /* Radiant Pure Emerald */
+  --primary-hover: #059669;                  /* Medium Emerald */
   --primary-dark: hsl(154, 82%, 16%);       /* Deep Forest Green */
+  --primary-deep: #065f46;                   /* Deep Pine Accent */
+  --primary-light: #d1fae5;                  /* Soft Mint Tint */
+  --primary-subtle: #f0fdf4;                 /* Ethereal Mint Mist */
   --primary-light-bg: hsl(148, 55%, 96%);   /* Soft Sage Background */
   --primary-glow: hsla(152, 68%, 34%, 0.25);
   
@@ -222,7 +225,71 @@ a {
   box-shadow: 0 4px 14px var(--accent-glow);
 }
 
-/* Global Font Legibility Enhancements */
+/* Global Font Legibility Enhancements & Utility Classes */
+.text-foreground {
+  color: var(--foreground) !important;
+}
+
+.text-foreground-muted {
+  color: var(--foreground-muted) !important;
+}
+
+.text-foreground-subtle {
+  color: var(--foreground-subtle) !important;
+}
+
+.bg-surface {
+  background-color: var(--surface) !important;
+}
+
+.bg-surface-alt {
+  background-color: var(--surface-alt) !important;
+}
+
+.bg-surface-card {
+  background-color: var(--surface-card) !important;
+}
+
+.bg-surface-subtle {
+  background-color: var(--surface-subtle) !important;
+}
+
+/* Founder & Leadership Feature Quote Box - Ultra-High Contrast in all Palettes */
+.founder-quote-box,
+blockquote.founder-quote-box,
+.founder-quote-block,
+blockquote.founder-quote-block {
+  background: #ecfdf5 !important;
+  color: #064e3b !important;
+  border-left: 4px solid #10b981 !important;
+  border-top: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-right: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1) !important;
+}
+
+html:not([data-theme="dark"]) .founder-quote-box,
+html:not([data-theme="dark"]) blockquote.founder-quote-box,
+[data-theme="light"] .founder-quote-box,
+[data-theme="light"] blockquote.founder-quote-box {
+  background: #ecfdf5 !important;
+  color: #064e3b !important;
+  border-left: 4px solid #10b981 !important;
+}
+
+[data-theme="dark"] .founder-quote-box,
+[data-theme="dark"] blockquote.founder-quote-box,
+[data-theme="dark"] .founder-quote-block,
+[data-theme="dark"] blockquote.founder-quote-block {
+  background: rgba(6, 78, 59, 0.45) !important;
+  color: #6ee7b7 !important;
+  border-left: 4px solid #10b981 !important;
+  border-top: 1px solid rgba(52, 211, 153, 0.3) !important;
+  border-right: 1px solid rgba(52, 211, 153, 0.3) !important;
+  border-bottom: 1px solid rgba(52, 211, 153, 0.3) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45) !important;
+}
+
 .text-xs {
   font-size: 0.875rem !important;
 }
@@ -1527,11 +1594,9 @@ html:not([data-theme="dark"]) #theme-icon-moon {
 .modal-backdrop,
 .modal-overlay,
 .lightbox-modal,
-#gallery-lightbox-modal,
 #donate-modal,
 #person-full-detail-modal,
 #work-album-modal,
-#work-fullscreen-lightbox,
 #privacy-modal,
 #terms-modal {
   position: fixed !important;
@@ -1545,7 +1610,7 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   background: rgba(6, 18, 11, 0.82) !important;
   backdrop-filter: blur(18px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
-  z-index: 9999999 !important;
+  z-index: 999990 !important;
   display: none;
   align-items: center !important;
   justify-content: center !important;
@@ -1558,19 +1623,53 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   transition: opacity 0.3s var(--ease-apple-spring);
 }
 
+/* Lightboxes (Full-screen photo overlays) must always sit above parent modals */
+#work-fullscreen-lightbox,
+#gallery-lightbox-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.95) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  z-index: 10000050 !important;
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden !important;
+  transition: opacity 0.25s ease;
+}
+
 .modal-backdrop.open,
 .modal-overlay.open,
 .lightbox-modal.open,
-#gallery-lightbox-modal.open,
 #donate-modal.open,
 #person-full-detail-modal.open,
 #work-album-modal.open,
-#work-fullscreen-lightbox.open,
 #privacy-modal.open,
 #terms-modal.open {
   display: flex !important;
   opacity: 1 !important;
   pointer-events: auto !important;
+  z-index: 999990 !important;
+}
+
+#work-fullscreen-lightbox.open,
+#gallery-lightbox-modal.open {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 10000050 !important;
 }
 
 .modal-panel {

@@ -54,7 +54,7 @@ export function createWorkSection(content, currentLang, showHeader = true) {
             const photoCount = (album.photos || []).length;
 
             return `
-              <div class="liquid-glass-card work-album-card hover-lift" data-album-id="${album.id}" data-category="${album.category}" onclick="window.openAlbumDetail ? window.openAlbumDetail('${album.id}') : null" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 24px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.35s ease;">
+              <div class="liquid-glass-card work-album-card hover-lift" data-album-id="${album.id}" data-category="${album.category}" onclick="window.openAlbumDetail ? window.openAlbumDetail('${album.id}') : (window.location.href = './work.html?album=${album.id}')" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 24px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.35s ease;">
                 
                 <!-- Album Cover Image Frame -->
                 <div style="position: relative; height: 240px; width: 100%; overflow: hidden; background: var(--surface-subtle);">

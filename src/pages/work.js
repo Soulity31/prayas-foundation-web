@@ -123,12 +123,21 @@ window.togglePrayasMenu = function(open) {
 window.closeWorkModal = function() {
   const modal = document.getElementById('work-album-modal');
   if (modal) {
+    modal.classList.remove('open');
     modal.style.setProperty('display', 'none', 'important');
+    modal.style.setProperty('opacity', '0', 'important');
+    modal.style.setProperty('visibility', 'hidden', 'important');
+    modal.style.setProperty('pointer-events', 'none', 'important');
   }
   const lb = document.getElementById('work-fullscreen-lightbox');
-  if (!lb || lb.style.display === 'none') {
-    document.body.style.overflow = '';
+  if (lb) {
+    lb.classList.remove('open');
+    lb.style.setProperty('display', 'none', 'important');
+    lb.style.setProperty('opacity', '0', 'important');
+    lb.style.setProperty('visibility', 'hidden', 'important');
+    lb.style.setProperty('pointer-events', 'none', 'important');
   }
+  document.body.style.overflow = '';
 };
 
 window.openWorkLightbox = function(index) {
@@ -144,11 +153,12 @@ window.openWorkLightbox = function(index) {
   const counter = document.getElementById('work-lb-counter');
 
   if (lb && img) {
-    if (lb.parentElement !== document.body) {
-      document.body.appendChild(lb);
-    }
+    // Ensure lightbox is attached to body and is the absolute last child (highest stacking)
+    document.body.appendChild(lb);
+
     const currentPhoto = currentLightboxPhotos[currentLightboxIndex];
     const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || './assets/celebrations.jpg';
+    
     img.onerror = function() {
       this.onerror = function() { this.src = './assets/celebrations.jpg'; };
       this.src = remoteFallback;
@@ -157,24 +167,56 @@ window.openWorkLightbox = function(index) {
 
     if (counter) counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxPhotos.length}`;
     
+    lb.classList.add('open');
     lb.style.setProperty('display', 'flex', 'important');
+    lb.style.setProperty('opacity', '1', 'important');
+    lb.style.setProperty('pointer-events', 'auto', 'important');
+    lb.style.setProperty('visibility', 'visible', 'important');
     lb.style.setProperty('align-items', 'center', 'important');
     lb.style.setProperty('justify-content', 'center', 'important');
     lb.style.setProperty('position', 'fixed', 'important');
     lb.style.setProperty('inset', '0', 'important');
-    lb.style.setProperty('z-index', '1000000', 'important');
+    lb.style.setProperty('z-index', '10000050', 'important');
     document.body.style.overflow = 'hidden';
+
+    // Touch swipe support for mobile
+    if (!lb.dataset.touchBound) {
+      lb.dataset.touchBound = 'true';
+      let touchStartX = 0;
+      let touchEndX = 0;
+      lb.addEventListener('touchstart', (e) => {
+        if (e.changedTouches && e.changedTouches[0]) {
+          touchStartX = e.changedTouches[0].screenX;
+        }
+      }, { passive: true });
+      lb.addEventListener('touchend', (e) => {
+        if (e.changedTouches && e.changedTouches[0]) {
+          touchEndX = e.changedTouches[0].screenX;
+          if (touchStartX - touchEndX > 45) {
+            window.nextWorkPhoto();
+          } else if (touchEndX - touchStartX > 45) {
+            window.prevWorkPhoto();
+          }
+        }
+      }, { passive: true });
+    }
   }
 };
 
 window.closeWorkLightbox = function() {
   const lb = document.getElementById('work-fullscreen-lightbox');
   if (lb) {
+    lb.classList.remove('open');
     lb.style.setProperty('display', 'none', 'important');
+    lb.style.setProperty('opacity', '0', 'important');
+    lb.style.setProperty('visibility', 'hidden', 'important');
+    lb.style.setProperty('pointer-events', 'none', 'important');
   }
   const modal = document.getElementById('work-album-modal');
-  if (!modal || modal.style.display === 'none') {
+  if (!modal || modal.style.display === 'none' || !modal.classList.contains('open')) {
     document.body.style.overflow = '';
+  } else {
+    document.body.style.overflow = 'hidden';
   }
 };
 
@@ -183,7 +225,7 @@ window.nextWorkPhoto = function() {
   currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxPhotos.length;
   const img = document.getElementById('work-lb-img');
   const counter = document.getElementById('work-lb-counter');
-  if (img) {
+  if (img && activeAlbum) {
     const currentPhoto = currentLightboxPhotos[currentLightboxIndex];
     const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || './assets/celebrations.jpg';
     img.onerror = function() {
@@ -200,7 +242,7 @@ window.prevWorkPhoto = function() {
   currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxPhotos.length) % currentLightboxPhotos.length;
   const img = document.getElementById('work-lb-img');
   const counter = document.getElementById('work-lb-counter');
-  if (img) {
+  if (img && activeAlbum) {
     const currentPhoto = currentLightboxPhotos[currentLightboxIndex];
     const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || './assets/celebrations.jpg';
     img.onerror = function() {
@@ -211,6 +253,31 @@ window.prevWorkPhoto = function() {
   }
   if (counter) counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxPhotos.length}`;
 };
+
+// Global keyboard listeners for gallery/lightbox
+if (!window._workKeyboardBound) {
+  window._workKeyboardBound = true;
+  window.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('work-fullscreen-lightbox');
+    const isLbOpen = lb && (lb.classList.contains('open') || lb.style.display === 'flex');
+    if (isLbOpen) {
+      if (e.key === 'Escape') {
+        window.closeWorkLightbox();
+      } else if (e.key === 'ArrowRight') {
+        window.nextWorkPhoto();
+      } else if (e.key === 'ArrowLeft') {
+        window.prevWorkPhoto();
+      }
+    } else {
+      const modal = document.getElementById('work-album-modal');
+      if (modal && (modal.classList.contains('open') || modal.style.display === 'flex')) {
+        if (e.key === 'Escape') {
+          window.closeWorkModal();
+        }
+      }
+    }
+  });
+}
 
 function renderPage() {
   const app = document.getElementById('app');
@@ -335,20 +402,23 @@ function attachPageListeners() {
       });
     });
 
-    // 5. Keyboard navigation for Modal and Lightbox
-    window.addEventListener('keydown', (e) => {
-      const lb = document.getElementById('work-fullscreen-lightbox');
-      if (lb && lb.style.display === 'flex') {
-        if (e.key === 'Escape') window.closeWorkLightbox();
-        if (e.key === 'ArrowRight') window.nextWorkPhoto();
-        if (e.key === 'ArrowLeft') window.prevWorkPhoto();
-      } else {
-        const modal = document.getElementById('work-album-modal');
-        if (modal && modal.style.display === 'flex') {
-          if (e.key === 'Escape') window.closeWorkModal();
+    // 5. Keyboard navigation for Modal and Lightbox (Single Event Binding)
+    if (!window._workKeydownBound) {
+      window._workKeydownBound = true;
+      window.addEventListener('keydown', (e) => {
+        const lb = document.getElementById('work-fullscreen-lightbox');
+        if (lb && (lb.classList.contains('open') || lb.style.display === 'flex')) {
+          if (e.key === 'Escape') window.closeWorkLightbox();
+          if (e.key === 'ArrowRight') window.nextWorkPhoto();
+          if (e.key === 'ArrowLeft') window.prevWorkPhoto();
+        } else {
+          const modal = document.getElementById('work-album-modal');
+          if (modal && (modal.classList.contains('open') || modal.style.display === 'flex')) {
+            if (e.key === 'Escape') window.closeWorkModal();
+          }
         }
-      }
-    });
+      });
+    }
 
     // 6. Navigation Drawer Listeners
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -446,16 +516,16 @@ function openAlbumDetail(albumOrId) {
   gridEl.innerHTML = photos.map((p, idx) => {
     const fallback = remotePhotos[idx] || p;
     return `
-      <div class="hover-lift" style="position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; background: var(--surface-subtle); cursor: pointer; border: 1.5px solid var(--border);" onclick="window.openWorkLightbox(${idx})">
+      <div class="hover-lift photo-grid-item" style="position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; background: var(--surface-subtle); cursor: pointer; border: 1.5px solid var(--border); user-select: none;" onclick="window.openWorkLightbox && window.openWorkLightbox(${idx})">
         <img 
           src="${p}" 
           alt="${album.title_en} - Photo ${idx + 1}" 
           loading="lazy" 
           decoding="async" 
           onerror="this.onerror=null; this.src='${fallback}';"
-          style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" 
+          style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block;" 
         />
-        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.5rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.5rem; pointer-events: none;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
           🔍
         </div>
       </div>
@@ -464,6 +534,9 @@ function openAlbumDetail(albumOrId) {
 
   modal.classList.add('open');
   modal.style.setProperty('display', 'flex', 'important');
+  modal.style.setProperty('opacity', '1', 'important');
+  modal.style.setProperty('pointer-events', 'auto', 'important');
+  modal.style.setProperty('visibility', 'visible', 'important');
   modal.style.setProperty('align-items', 'center', 'important');
   modal.style.setProperty('justify-content', 'center', 'important');
   modal.style.setProperty('position', 'fixed', 'important');
@@ -492,3 +565,16 @@ function updateThemeIcons() {
 
 // Render on load
 renderPage();
+
+// Auto-open album if passed in query string (?album=ram-katha-2024)
+try {
+  const urlParams = new URLSearchParams(window.location.search);
+  const albumParam = urlParams.get('album');
+  if (albumParam) {
+    setTimeout(() => {
+      openAlbumDetail(albumParam);
+    }, 150);
+  }
+} catch (e) {
+  // Silent fallback
+}

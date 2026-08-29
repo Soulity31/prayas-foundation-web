@@ -41,14 +41,8 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           </button>
 
           <!-- Language Selection Trigger Button (Opens Language Pop-up Modal) -->
-          <button id="lang-toggle-btn" class="nav-btn nav-lang-btn glass-badge hover-scale" type="button" title="Select Language / भाषा निवडा" aria-label="Language" onclick="window.openLanguageModal && window.openLanguageModal()">
-            <svg class="nav-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span class="nav-btn-text font-bold" id="lang-label">${langBtnText}</span>
-            <span class="nav-lang-short font-bold" style="display: none;">${currentLang.toUpperCase()}</span>
+          <button id="lang-toggle-btn" class="nav-btn nav-lang-btn glass-badge hover-scale" type="button" title="Select Language / भाषा निवडा" aria-label="Language" onclick="window.openLanguageModal && window.openLanguageModal()" style="padding: 0.45rem 0.85rem; display: flex; align-items: center; justify-content: center;">
+            <span class="nav-btn-text font-bold" id="lang-label" style="font-size: 0.95rem; font-family: var(--font-display);">${langBtnText}</span>
           </button>
 
           <!-- Theme Switcher (Icon-only) -->
@@ -134,16 +128,13 @@ export function createNavbar(content, currentLang, activePage = 'home') {
         
         <!-- Header -->
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1.5px solid var(--border);">
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span style="font-size: 1.35rem;">🌐</span>
-            <div>
-              <h3 class="font-display font-bold text-foreground" style="font-size: 1.15rem; margin: 0; line-height: 1.2;">
-                ${isMr ? 'भाषा निवडा' : isHi ? 'भाषा चुनें' : 'Choose Language'}
-              </h3>
-              <p style="font-size: 0.78rem; color: var(--foreground-muted); margin: 0;">
-                ${isMr ? 'आपली पसंतीची भाषा निवडा' : isHi ? 'अपनी पसंदीदा भाषा चुनें' : 'Select your preferred language'}
-              </p>
-            </div>
+          <div>
+            <h3 class="font-display font-bold text-foreground" style="font-size: 1.15rem; margin: 0; line-height: 1.2;">
+              ${isMr ? 'भाषा निवडा' : isHi ? 'भाषा चुनें' : 'Choose Language'}
+            </h3>
+            <p style="font-size: 0.78rem; color: var(--foreground-muted); margin: 0;">
+              ${isMr ? 'आपली पसंतीची भाषा निवडा' : isHi ? 'अपनी पसंदीदा भाषा चुनें' : 'Select your preferred language'}
+            </p>
           </div>
           <button type="button" class="hover-lift" style="width: 34px; height: 34px; border-radius: 50%; background: var(--surface-subtle); color: var(--foreground); border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800;" onclick="window.closeLanguageModal && window.closeLanguageModal()">
             ✕
@@ -156,7 +147,6 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           <!-- Marathi (Default) -->
           <button type="button" class="lang-select-option hover-lift ${currentLang === 'mr' ? 'is-active-lang' : ''}" data-lang="mr" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.15rem; border-radius: 14px; border: 1.5px solid ${currentLang === 'mr' ? 'var(--primary)' : 'var(--border)'}; background: ${currentLang === 'mr' ? 'var(--primary-light-bg)' : 'var(--surface)'}; cursor: pointer; text-align: left; transition: all 0.2s ease;">
             <div style="display: flex; align-items: center; gap: 0.85rem;">
-              <span style="font-size: 1.45rem;">🚩</span>
               <strong style="font-size: 1.05rem; color: ${currentLang === 'mr' ? 'var(--primary)' : 'var(--foreground)'}; font-weight: 800;">मराठी (Marathi)</strong>
             </div>
             ${currentLang === 'mr' ? '<span style="background: var(--primary); color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px;">✓ Active</span>' : ''}
@@ -165,7 +155,6 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           <!-- Hindi -->
           <button type="button" class="lang-select-option hover-lift ${currentLang === 'hi' ? 'is-active-lang' : ''}" data-lang="hi" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.15rem; border-radius: 14px; border: 1.5px solid ${currentLang === 'hi' ? 'var(--primary)' : 'var(--border)'}; background: ${currentLang === 'hi' ? 'var(--primary-light-bg)' : 'var(--surface)'}; cursor: pointer; text-align: left; transition: all 0.2s ease;">
             <div style="display: flex; align-items: center; gap: 0.85rem;">
-              <span style="font-size: 1.45rem;">🇮🇳</span>
               <strong style="font-size: 1.05rem; color: ${currentLang === 'hi' ? 'var(--primary)' : 'var(--foreground)'}; font-weight: 800;">हिन्दी (Hindi)</strong>
             </div>
             ${currentLang === 'hi' ? '<span style="background: var(--primary); color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px;">✓ Active</span>' : ''}
@@ -174,7 +163,6 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           <!-- English -->
           <button type="button" class="lang-select-option hover-lift ${currentLang === 'en' ? 'is-active-lang' : ''}" data-lang="en" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.15rem; border-radius: 14px; border: 1.5px solid ${currentLang === 'en' ? 'var(--primary)' : 'var(--border)'}; background: ${currentLang === 'en' ? 'var(--primary-light-bg)' : 'var(--surface)'}; cursor: pointer; text-align: left; transition: all 0.2s ease;">
             <div style="display: flex; align-items: center; gap: 0.85rem;">
-              <span style="font-size: 1.45rem;">🌐</span>
               <strong style="font-size: 1.05rem; color: ${currentLang === 'en' ? 'var(--primary)' : 'var(--foreground)'}; font-weight: 800;">English</strong>
             </div>
             ${currentLang === 'en' ? '<span style="background: var(--primary); color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px;">✓ Active</span>' : ''}

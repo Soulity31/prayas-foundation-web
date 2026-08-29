@@ -223,7 +223,7 @@ function renderPage() {
                   <p>${l.bio3}</p>
                 </div>
 
-                <blockquote style="border-left: 4px solid var(--primary); padding-left: 1.5rem; font-style: italic; color: var(--foreground); font-weight: 700; font-size: 1.12rem; background: var(--primary-subtle); padding-top: 1rem; padding-bottom: 1rem; border-radius: 0 var(--radius-md) var(--radius-md) 0;">
+                <blockquote class="founder-quote-box" style="border-left: 4px solid var(--primary); padding: 1.25rem 1.75rem; font-style: italic; font-weight: 700; font-size: 1.15rem; line-height: 1.6; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-top: 1.5rem;">
                   "${l.quote}"
                 </blockquote>
               </div>

@@ -594,20 +594,22 @@
   transform: translateY(-4px);
   pointer-events: none;
   font-style: italic;
-  font-size: 0.8rem;
-  color: var(--primary-deep);
-  background: var(--primary-light);
+  font-size: 0.82rem;
+  color: var(--primary-deep, #065f46);
+  background: var(--primary-light, #d1fae5);
+  border: 1px solid rgba(16, 185, 129, 0.25);
   border-radius: var(--radius-sm);
   padding: 0.45rem 0.75rem;
   margin-top: 0.5rem;
-  line-height: 1.35;
+  line-height: 1.4;
   transition: opacity 0.25s ease, transform 0.25s ease;
   will-change: opacity, transform;
 }
 
 [data-theme="dark"] .tier-quote-box {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.18);
   color: #6ee7b7;
+  border-color: rgba(52, 211, 153, 0.3);
 }
 
 .org-tier-step.is-focused-tier .tier-quote-box,
@@ -615,6 +617,42 @@
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+/* Founder & Leadership Feature Quote Box - Ultra-High Contrast in all Palettes */
+.founder-quote-box,
+blockquote.founder-quote-box,
+.founder-quote-block,
+blockquote.founder-quote-block {
+  background: #ecfdf5 !important;
+  color: #064e3b !important;
+  border-left: 4px solid #10b981 !important;
+  border-top: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-right: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1) !important;
+}
+
+html:not([data-theme="dark"]) .founder-quote-box,
+html:not([data-theme="dark"]) blockquote.founder-quote-box,
+[data-theme="light"] .founder-quote-box,
+[data-theme="light"] blockquote.founder-quote-box {
+  background: #ecfdf5 !important;
+  color: #064e3b !important;
+  border-left: 4px solid #10b981 !important;
+}
+
+[data-theme="dark"] .founder-quote-box,
+[data-theme="dark"] blockquote.founder-quote-box,
+[data-theme="dark"] .founder-quote-block,
+[data-theme="dark"] blockquote.founder-quote-block {
+  background: rgba(6, 78, 59, 0.45) !important;
+  color: #6ee7b7 !important;
+  border-left: 4px solid #10b981 !important;
+  border-top: 1px solid rgba(52, 211, 153, 0.3) !important;
+  border-right: 1px solid rgba(52, 211, 153, 0.3) !important;
+  border-bottom: 1px solid rgba(52, 211, 153, 0.3) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45) !important;
 }
 
 .org-stem-line {

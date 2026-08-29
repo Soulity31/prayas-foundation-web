@@ -88,7 +88,7 @@ export function createAboutSection(content, currentLang) {
                 ${founderBio}
               </p>
               ${l.quote ? `
-                <blockquote style="font-style: italic; font-size: 0.92rem; color: var(--foreground); font-weight: 600; margin: 0 0 1.25rem; padding-left: 1rem; border-left: 3px solid var(--primary);">
+                <blockquote class="founder-quote-box" style="border-left: 4px solid var(--primary); padding: 1rem 1.25rem; font-style: italic; font-weight: 700; font-size: 1rem; line-height: 1.6; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-top: 1rem; margin-bottom: 1.25rem;">
                   "${l.quote}"
                 </blockquote>
               ` : ''}
