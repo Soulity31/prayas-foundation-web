@@ -72,6 +72,12 @@
   --surface-glass-border: rgba(52, 211, 153, 0.16);
   --surface-subtle: #193124;
 
+  --primary-subtle: rgba(16, 185, 129, 0.16);
+  --primary-light: rgba(16, 185, 129, 0.25);
+  --primary-light-bg: rgba(16, 185, 129, 0.18);
+  --secondary-light: rgba(13, 148, 136, 0.18);
+  --accent-light: rgba(245, 158, 11, 0.18);
+
   --foreground: #f2f7f4;
   --foreground-muted: #a3c2b1;
   --foreground-subtle: #6c8a79;
@@ -1883,5 +1889,183 @@ img {
     border: 1px solid #cbd5e1 !important;
   }
 }
+
+/* ==========================================================================
+   Dark Mode: High Contrast Protection for Any White or Light Surfaces
+   Ensures text on ANY white / light background is always crisp Jet Black (#0f172a)
+   or Emerald Green (#047857 / #059669), NEVER invisible white!
+   ========================================================================== */
+
+/* 1. All elements with white, off-white, or light backgrounds in dark mode */
+[data-theme="dark"] [style*="background: #ffffff"],
+[data-theme="dark"] [style*="background:#ffffff"],
+[data-theme="dark"] [style*="background: #fff"],
+[data-theme="dark"] [style*="background:#fff"],
+[data-theme="dark"] [style*="background: white"],
+[data-theme="dark"] [style*="background:white"],
+[data-theme="dark"] [style*="background-color: #ffffff"],
+[data-theme="dark"] [style*="background-color:#ffffff"],
+[data-theme="dark"] [style*="background-color: #fff"],
+[data-theme="dark"] [style*="background-color:#fff"],
+[data-theme="dark"] [style*="background-color: white"],
+[data-theme="dark"] [style*="background-color:white"],
+[data-theme="dark"] [style*="background: rgb(255, 255, 255)"],
+[data-theme="dark"] [style*="background:rgb(255,255,255)"],
+[data-theme="dark"] [style*="background: rgb(255, 255, 255)"],
+[data-theme="dark"] [style*="background: rgba(255, 255, 255, 1)"],
+[data-theme="dark"] [style*="background: rgba(255, 255, 255, 0.9)"],
+[data-theme="dark"] [style*="background: rgba(255, 255, 255, 0.95)"],
+[data-theme="dark"] [style*="background: #f8fafc"],
+[data-theme="dark"] [style*="background:#f8fafc"],
+[data-theme="dark"] [style*="background: #f1f5f9"],
+[data-theme="dark"] [style*="background:#f1f5f9"],
+[data-theme="dark"] [style*="background: #f1f6f2"],
+[data-theme="dark"] [style*="background: #f0fdf4"],
+[data-theme="dark"] [style*="background: #ecfdf5"],
+[data-theme="dark"] [style*="background: #f0f9ff"],
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] .white-card,
+[data-theme="dark"] .surface-white,
+[data-theme="dark"] [data-bg="white"],
+[data-theme="dark"] table[style*="background: #f8fafc"],
+[data-theme="dark"] div[style*="background: #ffffff"] {
+  color: #0f172a !important;
+}
+
+/* 2. All text descendants inside any white/light surface */
+[data-theme="dark"] [style*="background: #ffffff"] p,
+[data-theme="dark"] [style*="background:#ffffff"] p,
+[data-theme="dark"] [style*="background: #fff"] p,
+[data-theme="dark"] [style*="background:#fff"] p,
+[data-theme="dark"] [style*="background: white"] p,
+[data-theme="dark"] [style*="background: #ffffff"] span,
+[data-theme="dark"] [style*="background: #fff"] span,
+[data-theme="dark"] [style*="background: white"] span,
+[data-theme="dark"] [style*="background: #ffffff"] div,
+[data-theme="dark"] [style*="background: #fff"] div,
+[data-theme="dark"] [style*="background: white"] div,
+[data-theme="dark"] [style*="background: #ffffff"] td,
+[data-theme="dark"] [style*="background: #ffffff"] th,
+[data-theme="dark"] [style*="background: #ffffff"] li,
+[data-theme="dark"] [style*="background: #ffffff"] label,
+[data-theme="dark"] [style*="background: white"] td,
+[data-theme="dark"] [style*="background: white"] th,
+[data-theme="dark"] [style*="background: #f8fafc"] td,
+[data-theme="dark"] [style*="background: #f8fafc"] th,
+[data-theme="dark"] [style*="background: #f8fafc"] p,
+[data-theme="dark"] [style*="background: #f8fafc"] span,
+[data-theme="dark"] [style*="background: #f8fafc"] div,
+[data-theme="dark"] [style*="background: #f1f5f9"] p,
+[data-theme="dark"] [style*="background: #f1f5f9"] span,
+[data-theme="dark"] [style*="background: #f1f5f9"] div,
+[data-theme="dark"] [style*="background: #f0fdf4"] p,
+[data-theme="dark"] [style*="background: #f0fdf4"] span,
+[data-theme="dark"] [style*="background: #ecfdf5"] p,
+[data-theme="dark"] [style*="background: #ecfdf5"] span,
+[data-theme="dark"] [style*="background: #f0f9ff"] p,
+[data-theme="dark"] [style*="background: #f0f9ff"] span,
+[data-theme="dark"] .bg-white *,
+[data-theme="dark"] .white-card * {
+  color: #0f172a !important;
+}
+
+/* 3. Emerald Green Highlights (#047857) for titles, strong emphasis, headers, and highlights inside white surfaces */
+[data-theme="dark"] [style*="background: #ffffff"] h1,
+[data-theme="dark"] [style*="background: #ffffff"] h2,
+[data-theme="dark"] [style*="background: #ffffff"] h3,
+[data-theme="dark"] [style*="background: #ffffff"] h4,
+[data-theme="dark"] [style*="background: #ffffff"] h5,
+[data-theme="dark"] [style*="background: #ffffff"] h6,
+[data-theme="dark"] [style*="background: #ffffff"] strong,
+[data-theme="dark"] [style*="background: #ffffff"] b,
+[data-theme="dark"] [style*="background: #ffffff"] th,
+[data-theme="dark"] [style*="background: #ffffff"] .font-bold,
+[data-theme="dark"] [style*="background: #ffffff"] .text-primary,
+[data-theme="dark"] [style*="background: #ffffff"] a:not(.btn),
+[data-theme="dark"] [style*="background: white"] h1,
+[data-theme="dark"] [style*="background: white"] h2,
+[data-theme="dark"] [style*="background: white"] h3,
+[data-theme="dark"] [style*="background: white"] h4,
+[data-theme="dark"] [style*="background: white"] strong,
+[data-theme="dark"] [style*="background: white"] b,
+[data-theme="dark"] [style*="background: white"] th,
+[data-theme="dark"] [style*="background: white"] .font-bold,
+[data-theme="dark"] [style*="background: white"] .text-primary,
+[data-theme="dark"] [style*="background: white"] a:not(.btn),
+[data-theme="dark"] [style*="background: #f8fafc"] h1,
+[data-theme="dark"] [style*="background: #f8fafc"] h2,
+[data-theme="dark"] [style*="background: #f8fafc"] h3,
+[data-theme="dark"] [style*="background: #f8fafc"] strong,
+[data-theme="dark"] [style*="background: #f8fafc"] b,
+[data-theme="dark"] [style*="background: #f8fafc"] th,
+[data-theme="dark"] [style*="background: #f8fafc"] a:not(.btn),
+[data-theme="dark"] [style*="background: #f1f5f9"] strong,
+[data-theme="dark"] [style*="background: #f0fdf4"] strong,
+[data-theme="dark"] [style*="background: #ecfdf5"] strong,
+[data-theme="dark"] [style*="background: #f0f9ff"] strong,
+[data-theme="dark"] .bg-white h1,
+[data-theme="dark"] .bg-white h2,
+[data-theme="dark"] .bg-white h3,
+[data-theme="dark"] .bg-white strong,
+[data-theme="dark"] .bg-white b,
+[data-theme="dark"] .white-card h1,
+[data-theme="dark"] .white-card h2,
+[data-theme="dark"] .white-card h3,
+[data-theme="dark"] .white-card strong {
+  color: #047857 !important; /* Rich vibrant emerald green */
+}
+
+/* Secondary muted text inside white backgrounds */
+[data-theme="dark"] [style*="background: #ffffff"] .text-foreground-muted,
+[data-theme="dark"] [style*="background: #ffffff"] small,
+[data-theme="dark"] [style*="background: white"] .text-foreground-muted,
+[data-theme="dark"] [style*="background: white"] small,
+[data-theme="dark"] [style*="background: #f8fafc"] .text-foreground-muted,
+[data-theme="dark"] [style*="background: #f8fafc"] small,
+[data-theme="dark"] [style*="background: #f1f5f9"] .text-foreground-muted,
+[data-theme="dark"] [style*="background: #f1f5f9"] small {
+  color: #334155 !important; /* Crisp dark slate */
+}
+
+/* 4. Inputs / Forms with white background */
+[data-theme="dark"] input[style*="background: #ffffff"],
+[data-theme="dark"] input[style*="background: white"],
+[data-theme="dark"] input[style*="background:#fff"],
+[data-theme="dark"] textarea[style*="background: #ffffff"],
+[data-theme="dark"] textarea[style*="background: white"],
+[data-theme="dark"] select[style*="background: #ffffff"],
+[data-theme="dark"] select[style*="background: white"] {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* 5. Preserve crisp white text for intentional colored action buttons */
+[data-theme="dark"] [style*="background: #ffffff"] .btn-primary,
+[data-theme="dark"] [style*="background: #ffffff"] .btn-primary *,
+[data-theme="dark"] [style*="background: #ffffff"] .btn-accent,
+[data-theme="dark"] [style*="background: #ffffff"] .btn-accent *,
+[data-theme="dark"] [style*="background: white"] .btn-primary,
+[data-theme="dark"] [style*="background: white"] .btn-primary *,
+[data-theme="dark"] [style*="background: white"] .btn-accent,
+[data-theme="dark"] [style*="background: white"] .btn-accent * {
+  color: #ffffff !important;
+}
+
+/* 6. Mobile Drawer dark mode harmonization */
+[data-theme="dark"] .mobile-drawer div[style*="background: #f8fafc"],
+[data-theme="dark"] .mobile-drawer a[style*="background: #f8fafc"],
+[data-theme="dark"] .mobile-drawer a[style*="background: #f1f5f9"] {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: rgba(52, 211, 153, 0.25) !important;
+}
+
+[data-theme="dark"] .mobile-drawer .lang-select-option[style*="background: #ffffff"],
+[data-theme="dark"] .mobile-drawer .lang-select-option[style*="background:#ffffff"] {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: rgba(52, 211, 153, 0.3) !important;
+}
+
 
 
