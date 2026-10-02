@@ -122,15 +122,98 @@ def get_today_context_info(query: str, lang: str) -> Optional[Tuple[str, int]]:
             )
         return ans, conf
 
-    # 2. General Today / Schedule / Holiday triggers
+    # 2. Real-Time Clock / Current Time Queries
+    time_triggers = [
+        "whats the time", "what is the time", "what time is it", "current time",
+        "tell me the time", "time now", "clock", "date today", "what date is it",
+        "today date", "what day is today", "वेळ काय", "वेळ", "सध्याची वेळ",
+        "समय क्या हुआ", "समय", "टाइम", "कितने बजे हैं", "टाइम क्या है"
+    ]
+    is_time_specific = any(w in q for w in time_triggers) or re.search(r'\b(time|clock|वेळ|समय|टाइम)\b', q)
+
+    # 3. General Today / Schedule / Holiday triggers
     today_triggers = [
         "today", "holiday", "open today", "is school open", "timing", "schedule",
-        "events today", "sunday", "saturday", "office hours", "आज", "सुट्टी", "छुट्टी", "समय"
+        "events today", "sunday", "saturday", "office hours", "आज", "सुट्टी", "छुट्टी"
     ]
-    if not any(w in q for w in today_triggers):
+    if not is_time_specific and not any(w in q for w in today_triggers):
         return None
 
     conf, reason = compute_dynamic_confidence(query, [], is_calendar=True)
+
+    # Calculate real-time IST
+    try:
+        from datetime import timezone, timedelta
+        ist_tz = timezone(timedelta(hours=5, minutes=30))
+        now_ist = datetime.now(ist_tz)
+    except Exception:
+        now_ist = datetime.now()
+
+    time_str = now_ist.strftime("%I:%M %p")
+    date_str = now_ist.strftime("%B %d, %Y")
+    weekday = now_ist.strftime("%A")
+    hour_val = now_ist.hour + now_ist.minute / 60.0
+
+    # Operational status
+    if weekday == "Sunday":
+        op_status_en = "Closed (Sunday)"
+        op_status_hi = "बंद (रविवार)"
+        op_status_mr = "बंद (रविवार)"
+    elif weekday == "Saturday":
+        if 9.0 <= hour_val < 18.0:
+            op_status_en = "Office Open (9:00 AM – 6:00 PM), regular classes off"
+            op_status_hi = "कार्यालय खुला है (सुबह 9:00 से शाम 6:00), कक्षाएं बंद"
+            op_status_mr = "कार्यालय सुरू आहे (सकाळी ९:०० ते संध्याकाळी ६:००), वर्ग बंद"
+        else:
+            op_status_en = "Closed for the day (Office hours: 9:00 AM – 6:00 PM)"
+            op_status_hi = "कार्यालय अभी बंद है (कार्यालय समय: 9:00 AM – 6:00 PM)"
+            op_status_mr = "कार्यालय सध्या बंद आहे (कार्यालय वेळ: 9:00 AM – 6:00 PM)"
+    else:
+        if 7.5 <= hour_val < 13.5:
+            op_status_en = "School Classes in Session (7:30 AM – 1:30 PM)"
+            op_status_hi = "कक्षाएं संचालित हो रही हैं (सुबह 7:30 – दोपहर 1:30)"
+            op_status_mr = "शाळेचे वर्ग सुरू आहेत (सकाळी ७:३० – दुपारी १:३०)"
+        elif 13.5 <= hour_val < 18.0:
+            op_status_en = "Classes completed; Administrative Office Open (until 6:00 PM)"
+            op_status_hi = "कक्षाएं समाप्त; प्रशासनिक कार्यालय शाम 6:00 बजे तक खुला है"
+            op_status_mr = "वर्ग संपले; प्रशासकीय कार्यालय संध्याकाळी ६:०० पर्यंत सुरू आहे"
+        else:
+            op_status_en = "Closed for the night (Classes: 7:30 AM – 1:30 PM, Office: 9:00 AM – 6:00 PM)"
+            op_status_hi = "स्कूल एवं कार्यालय बंद हैं (कक्षाएं: 7:30 AM – 1:30 PM, कार्यालय: 9:00 AM – 6:00 PM)"
+            op_status_mr = "शाळा व कार्यालय बंद आहेत (शाळा: 7:30 AM – 1:30 PM, कार्यालय: 9:00 AM – 6:00 PM)"
+
+    if is_time_specific:
+        if lang == "mr":
+            ans = (
+                f"🕒 **सध्याची अचूक वेळ (IST)**: **{time_str}**\n"
+                f"📅 **दिनांक**: **{weekday}, {date_str}**\n\n"
+                f"🏫 **मुंबई पब्लिक स्कूल (MPS मालवणी) स्थिती**:\n"
+                f"• {op_status_mr}\n"
+                f"• शालेय वर्ग: सकाळी ७:३० ते दुपारी १:३० (सोम–शुक्र)\n"
+                f"• कार्यालय: सकाळी ९:०० ते संध्याकाळी ६:०० (सोम–शनि)\n\n"
+                f"📞 थेट चौकशीसाठी: **+91-9820500726** (WhatsApp उपलब्ध)."
+            )
+        elif lang == "hi":
+            ans = (
+                f"🕒 **वर्तमान समय (IST)**: **{time_str}**\n"
+                f"📅 **दिनांक**: **{weekday}, {date_str}**\n\n"
+                f"🏫 **मुंबई पब्लिक स्कूल (मालवणी) स्थिति**:\n"
+                f"• {op_status_hi}\n"
+                f"• कक्षाएं: सुबह 7:30 से दोपहर 1:30 बजे (सोम–शुक्र)\n"
+                f"• कार्यालय: सुबह 9:00 से शाम 6:00 बजे (सोम–शनि)\n\n"
+                f"📞 किसी भी सहायता के लिए: **+91-9820500726** (WhatsApp उपलब्ध)।"
+            )
+        else:
+            ans = (
+                f"🕒 **Current Indian Standard Time (IST)**: **{time_str}**\n"
+                f"📅 **Date**: **{weekday}, {date_str}**\n\n"
+                f"🏫 **Mumbai Public School (MPS Malvani) Schedule**:\n"
+                f"• Current Status: **{op_status_en}**\n"
+                f"• Regular Classes: 7:30 AM – 1:30 PM (Mon–Fri)\n"
+                f"• Administrative Office: 9:00 AM – 6:00 PM (Mon–Sat)\n\n"
+                f"📞 For admissions, volunteering, or 80G tax receipt inquiries, reach us at **+91-9820500726**."
+            )
+        return ans, 100
 
     if weekday == "Sunday":
         status_en = f"Today is **Sunday, {date_str}**. Both Mumbai Public School and the administrative office are **closed on Sundays**."
@@ -148,18 +231,21 @@ def get_today_context_info(query: str, lang: str) -> Optional[Tuple[str, int]]:
     if lang == "mr":
         ans = (
             f"{status_mr}\n\n"
+            f"• **वेळ (IST)**: सध्या {time_str}\n"
             f"• **सुट्टी व कार्यक्रम**: शाळा महाराष्ट्र शासन व BMC च्या अधिकृत दिनदर्शिकेचे पालन करते.\n\n"
             f"ℹ️ *एआई खात्री पातळी (~{conf}% - {reason}): तातडीच्या हवामान किंवा स्थानिक सुट्टीच्या खात्रीसाठी कृपया शाळेच्या कार्यालयाशी **+91-9820500726** वर संपर्क साधा.*"
         )
     elif lang == "hi":
         ans = (
             f"{status_hi}\n\n"
+            f"• **समय (IST)**: वर्तमान में {time_str}\n"
             f"• **अवकाश नियम**: स्कूल महाराष्ट्र शासन और बीएमसी अवकाश नियमों का पालन करता है।\n\n"
             f"ℹ️ *एआई सटीकता स्तर (~{conf}% - {reason}): मौसम या स्थानीय अवकाश की 100% आधिकारिक पुष्टि के लिए स्कूल प्रशासन से **+91-9820500726** पर संपर्क करें।*"
         )
     else:
         ans = (
             f"{status_en}\n\n"
+            f"• **Current Time (IST)**: {time_str}\n"
             f"• **Holiday Schedule**: The school adheres to all BMC Education and Maharashtra State Government holiday lists.\n\n"
             f"ℹ️ *AI Confidence (~{conf}% certainty - {reason}): For same-day emergency or weather updates, please verify directly with the school office at **+91-9820500726**.*"
         )
@@ -252,7 +338,41 @@ def classify_conversational_intent(query: str, lang: str) -> Optional[str]:
             "What specific question do you have?"
         )
 
-    return None
+_fallback_counter = 0
+
+def get_dynamic_python_fallback(lang: str) -> str:
+    global _fallback_counter
+    _fallback_counter = (_fallback_counter + 1) % 6
+    idx = _fallback_counter
+
+    pools = {
+        "en": [
+            "I am the Prayas AI Assistant! While I don't have records matching that exact question, I can tell you all about **Mumbai Public School in Malvani**, our **Khan Academy digital labs** (where student prelim scores improved from 15% to 60%), **80G tax exemptions**, or how you can volunteer! What would you like to explore?",
+            "Happy to assist you! If you have questions about Prayas Foundation's initiatives—such as our **487+ students learning with Khan Academy**, our **'Postcard to Parents' wellness drive**, or making a **50% tax-deductible donation**—feel free to ask, or call us at **+91-9820500726**.",
+            "Could you please specify your question a bit more? I specialize in Prayas Foundation's work: **school admissions**, **remedial classes for slow learners**, **volunteer teaching**, or **online donations with instant 80G receipts**.",
+            "I'm here to help with anything related to Prayas Foundation and Mumbai Public School, Malvani. Would you like to know about our **academic programs**, **upcoming community health camps**, or **how to connect with our coordinators on WhatsApp**?",
+            "That query isn't in my verified knowledge base, but I can guide you on **Section 80G tax benefits**, **Founder Shri Brijesh Singh's 14+ years of community service**, or visiting our campus in Malad West. How can I help?",
+            "I'm listening! Feel free to ask about our school schedule, CBSE & SSC curriculums, partnership with Navchetna & CG Power, or call our direct helpline at **+91-9820500726** anytime."
+        ],
+        "hi": [
+            "मैं प्रयास एआई सहायक हूँ! यद्यपि इस विशिष्ट प्रश्न पर मेरे पास जानकारी नहीं है, लेकिन मैं आपको **मुंबई पब्लिक स्कूल (मालवणी)**, **खान अकादमी डिजिटल शिक्षा** (जहाँ छात्रों का परिणाम 15% से बढ़कर 60% हुआ), **80G कर छूट**, या **स्वयंसेवा** के बारे में पूरी जानकारी दे सकता हूँ।",
+            "आपकी सहायता के लिए तत्पर! आप प्रयास फाउंडेशन के कार्यक्रमों—जैसे **487+ विद्यार्थियों का डिजिटल अध्ययन**, **'माता-पिता को पोस्टकार्ड' भावनात्मक कल्याण पहल**, या **दान रसीद** के बारे में कुछ भी पूछ सकते हैं, या सीधे **+91-9820500726** पर संपर्क करें।",
+            "क्या आप अपना प्रश्न थोड़ा स्पष्ट कर सकते हैं? मैं स्कूल प्रवेश, धीमे सीखने वाले छात्रों के लिए विशेष उपचारात्मक कक्षाएं, स्वयंसेवा, या 80G टैक्स रसीद के बारे में तुरंत उत्तर दे सकता हूँ।",
+            "प्रयास फाउंडेशन के बारे में किसी भी जानकारी के लिए मैं यहाँ हूँ। क्या आप हमारे शैक्षणिक कार्यक्रमों, आगामी स्वास्थ्य शिविरों, या व्हाट्सएप पर समन्वयकों से बात करने के बारे में जानना चाहते हैं?",
+            "यह जानकारी मेरे डेटाबेस में नहीं है, लेकिन मैं 80G टैक्स लाभ, संस्थापक श्री ब्रिजेश सिंह के 14+ वर्षों के सामाजिक कार्यों, या मलाड वेस्ट स्कूल के बारे में सहायता कर सकता हूँ।",
+            "कृपया बताएं कि मैं आपकी क्या मदद करूँ—स्कूल समय सारिणी, सीबीएसई/एसएससी पाठ्यक्रम, या दान प्रक्रिया? आप सीधे **+91-9820500726** पर भी कॉल कर सकते हैं।"
+        ],
+        "mr": [
+            "मी प्रयास एआय सहाय्यक आहे! या विशिष्ट प्रश्नावर माझ्याकडे माहिती उपलब्ध नाही, परंतु मी आपल्याला **मुंबई पब्लिक स्कूल (मालवणी)**, **खान अकादमी डिजिटल शिक्षण** (ज्यामध्ये विद्यार्थ्यांचे गुण १५% वरून ६०% पर्यंत वाढले), **८०G कर सवलत**, किंवा **स्वयंसेवा** याबद्दल संपूर्ण माहिती देऊ शकतो.",
+            "आपल्या सेवेसाठी तत्पर! आपण प्रयास फाउंडेशनच्या उपक्रमांबद्दल—जसे की **४८७+ विद्यार्थ्यांचे खान अकादमी शिक्षण**, **'पालकांना पोस्टकार्ड' भावनिक आरोग्य उपक्रम**, किंवा **देणगी पावती** बद्दल काहीही विचारू शकता, किंवा थेट **+91-9820500726** वर संपर्क साधा.",
+            "कृपया आपला प्रश्न अधिक स्पष्ट विचारू शकाल का? मी शाळा प्रवेश, विशेष उपचारात्मक वर्ग (Remedial Learning), स्वयंसेवक सहभाग, किंवा तात्काळ ८०G पावती याबद्दल अचूक माहिती देऊ शकतो.",
+            "प्रयास फाउंडेशनबद्दल माहिती देण्यासाठी मी सज्ज आहे. आपल्याला शैक्षणिक अभ्यासक्रम, आरोग्य तपासणी शिबिरे, किंवा व्हॉट्सॲपवर समन्वयकांशी बोलायचे आहे का?",
+            "हा विषय माझ्या अधिकृत माहितीत उपलब्ध नाही, पण ८०G कर लाभ, संस्थापक श्री ब्रिजेश सिंह यांचे १४+ वर्षांचे समाजकार्य, किंवा मालाड पश्चिम शाळेबद्दल मी साहाय्य करू शकतो.",
+            "आपण शाळा वेळापत्रक, CBSE व SSC वर्ग, किंवा देणगी कशी द्यावी याबद्दल विचारू शकता. आपण थेट **+91-9820500726** वर फोन किंवा व्हॉट्सॲप मेसेजही करू शकता."
+        ]
+    }
+    lang_pool = pools.get(lang, pools["en"])
+    return lang_pool[idx]
 
 
 class DomainRAGEngine:
@@ -415,21 +535,30 @@ class DomainRAGEngine:
         return results
 
     def _call_gemini_api(self, prompt: str, api_key: str) -> Optional[str]:
-        """Calls Google Gemini 2.5 Flash API (Free Tier: 15 RPM, 1500 req/day)."""
+        """Calls Google Gemini 2.5 / 2.0 / 1.5 Flash API with graceful multi-model fallback."""
         try:
             import requests
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
-            payload = {"contents": [{"parts": [{"text": prompt}]}]}
-            res = requests.post(url, json=payload, timeout=10)
-            if res.status_code == 200:
-                data = res.json()
-                return data["candidates"][0]["content"]["parts"][0]["text"]
+            models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+            for model_name in models_to_try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+                payload = {
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {"temperature": 0.3, "maxOutputTokens": 800}
+                }
+                res = requests.post(url, json=payload, timeout=12)
+                if res.status_code == 200:
+                    data = res.json()
+                    candidates = data.get("candidates", [])
+                    if candidates and "content" in candidates[0]:
+                        parts = candidates[0]["content"].get("parts", [])
+                        if parts and "text" in parts[0]:
+                            return parts[0]["text"].strip()
         except Exception as e:
-            print(f"Gemini API error: {e}")
+            print(f"[RAG] Gemini API error: {e}")
         return None
 
     def _call_groq_api(self, prompt: str, api_key: str) -> Optional[str]:
-        """Calls Groq Cloud API with Llama 3.3 70B (Free Tier: 30 RPM, 14,400 req/day)."""
+        """Calls Groq Cloud API with Llama 3.3 70B Versatile."""
         try:
             import requests
             url = "https://api.groq.com/openai/v1/chat/completions"
@@ -440,16 +569,18 @@ class DomainRAGEngine:
             payload = {
                 "model": "llama-3.3-70b-versatile",
                 "messages": [
-                    {"role": "system", "content": "You are the Prayas Foundation AI domain assistant. Answer accurately using only provided context."},
+                    {"role": "system", "content": "You are the Prayas Foundation AI domain assistant. Answer accurately, politely and concisely based on verified NGO knowledge."},
                     {"role": "user", "content": prompt}
                 ],
-                "temperature": 0.2
+                "temperature": 0.3,
+                "max_tokens": 800
             }
-            res = requests.post(url, headers=headers, json=payload, timeout=10)
+            res = requests.post(url, headers=headers, json=payload, timeout=12)
             if res.status_code == 200:
-                return res.json()["choices"][0]["message"]["content"]
+                data = res.json()
+                return data["choices"][0]["message"]["content"].strip()
         except Exception as e:
-            print(f"Groq API error: {e}")
+            print(f"[RAG] Groq API error: {e}")
         return None
 
     def _synthesize_local_answer(self, query: str, context_chunks: List[Dict[str, Any]], lang: str) -> str:
@@ -501,7 +632,7 @@ class DomainRAGEngine:
         self,
         query: str,
         top_k: int = 4,
-        preferred_model: str = "local",
+        preferred_model: str = "auto",
         api_key: Optional[str] = None
     ) -> Dict[str, Any]:
         """Executes RAG pipeline and returns structured answer with source citations."""
@@ -544,13 +675,7 @@ class DomainRAGEngine:
             retrieved_chunks = []
         
         if not retrieved_chunks:
-            if lang == "mr":
-                no_match_text = "प्रयास फाउंडेशन मुंबई पब्लिक स्कूल (मालवणी) चे व्यवस्थापन करते, जिथे वंचित मुलांना सीबीएसई आणि एसएससी माध्यमातून दर्जेदार शिक्षण दिले जाते. आपण अधिक माहितीसाठी +91-9820500726 वर संपर्क साधू शकता."
-            elif lang == "hi":
-                no_match_text = "प्रयास फाउंडेशन मुंबई पब्लिक स्कूल (मालवणी) का प्रबंधन करता है, जहाँ वंचित बच्चों को सीबीएसई और एसएससी के माध्यम से गुणवत्तापूर्ण शिक्षा दी जाती है। आप अधिक जानकारी के लिए +91-9820500726 पर संपर्क कर सकते हैं।"
-            else:
-                no_match_text = "Prayas Foundation manages Mumbai Public School in Malvani, offering CBSE & SSC education, digital labs, and student welfare. You can ask about admissions, 80G tax exemptions, donations, or volunteering (or call +91-9820500726)."
-                
+            no_match_text = get_dynamic_python_fallback(lang)
             return {
                 "query": query,
                 "answer": no_match_text,
@@ -575,7 +700,7 @@ class DomainRAGEngine:
 
         conf_val, _ = compute_dynamic_confidence(query, retrieved_chunks)
 
-        # 5. Optional Cloud API Generation (Best Free Tier Models: Gemini 2.5 Flash / Groq Llama 3.3 70B)
+        # 5. Optional Cloud API Generation (Gemini 2.5 Flash / Groq Llama 3.3 70B)
         cloud_answer = None
         try:
             context_str = "\n\n".join([f"--- Section: {c['title']} ---\n{c['content']}" for c in retrieved_chunks])
@@ -592,12 +717,12 @@ USER QUESTION:
 
 ANSWER:"""
 
-            env_gemini_key = os.environ.get("GEMINI_API_KEY", api_key)
-            env_groq_key = os.environ.get("GROQ_API_KEY", api_key)
+            env_gemini_key = (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY") or api_key or "").strip()
+            env_groq_key = (os.environ.get("GROQ_API_KEY") or api_key or "").strip()
 
-            if (preferred_model == "gemini" or (preferred_model == "auto" and env_gemini_key)) and env_gemini_key:
+            if (preferred_model in ["gemini", "auto"]) and env_gemini_key:
                 cloud_answer = self._call_gemini_api(system_prompt, env_gemini_key)
-            elif (preferred_model == "groq" or (preferred_model == "auto" and env_groq_key)) and env_groq_key:
+            if not cloud_answer and (preferred_model in ["groq", "auto"]) and env_groq_key:
                 cloud_answer = self._call_groq_api(system_prompt, env_groq_key)
         except Exception as e:
             print(f"[RAG] Cloud LLM error: {e}")
@@ -623,7 +748,7 @@ ANSWER:"""
         self,
         query: str,
         top_k: int = 4,
-        preferred_model: str = "local",
+        preferred_model: str = "auto",
         api_key: Optional[str] = None
     ) -> Generator[str, None, None]:
         """Streams response tokens chunk-by-chunk for a smooth conversational typing experience."""

@@ -116,10 +116,143 @@ export const quickQuestions = {
   ]
 };
 
+let fallbackCounter = 0;
+
+/**
+ * Computes live IST time, date, and Mumbai Public School / office operational status.
+ */
+export function getLiveClockAndCalendarResponse(lang = 'en') {
+  const now = new Date();
+  
+  // Format strictly in Indian Standard Time (IST - Asia/Kolkata)
+  const timeStr = now.toLocaleTimeString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+  
+  const dateStr = now.toLocaleDateString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  const weekday = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'long' });
+  const hourIST = parseInt(now.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }), 10);
+  const minuteIST = parseInt(now.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', minute: '2-digit' }), 10);
+  const currentTimeDec = hourIST + minuteIST / 60.0;
+
+  // Determine MPS Malvani status
+  let schoolStatusEn = '';
+  let schoolStatusHi = '';
+  let schoolStatusMr = '';
+
+  if (weekday === 'Sunday') {
+    schoolStatusEn = '🔴 Both Mumbai Public School and our administrative office are closed today (Sunday).';
+    schoolStatusHi = '🔴 आज रविवार होने के कारण स्कूल और प्रशासनिक कार्यालय दोनों बंद हैं।';
+    schoolStatusMr = '🔴 आज रविवार असल्याने शाळा व प्रशासकीय कार्यालय दोन्ही बंद आहेत.';
+  } else if (weekday === 'Saturday') {
+    if (currentTimeDec >= 9.0 && currentTimeDec < 18.0) {
+      schoolStatusEn = '🟢 Regular classes are off for Saturday, but our Administrative Office is currently OPEN (9:00 AM - 6:00 PM).';
+      schoolStatusHi = '🟢 शनिवार को नियमित कक्षाएं नहीं हैं, लेकिन प्रशासनिक कार्यालय अभी खुला है (सुबह 9:00 से शाम 6:00 तक)।';
+      schoolStatusMr = '🟢 शनिवारी नियमित वर्ग बंद असतात, परंतु प्रशासकीय कार्यालय सध्या सुरू आहे (सकाळी ९:०० ते संध्याकाळी ६:००).';
+    } else {
+      schoolStatusEn = '⚪ Regular classes are off on Saturday. Administrative Office is currently closed (office hours: 9:00 AM - 6:00 PM).';
+      schoolStatusHi = '⚪ शनिवार को कक्षाएं बंद हैं। प्रशासनिक कार्यालय अभी बंद है (कार्यालय समय: सुबह 9:00 से शाम 6:00)।';
+      schoolStatusMr = '⚪ शनिवारी वर्ग बंद असतात. प्रशासकीय कार्यालय सध्या बंद आहे (कार्यालय वेळ: सकाळी ९:०० ते संध्याकाळी ६:००).';
+    }
+  } else {
+    // Monday to Friday
+    const isSchoolHours = currentTimeDec >= 7.5 && currentTimeDec < 13.5;
+    const isOfficeHours = currentTimeDec >= 9.0 && currentTimeDec < 18.0;
+
+    if (isSchoolHours) {
+      schoolStatusEn = '🟢 Mumbai Public School classes are currently IN SESSION (7:30 AM – 1:30 PM).';
+      schoolStatusHi = '🟢 मुंबई पब्लिक स्कूल की कक्षाएं इस समय संचालित हो रही हैं (सुबह 7:30 से दोपहर 1:30)।';
+      schoolStatusMr = '🟢 मुंबई पब्लिक स्कूलचे वर्ग सध्या भरलेले आहेत (सकाळी ७:३० ते दुपारी १:३०).';
+    } else if (isOfficeHours) {
+      schoolStatusEn = '🟢 School classes have completed for today, but the Administrative Office is currently OPEN (until 6:00 PM).';
+      schoolStatusHi = '🟢 आज की कक्षाएं समाप्त हो चुकी हैं, लेकिन प्रशासनिक कार्यालय शाम 6:00 बजे तक खुला है।';
+      schoolStatusMr = '🟢 आजचे शालेय वर्ग संपले आहेत, परंतु प्रशासकीय कार्यालय संध्याकाळी ६:०० पर्यंत सुरू आहे.';
+    } else {
+      schoolStatusEn = '⚪ School and office are currently closed for the night (School hours: 7:30 AM – 1:30 PM, Office: 9:00 AM – 6:00 PM).';
+      schoolStatusHi = '⚪ स्कूल और कार्यालय अभी बंद हैं (कक्षाएं: सुबह 7:30 – 1:30, कार्यालय: सुबह 9:00 – शाम 6:00)।';
+      schoolStatusMr = '⚪ शाळा व कार्यालय सध्या बंद आहेत (शाळा: सकाळी ७:३० ते दुपारी १:३०, कार्यालय: सकाळी ९:०० ते संध्याकाळी ६:००).';
+    }
+  }
+
+  if (lang === 'mr') {
+    return `🕒 **सध्याची वेळ (IST)**: **${timeStr}**\n📅 **तारीख**: ${dateStr}\n\n🏫 **मुंबई पब्लिक स्कूल (मालवणी) स्थिती**:\n${schoolStatusMr}\n\n📞 थेट संपर्क किंवा माहितीसाठी: **+91-9820500726** (WhatsApp उपलब्ध).`;
+  } else if (lang === 'hi') {
+    return `🕒 **वर्तमान समय (IST)**: **${timeStr}**\n📅 **दिनांक**: ${dateStr}\n\n🏫 **मुंबई पब्लिक स्कूल (मालवणी) स्थिति**:\n${schoolStatusHi}\n\n📞 सीधे संपर्क या पूछताछ के लिए: **+91-9820500726** (WhatsApp उपलब्ध)।`;
+  } else {
+    return `🕒 **Current Indian Standard Time (IST)**: **${timeStr}**\n📅 **Date**: ${dateStr}\n\n🏫 **Mumbai Public School (MPS Malvani) Status**:\n${schoolStatusEn}\n\n📞 For direct help or inquiries, contact our coordinators at **+91-9820500726** (WhatsApp available).`;
+  }
+}
+
+/**
+ * Returns a dynamically rotated, diverse conversational response with contextual topic suggestions.
+ */
+export function getDynamicFallbackResponse(lang = 'en') {
+  fallbackCounter = (fallbackCounter + 1) % 6;
+  const idx = fallbackCounter;
+
+  const variations = {
+    en: [
+      "I am the Prayas AI Assistant! While I don't have records matching that exact question, I can tell you all about **Mumbai Public School in Malvani**, our **Khan Academy digital labs** (where student scores improved from 15% to 60%), **80G tax exemptions**, or how you can volunteer! What would you like to explore?",
+      "Happy to assist you! If you have questions about Prayas Foundation's initiatives—such as our **487+ students learning with Khan Academy**, our **'Postcard to Parents' wellness drive**, or making a **50% tax-deductible donation**—feel free to ask, or call us at **+91-9820500726**.",
+      "Could you please specify your question a bit more? I specialize in Prayas Foundation's work: **school admissions**, **remedial classes for slow learners**, **volunteer teaching**, or **online donations with instant 80G receipts**.",
+      "I'm here to help with anything related to Prayas Foundation and Mumbai Public School, Malvani. Would you like to know about our **academic programs**, **upcoming community health camps**, or **how to connect with our coordinators on WhatsApp**?",
+      "That query isn't in my verified knowledge base, but I can guide you on **Section 80G tax benefits**, **Founder Shri Brijesh Singh's 14+ years of community service**, or visiting our campus in Malad West. How can I help?",
+      "I'm listening! Feel free to ask about our school schedule, CBSE & SSC curriculums, partnership with Navchetna & CG Power, or call our direct helpline at **+91-9820500726** anytime."
+    ],
+    hi: [
+      "मैं प्रयास एआई सहायक हूँ! यद्यपि इस विशिष्ट प्रश्न पर मेरे पास जानकारी नहीं है, लेकिन मैं आपको **मुंबई पब्लिक स्कूल (मालवणी)**, **खान अकादमी डिजिटल शिक्षा** (जहाँ छात्रों का परिणाम 15% से बढ़कर 60% हुआ), **80G कर छूट**, या **स्वयंसेवा** के बारे में पूरी जानकारी दे सकता हूँ।",
+      "आपकी सहायता के लिए तत्पर! आप प्रयास फाउंडेशन के कार्यक्रमों—जैसे **487+ विद्यार्थियों का डिजिटल अध्ययन**, **'माता-पिता को पोस्टकार्ड' भावनात्मक कल्याण पहल**, या **दान रसीद** के बारे में कुछ भी पूछ सकते हैं, या सीधे **+91-9820500726** पर संपर्क करें।",
+      "क्या आप अपना प्रश्न थोड़ा स्पष्ट कर सकते हैं? मैं स्कूल प्रवेश, धीमे सीखने वाले छात्रों के लिए विशेष उपचारात्मक कक्षाएं, स्वयंसेवा, या 80G टैक्स रसीद के बारे में तुरंत उत्तर दे सकता हूँ।",
+      "प्रयास फाउंडेशन के बारे में किसी भी जानकारी के लिए मैं यहाँ हूँ। क्या आप हमारे शैक्षणिक कार्यक्रमों, आगामी स्वास्थ्य शिविरों, या व्हाट्सएप पर समन्वयकों से बात करने के बारे में जानना चाहते हैं?",
+      "यह जानकारी मेरे डेटाबेस में नहीं है, लेकिन मैं 80G टैक्स लाभ, संस्थापक श्री ब्रिजेश सिंह के 14+ वर्षों के सामाजिक कार्यों, या मलाड वेस्ट स्कूल के बारे में सहायता कर सकता हूँ।",
+      "कृपया बताएं कि मैं आपकी क्या मदद करूँ—स्कूल समय सारिणी, सीबीएसई/एसएससी पाठ्यक्रम, या दान प्रक्रिया? आप सीधे **+91-9820500726** पर भी कॉल कर सकते हैं।"
+    ],
+    mr: [
+      "मी प्रयास एआय सहाय्यक आहे! या विशिष्ट प्रश्नावर माझ्याकडे माहिती उपलब्ध नाही, परंतु मी आपल्याला **मुंबई पब्लिक स्कूल (मालवणी)**, **खान अकादमी डिजिटल शिक्षण** (ज्यामध्ये विद्यार्थ्यांचे गुण १५% वरून ६०% पर्यंत वाढले), **८०G कर सवलत**, किंवा **स्वयंसेवा** याबद्दल संपूर्ण माहिती देऊ शकतो.",
+      "आपल्या सेवेसाठी तत्पर! आपण प्रयास फाउंडेशनच्या उपक्रमांबद्दल—जसे की **४८७+ विद्यार्थ्यांचे खान अकादमी शिक्षण**, **'पालकांना पोस्टकार्ड' भावनिक आरोग्य उपक्रम**, किंवा **देणगी पावती** बद्दल काहीही विचारू शकता, किंवा थेट **+91-9820500726** वर संपर्क साधा.",
+      "कृपया आपला प्रश्न अधिक स्पष्ट विचारू शकाल का? मी शाळा प्रवेश, विशेष उपचारात्मक वर्ग (Remedial Learning), स्वयंसेवक सहभाग, किंवा तात्काळ ८०G पावती याबद्दल अचूक माहिती देऊ शकतो.",
+      "प्रयास फाउंडेशनबद्दल माहिती देण्यासाठी मी सज्ज आहे. आपल्याला शैक्षणिक अभ्यासक्रम, आरोग्य तपासणी शिबिरे, किंवा व्हॉट्सॲपवर समन्वयकांशी बोलायचे आहे का?",
+      "हा विषय माझ्या अधिकृत माहितीत उपलब्ध नाही, पण ८०G कर लाभ, संस्थापक श्री ब्रिजेश सिंह यांचे १४+ वर्षांचे समाजकार्य, किंवा मालाड पश्चिम शाळेबद्दल मी साहाय्य करू शकतो.",
+      "आपण शाळा वेळापत्रक, CBSE व SSC वर्ग, किंवा देणगी कशी द्यावी याबद्दल विचारू शकता. आपण थेट **+91-9820500726** वर फोन किंवा व्हॉट्सॲप मेसेजही करू शकता."
+    ]
+  };
+
+  const pool = variations[lang] || variations.en;
+  return pool[idx];
+}
+
 export function searchKnowledgeBase(query, lang = "en") {
   const cleanQuery = query.toLowerCase().trim();
 
-  // Conversational remarks / meta comments
+  // 1. Time / Clock / Date / Calendar queries
+  const isTimeQuery = /(what['\s]?s the time|what time is it|current time|\btime\b|\bclock\b|\bdate\b|today['\s]?s date|what day is today|वेळ|सध्याची वेळ|वेळ काय|समय क्या|टाइम|समय)/i.test(cleanQuery);
+  if (isTimeQuery) {
+    return getLiveClockAndCalendarResponse(lang);
+  }
+
+  // 2. Greeting & Conversational Intros
+  if (/^(hi|hello|hey|namaste|namaskar|good\s*(morning|afternoon|evening)|हॅलो|हाय|नमस्ते|नमस्कार)[!\.\?]?$/i.test(cleanQuery)) {
+    if (lang === "mr") {
+      return "नमस्कार! 🙏 मी प्रयास फाउंडेशनचा एआय सहाय्यक आहे. मी आपल्याला मुंबई पब्लिक स्कूल, खान अकादमी, ८०G देणगी किंवा स्वयंसेवेबद्दल कशी मदत करू?";
+    } else if (lang === "hi") {
+      return "नमस्ते! 🙏 मैं प्रयास फाउंडेशन का एआई सहायक हूँ। मैं आपको मुंबई पब्लिक स्कूल, खान अकादमी, 80G टैक्स छूट या स्वयंसेवा के बारे में कैसे सहायता कर सकता हूँ?";
+    } else {
+      return "Hello and welcome! 🙏 I am the Prayas Foundation AI Assistant. How can I assist you with Mumbai Public School, Khan Academy programs, 80G tax exemptions, or volunteering today?";
+    }
+  }
+
+  // 3. Conversational remarks / meta comments
   if (/(didn['\s]?t|did not)\s+(say|ask|type|want)/i.test(cleanQuery) || /why did you say/i.test(cleanQuery)) {
     return lang === "mr" 
       ? "माफ करा! 🙏 आपण जेव्हा कोणताही विशिष्ट प्रश्न विचाराल, तेव्हाच मी उत्तर देईन. आपण शाळा, उपक्रम किंवा देणगीबद्दल काहीही विचारू शकता."
@@ -132,7 +265,7 @@ export function searchKnowledgeBase(query, lang = "en") {
     return lang === "mr" ? "आपले स्वागत आहे! 🙏" : lang === "hi" ? "आपका स्वागत है! 🙏" : "You're welcome! 🙏 Feel free to ask if you have any questions.";
   }
 
-  // Score topics using word boundaries
+  // 4. Score topics using word boundaries
   let bestMatch = null;
   let highestScore = 0;
 
@@ -156,12 +289,6 @@ export function searchKnowledgeBase(query, lang = "en") {
     return lang === "mr" ? (bestMatch.mr || bestMatch.hi) : lang === "hi" ? bestMatch.hi : bestMatch.en;
   }
 
-  // Fallback response
-  if (lang === "mr") {
-    return "मी प्रयास फाउंडेशनचा एआय सहाय्यक आहे. आपण मला मुंबई पब्लिक स्कूल (मालवणी), खान अकादमी निकाल, ८०G करसवलत किंवा स्वयंसेवेबद्दल विचारू शकता (किंवा थेट +91-9820500726 वर संपर्क साधा)!";
-  } else if (lang === "hi") {
-    return "मैं प्रयास फाउंडेशन का एआई सहायक हूँ। आप मुझसे मुंबई पब्लिक स्कूल (मालवणी), खान अकादमी परिणाम, 80G दान या स्वयंसेवा के बारे में पूछ सकते हैं (या सीधे +91-9820500726 पर संपर्क करें)!";
-  } else {
-    return "I am the Prayas Foundation AI Assistant. Please ask me about Mumbai Public School in Malvani, Khan Academy progress, 80G tax-exempt donations, or volunteering (or call +91-9820500726)!";
-  }
+  // 5. Dynamic Non-Repetitive Rotating Fallback
+  return getDynamicFallbackResponse(lang);
 }

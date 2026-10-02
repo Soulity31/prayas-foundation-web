@@ -41,7 +41,7 @@ export function createChatbot(content, currentLang) {
           <path d="M15 13v2"></path>
           <path d="M9 13v2"></path>
         </svg>
-        <svg id="bot-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hidden">
+        <svg id="bot-icon-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -181,17 +181,21 @@ export function setupChatbotComponent(currentLang = 'en') {
 
   function toggleBot(open) {
     isChatbotOpen = open !== undefined ? open : !isChatbotOpen;
+    if (toggleBtn) {
+      toggleBtn.classList.toggle('is-open', isChatbotOpen);
+      toggleBtn.setAttribute('aria-label', isChatbotOpen ? 'Close Prayas AI Assistant' : 'Open Prayas AI Assistant');
+      toggleBtn.setAttribute('title', isChatbotOpen ? 'Close Chat' : 'Prayas AI Assistant');
+    }
+    if (openIcon) openIcon.style.display = isChatbotOpen ? 'none' : 'block';
+    if (closeIcon) closeIcon.style.display = isChatbotOpen ? 'block' : 'none';
+
     if (chatWindow) {
       if (isChatbotOpen) {
         chatWindow.classList.add('open');
-        if (openIcon) openIcon.style.display = 'none';
-        if (closeIcon) closeIcon.style.display = 'block';
         if (inputField) setTimeout(() => inputField.focus(), 150);
         if (stack) stack.classList.remove('is-inactive');
       } else {
         chatWindow.classList.remove('open');
-        if (openIcon) openIcon.style.display = 'block';
-        if (closeIcon) closeIcon.style.display = 'none';
         resetInactivity();
       }
     }

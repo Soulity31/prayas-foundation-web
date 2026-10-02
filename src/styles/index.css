@@ -1209,13 +1209,55 @@ html:not([data-theme="dark"]) #theme-icon-moon {
 .chatbot-toggle-btn {
   width: 58px;
   height: 58px;
-  background: linear-gradient(135deg, var(--primary) 0%, hsl(154, 75%, 22%) 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--primary) 0%, hsl(154, 75%, 22%) 100%) !important;
+  color: #ffffff !important;
   box-shadow: 0 8px 30px rgba(22, 122, 76, 0.5);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .chatbot-toggle-btn:hover {
+  background: linear-gradient(135deg, hsl(154, 75%, 32%) 0%, hsl(154, 75%, 20%) 100%) !important;
   box-shadow: 0 14px 35px rgba(22, 122, 76, 0.65);
+}
+
+/* Chatbot Icon Toggling (Open Robot vs Close Cross) */
+.chatbot-toggle-btn #bot-icon-open {
+  display: block !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.chatbot-toggle-btn #bot-icon-close {
+  display: none !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* When Chatbot Window is OPEN: Show White Cross Icon, Keep Same Green Color */
+.chatbot-toggle-btn.is-open {
+  background: linear-gradient(135deg, var(--primary) 0%, hsl(154, 75%, 22%) 100%) !important;
+  box-shadow: 0 8px 30px rgba(22, 122, 76, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.chatbot-toggle-btn.is-open #bot-icon-open {
+  display: none !important;
+}
+
+.chatbot-toggle-btn.is-open #bot-icon-close {
+  display: block !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.chatbot-toggle-btn.is-open .chatbot-pulse {
+  display: none !important;
 }
 
 .chatbot-pulse {

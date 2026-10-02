@@ -132,6 +132,27 @@ def main():
     while running:
         current_time = time.time()
 
+        # 0. Check for manual or programmatic reload trigger file
+        restart_trigger = ROOT_DIR / ".restart_backend"
+        if restart_trigger.exists():
+            try:
+                restart_trigger.unlink()
+            except Exception:
+                pass
+            logger.info("Detected .restart_backend trigger! Reloading FastAPI backend...")
+            if backend_proc is not None:
+                try:
+                    backend_proc.terminate()
+                    backend_proc.wait(timeout=3)
+                except Exception:
+                    try:
+                        backend_proc.kill()
+                    except Exception:
+                        pass
+            time.sleep(1)
+            start_backend()
+            failed_health_checks = 0
+
         # 1. Check if backend process is still running
         if backend_proc is not None:
             poll_code = backend_proc.poll()

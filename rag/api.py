@@ -285,7 +285,7 @@ def chat_endpoint(req: ChatRequest):
         result = engine.generate_answer(
             query=clean_q,
             top_k=req.top_k or 4,
-            preferred_model=req.model or "local",
+            preferred_model=req.model or "auto",
             api_key=req.api_key
         )
     except Exception as e:
@@ -334,7 +334,7 @@ def chat_stream_endpoint(req: ChatRequest):
             for chunk in engine.stream_answer_tokens(
                 query=clean_q,
                 top_k=req.top_k or 4,
-                preferred_model=req.model or "local",
+                preferred_model=req.model or "auto",
                 api_key=req.api_key
             ):
                 if chunk.startswith("data: "):
@@ -659,6 +659,17 @@ def reindex_endpoint():
         return {"status": "success", "message": f"Successfully reindexed {len(engine.chunks)} clean chunks."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/admin/restart")
+def admin_restart_endpoint():
+    """Signals supervisor to cleanly reload the backend process."""
+    def _deferred_exit():
+        time.sleep(0.5)
+        os._exit(0)
+    import threading
+    threading.Thread(target=_deferred_exit, daemon=True).start()
+    return {"status": "restarting", "message": "Backend reload scheduled in 500ms."}
 
 
 # =========================================================================
