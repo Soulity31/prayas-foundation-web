@@ -1,0 +1,7 @@
+# Robots.txt for Prayas Foundation (https://prayasfoundation.co.in)
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+
+Sitemap: https://prayasfoundation.co.in/sitemap.xml
