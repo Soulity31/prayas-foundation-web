@@ -8,14 +8,11 @@
   /* Green Theme Palette */
   --primary-hue: 152;
   --primary-sat: 68%;
-  --primary-lightness: 34%;
+  --primary-light: 34%;
   
-  --primary: #10b981;                        /* Radiant Pure Emerald */
-  --primary-hover: #059669;                  /* Medium Emerald */
+  --primary: hsl(152, 68%, 34%);            /* Vibrant Emerald */
+  --primary-hover: hsl(152, 72%, 28%);      /* Deep Emerald */
   --primary-dark: hsl(154, 82%, 16%);       /* Deep Forest Green */
-  --primary-deep: #065f46;                   /* Deep Pine Accent */
-  --primary-light: #d1fae5;                  /* Soft Mint Tint */
-  --primary-subtle: #f0fdf4;                 /* Ethereal Mint Mist */
   --primary-light-bg: hsl(148, 55%, 96%);   /* Soft Sage Background */
   --primary-glow: hsla(152, 68%, 34%, 0.25);
   
@@ -98,8 +95,6 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  -webkit-overflow-scrolling: touch;
-  touch-action: manipulation;
 }
 
 body {
@@ -110,10 +105,6 @@ body {
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-overflow-scrolling: touch;
-  -webkit-tap-highlight-color: transparent;
-  overscroll-behavior-y: none;
 }
 
 /* Devanagari Font Overrides */
@@ -132,17 +123,11 @@ img, svg, video {
   max-width: 100%;
   height: auto;
   display: block;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 button, input, textarea, select {
   font: inherit;
   color: inherit;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
 }
 
 button {
@@ -154,8 +139,6 @@ button {
 a {
   color: inherit;
   text-decoration: none;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
 }
 
 /* ==========================================================================
@@ -225,71 +208,7 @@ a {
   box-shadow: 0 4px 14px var(--accent-glow);
 }
 
-/* Global Font Legibility Enhancements & Utility Classes */
-.text-foreground {
-  color: var(--foreground) !important;
-}
-
-.text-foreground-muted {
-  color: var(--foreground-muted) !important;
-}
-
-.text-foreground-subtle {
-  color: var(--foreground-subtle) !important;
-}
-
-.bg-surface {
-  background-color: var(--surface) !important;
-}
-
-.bg-surface-alt {
-  background-color: var(--surface-alt) !important;
-}
-
-.bg-surface-card {
-  background-color: var(--surface-card) !important;
-}
-
-.bg-surface-subtle {
-  background-color: var(--surface-subtle) !important;
-}
-
-/* Founder & Leadership Feature Quote Box - Ultra-High Contrast in all Palettes */
-.founder-quote-box,
-blockquote.founder-quote-box,
-.founder-quote-block,
-blockquote.founder-quote-block {
-  background: #ecfdf5 !important;
-  color: #064e3b !important;
-  border-left: 4px solid #10b981 !important;
-  border-top: 1px solid rgba(16, 185, 129, 0.25) !important;
-  border-right: 1px solid rgba(16, 185, 129, 0.25) !important;
-  border-bottom: 1px solid rgba(16, 185, 129, 0.25) !important;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1) !important;
-}
-
-html:not([data-theme="dark"]) .founder-quote-box,
-html:not([data-theme="dark"]) blockquote.founder-quote-box,
-[data-theme="light"] .founder-quote-box,
-[data-theme="light"] blockquote.founder-quote-box {
-  background: #ecfdf5 !important;
-  color: #064e3b !important;
-  border-left: 4px solid #10b981 !important;
-}
-
-[data-theme="dark"] .founder-quote-box,
-[data-theme="dark"] blockquote.founder-quote-box,
-[data-theme="dark"] .founder-quote-block,
-[data-theme="dark"] blockquote.founder-quote-block {
-  background: rgba(6, 78, 59, 0.45) !important;
-  color: #6ee7b7 !important;
-  border-left: 4px solid #10b981 !important;
-  border-top: 1px solid rgba(52, 211, 153, 0.3) !important;
-  border-right: 1px solid rgba(52, 211, 153, 0.3) !important;
-  border-bottom: 1px solid rgba(52, 211, 153, 0.3) !important;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45) !important;
-}
-
+/* Global Font Legibility Enhancements */
 .text-xs {
   font-size: 0.875rem !important;
 }
@@ -715,8 +634,24 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   }
 
   .nav-lang-btn {
-    width: 38px !important;
-    padding: 0 !important;
+    width: auto !important;
+    min-width: 38px !important;
+    height: 38px !important;
+    padding: 0 0.5rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.25rem !important;
+  }
+
+  .nav-lang-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .nav-lang-badge {
+    display: inline-block !important;
   }
 }
 
@@ -735,87 +670,100 @@ html:not([data-theme="dark"]) #theme-icon-moon {
 /* Mobile Phones (<= 640px) */
 @media (max-width: 640px) {
   .header-sticky {
-    width: calc(100% - 0.75rem) !important;
+    width: calc(100% - 0.85rem) !important;
     top: 0.35rem !important;
     margin: 0.35rem auto 0.75rem !important;
     border-radius: 16px !important;
   }
 
   .nav-inner-container {
-    padding: 0.35rem 0.65rem !important;
+    padding: 0.3rem 0.6rem !important;
     min-height: 48px !important;
-    gap: 0.4rem !important;
+    gap: 0.35rem !important;
   }
 
   .nav-brand {
-    gap: 0.5rem !important;
-    flex: 1 !important;
-    min-width: 0 !important;
+    gap: 0.45rem !important;
   }
 
   .nav-brand-logo {
-    height: 32px !important;
-    width: auto !important;
+    height: 30px !important;
   }
 
   .nav-brand-text {
-    font-size: 1.05rem !important;
+    font-size: 0.95rem !important;
     letter-spacing: -0.2px !important;
-    white-space: nowrap !important;
-    overflow: visible !important;
-    text-overflow: clip !important;
-    display: inline-block !important;
-  }
-
-  /* Hide redundant home button on phones to give ample space to brand title */
-  .nav-home-btn,
-  .nav-desktop-only {
-    display: none !important;
   }
 
   .nav-tools-wrap {
-    gap: 0.35rem !important;
-    flex-shrink: 0 !important;
+    gap: 0.3rem !important;
   }
 
   .nav-btn {
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 10px !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 9px !important;
   }
 
   .nav-lang-btn {
     width: auto !important;
-    padding: 0 0.45rem !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    padding: 0 0.4rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.2rem !important;
   }
 
-  .nav-lang-short {
-    font-size: 0.75rem !important;
+  .nav-lang-icon {
+    font-size: 1.05rem !important;
+    display: inline-flex !important;
+  }
+
+  .nav-lang-badge {
+    font-size: 0.7rem !important;
   }
 }
 
 /* Extra Small Phones (<= 375px) */
 @media (max-width: 375px) {
   .nav-brand-text {
-    font-size: 0.95rem !important;
+    font-size: 0.86rem !important;
   }
 
   .nav-inner-container {
-    padding: 0.3rem 0.45rem !important;
+    padding: 0.25rem 0.45rem !important;
   }
 
   .nav-tools-wrap {
-    gap: 0.25rem !important;
+    gap: 0.2rem !important;
   }
 
   .nav-btn {
-    width: 33px !important;
-    height: 33px !important;
+    width: 32px !important;
+    height: 32px !important;
     border-radius: 8px !important;
   }
 
   .nav-lang-btn {
-    padding: 0 0.35rem !important;
+    width: auto !important;
+    min-width: 32px !important;
+    height: 32px !important;
+    padding: 0 0.3rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.15rem !important;
+  }
+
+  .nav-lang-icon {
+    font-size: 0.95rem !important;
+    display: inline-flex !important;
+  }
+
+  .nav-lang-badge {
+    font-size: 0.65rem !important;
   }
 }
 
@@ -1264,40 +1212,10 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   background: linear-gradient(135deg, var(--primary) 0%, hsl(154, 75%, 22%) 100%);
   color: #ffffff;
   box-shadow: 0 8px 30px rgba(22, 122, 76, 0.5);
-  position: relative;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, box-shadow 0.25s ease !important;
 }
 
 .chatbot-toggle-btn:hover {
   box-shadow: 0 14px 35px rgba(22, 122, 76, 0.65);
-}
-
-/* Picture 3 Fix: Distinct Close Cross State on Floating Toggle */
-.chatbot-toggle-btn.is-chat-open {
-  background: #ef4444 !important; /* Bold accessible close red */
-  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.55), 0 0 20px rgba(239, 68, 68, 0.35) !important;
-  transform: rotate(90deg) scale(1.05) !important;
-}
-
-.chatbot-toggle-btn.is-chat-open #bot-icon-open {
-  display: none !important;
-}
-
-.chatbot-toggle-btn.is-chat-open #bot-icon-close {
-  display: block !important;
-  color: #ffffff !important;
-}
-
-.chatbot-toggle-btn:not(.is-chat-open) #bot-icon-open {
-  display: block !important;
-  color: #ffffff !important;
-}
-
-.chatbot-toggle-btn:not(.is-chat-open) #bot-icon-close {
-  display: none !important;
 }
 
 .chatbot-pulse {
@@ -1307,47 +1225,6 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   border: 2px solid var(--primary);
   animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   pointer-events: none;
-}
-
-.chatbot-toggle-btn.is-chat-open .chatbot-pulse {
-  display: none !important;
-}
-
-/* Modal Close Corner Button (Picture 2 Fix) */
-.modal-close-corner-btn {
-  position: absolute !important;
-  top: 14px !important;
-  right: 14px !important;
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50% !important;
-  background: var(--surface-subtle, #f1f5f9) !important;
-  color: var(--foreground, #0f172a) !important;
-  border: 1.5px solid var(--border, #cbd5e1) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 1.25rem !important;
-  font-weight: 900 !important;
-  cursor: pointer !important;
-  z-index: 1000 !important;
-  touch-action: manipulation !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.modal-close-corner-btn:hover,
-.modal-close-corner-btn:active {
-  transform: scale(1.1) !important;
-  background: var(--surface-card, #ffffff) !important;
-  color: var(--destructive, #ef4444) !important;
-  border-color: var(--destructive, #ef4444) !important;
-}
-
-[data-theme="dark"] .modal-close-corner-btn {
-  background: #1e293b !important;
-  color: #f8fafc !important;
-  border-color: #334155 !important;
 }
 
 /* Mobile Responsiveness: Hide WhatsApp on mobile/tablets, keep Chatbot button */
@@ -1360,15 +1237,8 @@ html:not([data-theme="dark"]) #theme-icon-moon {
     display: none !important;
   }
   .chatbot-toggle-btn {
-    width: 52px !important;
-    height: 52px !important;
-  }
-  .chatbot-window {
-    bottom: 80px !important;
-    right: 12px !important;
-    width: calc(100vw - 24px) !important;
-    max-width: 390px !important;
-    max-height: 72vh !important;
+    width: 52px;
+    height: 52px;
   }
 }
 
@@ -1594,9 +1464,11 @@ html:not([data-theme="dark"]) #theme-icon-moon {
 .modal-backdrop,
 .modal-overlay,
 .lightbox-modal,
+#gallery-lightbox-modal,
 #donate-modal,
 #person-full-detail-modal,
 #work-album-modal,
+#work-fullscreen-lightbox,
 #privacy-modal,
 #terms-modal {
   position: fixed !important;
@@ -1610,7 +1482,7 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   background: rgba(6, 18, 11, 0.82) !important;
   backdrop-filter: blur(18px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
-  z-index: 999990 !important;
+  z-index: 9999999 !important;
   display: none;
   align-items: center !important;
   justify-content: center !important;
@@ -1623,53 +1495,19 @@ html:not([data-theme="dark"]) #theme-icon-moon {
   transition: opacity 0.3s var(--ease-apple-spring);
 }
 
-/* Lightboxes (Full-screen photo overlays) must always sit above parent modals */
-#work-fullscreen-lightbox,
-#gallery-lightbox-modal {
-  position: fixed !important;
-  inset: 0 !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(0, 0, 0, 0.95) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  z-index: 10000050 !important;
-  display: none;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 1rem !important;
-  box-sizing: border-box !important;
-  margin: 0 !important;
-  opacity: 0;
-  pointer-events: none;
-  overflow: hidden !important;
-  transition: opacity 0.25s ease;
-}
-
 .modal-backdrop.open,
 .modal-overlay.open,
 .lightbox-modal.open,
+#gallery-lightbox-modal.open,
 #donate-modal.open,
 #person-full-detail-modal.open,
 #work-album-modal.open,
+#work-fullscreen-lightbox.open,
 #privacy-modal.open,
 #terms-modal.open {
   display: flex !important;
   opacity: 1 !important;
   pointer-events: auto !important;
-  z-index: 999990 !important;
-}
-
-#work-fullscreen-lightbox.open,
-#gallery-lightbox-modal.open {
-  display: flex !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  z-index: 10000050 !important;
 }
 
 .modal-panel {
@@ -1703,81 +1541,6 @@ html:not([data-theme="dark"]) #theme-icon-moon {
 .modal-backdrop.open .modal-panel,
 .modal-overlay.open .modal-panel {
   transform: scale(1) translateY(0) translate3d(0, 0, 0) !important;
-}
-
-/* Legal Modals (Privacy Policy & Terms of Use - High Contrast & Mobile Polish) */
-.legal-modal-panel {
-  max-width: 620px !important;
-  max-height: 88vh !important;
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-  border-radius: var(--radius-2xl, 24px) !important;
-}
-
-.legal-modal-header {
-  position: relative;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem;
-  background: var(--surface-card);
-  border-bottom: 1px solid var(--border);
-  z-index: 10;
-}
-
-.legal-modal-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.5rem;
-  -webkit-overflow-scrolling: touch;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.legal-section-card {
-  background: var(--surface-alt, rgba(0, 0, 0, 0.03));
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1rem 1.15rem;
-  transition: border-color 0.2s ease;
-}
-
-.legal-modal-footer {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.85rem 1.5rem;
-  background: var(--surface-subtle, rgba(0, 0, 0, 0.02));
-  border-top: 1px solid var(--border);
-  gap: 0.75rem;
-  z-index: 10;
-}
-
-@media (max-width: 640px) {
-  .legal-modal-panel {
-    max-width: 95vw !important;
-    max-height: 88vh !important;
-    border-radius: 20px !important;
-  }
-  .legal-modal-header {
-    padding: 1rem 1.15rem;
-  }
-  .legal-modal-body {
-    padding: 1.15rem 1rem;
-    gap: 0.85rem;
-  }
-  .legal-modal-footer {
-    padding: 0.75rem 1rem;
-    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
-  }
-  .legal-section-card {
-    padding: 0.85rem 0.95rem;
-  }
 }
 
 /* Lightbox Modal & Fullscreen Previews (Centered in User's Viewport) */

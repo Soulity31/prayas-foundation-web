@@ -13,20 +13,16 @@ import {
   openWhatsAppReceipt,
   printOfficial80GReceipt,
   downloadOfficial80GPdf,
-  openReceiptModal,
   PRAYAS_TRUST_DETAILS
 } from '../utils/receiptService.js';
 import {
   getApiBase,
-  setCustomApiBase,
-  getCustomApiBase,
   fetchWithRetry,
   recordDonation,
   recordVolunteer,
   getDonationPdfUrl,
   onApiStateChange,
-  pingHealthCheck,
-  isServerOnline
+  pingHealthCheck
 } from '../utils/apiClient.js';
 
 let currentLang = localStorage.getItem('prayas_lang') || 'en';
@@ -284,7 +280,6 @@ export async function renderAdmin() {
               SQL RELATIONAL DB ACTIVE
             </span>
             <span style="font-size: 0.82rem; color: var(--foreground-muted); font-family: monospace; background: var(--surface-subtle); padding: 0.2rem 0.5rem; border-radius: 6px; border: 1px solid var(--border);">SQLite • prayas.db</span>
-            <span id="header-api-badge" style="font-size: 0.82rem; color: #0284c7; font-family: monospace; background: rgba(2, 132, 199, 0.1); border: 1px solid rgba(2, 132, 199, 0.3); padding: 0.2rem 0.5rem; border-radius: 6px;">API: ${getApiBase()}</span>
           </div>
           <h1 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 800; font-family: var(--font-display); margin: 0; color: var(--foreground);">
             Executive SQL Database & Operations Dashboard
@@ -305,7 +300,7 @@ export async function renderAdmin() {
           <button id="btn-refresh-dashboard" class="btn btn-sm btn-secondary hover-lift" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; border-radius: 999px; font-weight: 700;">
             <span>🔄 Refresh DB</span>
           </button>
-          <a href="./index.html" class="btn btn-sm btn-secondary hover-lift" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; border-radius: 999px; font-weight: 700; text-decoration: none;">
+          <a href="/index.html" class="btn btn-sm btn-secondary hover-lift" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; border-radius: 999px; font-weight: 700; text-decoration: none;">
             <span>🏠 Back to Website</span>
           </a>
         </div>
@@ -495,36 +490,6 @@ async function loadActiveTable(tab) {
     mount.innerHTML = `
       <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 960px; margin: 0 auto;">
         
-        <!-- 0. Backend REST API Connectivity & Cloud Server Control -->
-        <div style="background: var(--surface-card); border: 1.5px solid var(--border); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-sm);">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="font-size: 1.35rem;">🌐</span>
-              <h3 style="margin: 0; font-weight: 800; font-size: 1.15rem; font-family: var(--font-display);">FastAPI Backend Server & Cloud Endpoint</h3>
-            </div>
-            <div style="display: flex; gap: 0.5rem; align-items: center;">
-              <span id="api-live-indicator" style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-              <span id="api-live-text" style="font-size: 0.82rem; font-weight: 700; color: var(--foreground-muted);">Checking...</span>
-            </div>
-          </div>
-          <p style="font-size: 0.88rem; color: var(--foreground-muted); margin: 0 0 1rem 0; line-height: 1.5;">
-            Configure the live API URL connecting the website to your FastAPI / SQLite backend (e.g. Render, Railway, or Localhost).
-          </p>
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <input type="url" id="custom-api-input" value="${getCustomApiBase() || getApiBase()}" placeholder="https://your-backend.onrender.com/api" class="form-input" style="flex: 1; min-width: 280px; padding: 0.65rem 1rem; border-radius: 10px; border: 1.5px solid var(--border);" />
-            <button type="button" id="btn-save-api-url" class="btn btn-primary" style="padding: 0.65rem 1.25rem; font-weight: 700;">
-              💾 Save & Reconnect
-            </button>
-            <button type="button" id="btn-test-api-ping" class="btn btn-secondary" style="padding: 0.65rem 1.1rem; font-weight: 700;">
-              ⚡ Test Ping
-            </button>
-            <button type="button" id="btn-reset-api-url" class="btn btn-secondary" style="padding: 0.65rem 0.9rem; font-weight: 700;" title="Reset to Auto-Detection">
-              🔄 Reset
-            </button>
-          </div>
-          <div id="api-feedback-msg" style="display: none; margin-top: 0.85rem; padding: 0.65rem 1rem; border-radius: 8px; font-size: 0.84rem; font-weight: 600;"></div>
-        </div>
-
         <!-- 1. Live SMTP Connection Status Header -->
         <div id="smtp-live-status-container" style="background: var(--surface-card); border: 1.5px solid var(--border); border-radius: 16px; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; box-shadow: var(--shadow-sm);">
           <div style="display: flex; align-items: center; gap: 0.85rem;">
@@ -789,19 +754,10 @@ async function loadActiveTable(tab) {
       };
 
       try {
-        let res;
-        try {
-          res = await fetchWithRetry('/admin/smtp-test-connection', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-          }, 1, 1500);
-        } catch (e1) {
-          res = await fetch('http://127.0.0.1:8000/api/admin/smtp-test-connection', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-        }
+        const res = await fetchWithRetry('/admin/smtp-test-connection', {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        }, 1, 1000);
 
         const json = await res.json();
         const d = json.data || {};
@@ -814,7 +770,7 @@ async function loadActiveTable(tab) {
         if (json.status === 'success' && d.success) {
           badge.textContent = '✓ SMTP Diagnostic Passed';
           badge.style.color = '#10b981';
-          out += `✅ SUCCESS: Socket established, TLS handshake complete, and SMTP authentication succeeded.\nServer is fully prepared to deliver 80G tax exemption receipts (with attached PDF) directly to donor inboxes.`;
+          out += `✅ SUCCESS: Socket established, TLS handshake complete, and SMTP authentication succeeded.\nServer is fully prepared to deliver 80G tax exemption receipts directly to donor inboxes.`;
         } else {
           badge.textContent = '⚠️ SMTP Issue Detected';
           badge.style.color = '#f87171';
@@ -822,27 +778,11 @@ async function loadActiveTable(tab) {
         }
         consoleOut.textContent = out;
       } catch (err) {
-        badge.textContent = '⚠️ Backend Offline';
+        badge.textContent = '⚠️ Connection Error';
         badge.style.color = '#f87171';
-        consoleOut.textContent = `Backend server not connected on port 8000.\nTo run the live backend locally: python -m uvicorn rag.api:app --port 8000\nOr connect your deployed Render backend URL in the API Server Config above.`;
+        consoleOut.textContent = `Could not connect to FastAPI server: ${err.message}\nMake sure 'python rag/api.py' is running.`;
       }
     }
-
-    // Auto-populate stored SMTP settings from localStorage
-    function populateStoredSmtpConfig() {
-      try {
-        const stored = localStorage.getItem('prayas_smtp_config');
-        if (stored) {
-          const cfg = JSON.parse(stored);
-          if (cfg.host && document.getElementById('cfg-smtp-host')) document.getElementById('cfg-smtp-host').value = cfg.host;
-          if (cfg.port && document.getElementById('cfg-smtp-port')) document.getElementById('cfg-smtp-port').value = cfg.port;
-          if (cfg.user && document.getElementById('cfg-smtp-user')) document.getElementById('cfg-smtp-user').value = cfg.user;
-          if (cfg.password && document.getElementById('cfg-smtp-pass')) document.getElementById('cfg-smtp-pass').value = cfg.password;
-          if (cfg.from_name && document.getElementById('cfg-smtp-from-name')) document.getElementById('cfg-smtp-from-name').value = cfg.from_name;
-        }
-      } catch (e) {}
-    }
-    populateStoredSmtpConfig();
 
     // Initialize SMTP info on load
     refreshSmtpStatus();
@@ -860,73 +800,6 @@ async function loadActiveTable(tab) {
       });
     });
 
-    // API Server Config Controls
-    const saveApiBtn = document.getElementById('btn-save-api-url');
-    const testApiBtn = document.getElementById('btn-test-api-ping');
-    const resetApiBtn = document.getElementById('btn-reset-api-url');
-    const apiInput = document.getElementById('custom-api-input');
-    const apiFeedback = document.getElementById('api-feedback-msg');
-    const apiIndicator = document.getElementById('api-live-indicator');
-    const apiLiveText = document.getElementById('api-live-text');
-
-    async function checkApiHealth() {
-      if (apiLiveText) apiLiveText.textContent = 'Pinging...';
-      const ok = await pingHealthCheck();
-      if (apiIndicator) apiIndicator.style.background = ok ? '#10b981' : '#f59e0b';
-      if (apiLiveText) {
-        apiLiveText.textContent = ok ? '🟢 Online & Connected' : '🟡 Offline / LocalStorage Mode';
-        apiLiveText.style.color = ok ? '#059669' : '#d97706';
-      }
-    }
-    checkApiHealth();
-
-    if (saveApiBtn) {
-      saveApiBtn.addEventListener('click', async () => {
-        const val = apiInput?.value?.trim();
-        setCustomApiBase(val);
-        if (apiFeedback) {
-          apiFeedback.style.display = 'block';
-          apiFeedback.style.background = 'rgba(16, 185, 129, 0.15)';
-          apiFeedback.style.color = '#047857';
-          apiFeedback.textContent = `Saved API Base: ${getApiBase()}. Testing connection...`;
-        }
-        await checkApiHealth();
-      });
-    }
-
-    if (testApiBtn) {
-      testApiBtn.addEventListener('click', async () => {
-        testApiBtn.disabled = true;
-        testApiBtn.textContent = '⏳ Pinging...';
-        const ok = await pingHealthCheck();
-        testApiBtn.disabled = false;
-        testApiBtn.textContent = '⚡ Test Ping';
-        if (apiFeedback) {
-          apiFeedback.style.display = 'block';
-          apiFeedback.style.background = ok ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.12)';
-          apiFeedback.style.color = ok ? '#047857' : '#dc2626';
-          apiFeedback.textContent = ok 
-            ? `✅ Server reached successfully at ${getApiBase()}! Health: OK (200)`
-            : `⚠️ Server unreachable at ${getApiBase()}. The website will automatically use instant client-side fallback.`;
-        }
-        await checkApiHealth();
-      });
-    }
-
-    if (resetApiBtn) {
-      resetApiBtn.addEventListener('click', async () => {
-        setCustomApiBase('');
-        if (apiInput) apiInput.value = getApiBase();
-        if (apiFeedback) {
-          apiFeedback.style.display = 'block';
-          apiFeedback.style.background = 'rgba(59, 130, 246, 0.1)';
-          apiFeedback.style.color = '#2563eb';
-          apiFeedback.textContent = `Reset to default: ${getApiBase()}`;
-        }
-        await checkApiHealth();
-      });
-    }
-
     const refreshSmtpBtn = document.getElementById('btn-refresh-smtp');
     if (refreshSmtpBtn) refreshSmtpBtn.addEventListener('click', () => {
       refreshSmtpStatus();
@@ -942,7 +815,7 @@ async function loadActiveTable(tab) {
     const refreshLogsBtn = document.getElementById('btn-refresh-email-logs');
     if (refreshLogsBtn) refreshLogsBtn.addEventListener('click', loadEmailLogs);
 
-    // Handle Test Receipt Submission (Direct Automated SMTP Dispatch with PDF Attachment)
+    // Handle Test Receipt Submission
     const testForm = document.getElementById('form-send-test-receipt');
     if (testForm) {
       testForm.addEventListener('submit', async (e) => {
@@ -953,168 +826,88 @@ async function loadActiveTable(tab) {
 
         if (!email) return;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '⏳ Automatically Dispatching Live Email with PDF...';
+        submitBtn.innerHTML = '⏳ Dispatching Test Email...';
         resBox.style.display = 'none';
 
-        // Try direct backend dispatch
-        let sentSuccessfully = false;
-        let smtpErrorMsg = '';
-
         try {
-          let res;
-          try {
-            res = await fetchWithRetry('/admin/send-test-receipt', {
-              method: 'POST',
-              body: JSON.stringify({ recipient_email: email })
-            }, 1, 2000);
-          } catch (e1) {
-            res = await fetch('http://127.0.0.1:8000/api/admin/send-test-receipt', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ recipient_email: email })
-            });
-          }
+          const res = await fetchWithRetry('/admin/send-test-receipt', {
+            method: 'POST',
+            body: JSON.stringify({ recipient_email: email })
+          }, 1, 1000);
 
-          if (res && res.ok) {
-            const json = await res.json();
-            const d = json.data || {};
-            if (json.status === 'success' && d.sent_live_smtp) {
-              sentSuccessfully = true;
-            } else {
-              smtpErrorMsg = d.smtp_error || 'SMTP delivery returned an error.';
-            }
+          const json = await res.json();
+          const d = json.data || {};
+
+          resBox.style.display = 'block';
+          if (json.status === 'success' && d.sent_live_smtp) {
+            resBox.style.background = 'rgba(16, 185, 129, 0.15)';
+            resBox.style.borderColor = '#10b981';
+            resBox.style.color = '#047857';
+            resBox.innerHTML = `✅ <strong>Success!</strong> Live test 80G tax receipt was dispatched to <u>${email}</u>. Please check your inbox (and spam/promotions folder).`;
+            loadEmailLogs();
+          } else {
+            resBox.style.background = 'rgba(239, 68, 68, 0.12)';
+            resBox.style.borderColor = '#fca5a5';
+            resBox.style.color = '#dc2626';
+            resBox.innerHTML = `⚠️ <strong>Delivery Note:</strong> ${d.smtp_error || 'SMTP not configured or authentication failed. Make sure to use a 16-char Gmail App Password.'}`;
           }
         } catch (err) {
-          smtpErrorMsg = err.message;
-        }
-
-        resBox.style.display = 'block';
-
-        if (sentSuccessfully) {
-          resBox.style.background = 'rgba(16, 185, 129, 0.15)';
-          resBox.style.borderColor = '#10b981';
-          resBox.style.color = '#047857';
-          resBox.innerHTML = `
-            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-              <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem;">
-                <span>✅</span>
-                <strong>Live 80G Tax Receipt Sent Directly to <u>${email}</u>!</strong>
-              </div>
-              <div style="font-size: 0.85rem; color: #065f46;">
-                The official Section 80G certificate PDF was automatically generated, attached, and delivered to your inbox via Google SMTP.
-              </div>
-            </div>
-          `;
-          loadEmailLogs();
-        } else {
-          const testDonation = {
-            id: 9999,
-            donor_name: 'Shaurya Shetty (Trustee / Donor)',
-            donor_email: email,
-            donor_phone: '+91-9820500726',
-            donor_pan: 'AAATP4928P',
-            amount: 5000,
-            payment_mode: 'UPI (QR Code)',
-            transaction_id: `UPI-TEST-${Math.floor(100000 + Math.random() * 900000)}`,
-            tax_80g_receipt_no: '80G-PF-2026-TEST99',
-            is_80g: 1,
-            cause: 'Mumbai Public School (MPS) Malvani',
-            status: 'COMPLETED',
-            created_at: new Date().toISOString()
-          };
-          const links = getReceiptEmailLinks(testDonation, email);
-
-          resBox.style.background = 'rgba(239, 68, 68, 0.1)';
+          resBox.style.display = 'block';
+          resBox.style.background = 'rgba(239, 68, 68, 0.12)';
           resBox.style.borderColor = '#fca5a5';
-          resBox.style.color = '#b91c1c';
-          resBox.innerHTML = `
-            <div style="display: flex; flex-direction: column; gap: 0.65rem;">
-              <div>
-                ⚠️ <strong>Automatic SMTP Dispatch Note:</strong> ${smtpErrorMsg || 'Backend server offline or Gmail App Password required.'}
-              </div>
-              <div style="font-size: 0.85rem; color: var(--foreground); line-height: 1.45;">
-                Make sure the Python backend is running (<code>python -m uvicorn rag.api:app --port 8000</code>) or send via 1-click compose below:
-              </div>
-              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem;">
-                <button type="button" id="btn-view-test-rec-modal" class="btn btn-primary btn-sm" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; font-weight: 700;">
-                  🖨️ View & Print 80G Receipt (PDF)
-                </button>
-                <a href="${links.gmail}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; font-weight: 700; text-decoration: none; color: #0284c7; border-color: #0284c7;">
-                  ✉️ Open in Gmail
-                </a>
-              </div>
-            </div>
-          `;
-
-          const viewBtn = document.getElementById('btn-view-test-rec-modal');
-          if (viewBtn) {
-            viewBtn.onclick = () => openReceiptModal(testDonation);
-          }
+          resBox.style.color = '#dc2626';
+          resBox.innerHTML = `⚠️ <strong>Server Note:</strong> ${err.message}. Check that the backend server is running on port 8000.`;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '✉️ Send Test 80G Receipt';
         }
-
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '✉️ Send Test 80G Receipt';
       });
     }
 
-    // Handle SMTP Config Save (Persist to LocalStorage + Sync to Server)
+    // Handle SMTP Config Save
     const configForm = document.getElementById('form-save-smtp-config');
     if (configForm) {
       configForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const host = document.getElementById('cfg-smtp-host').value.trim() || 'smtp.gmail.com';
-        const port = Number(document.getElementById('cfg-smtp-port').value.trim()) || 587;
+        const host = document.getElementById('cfg-smtp-host').value.trim();
+        const port = Number(document.getElementById('cfg-smtp-port').value.trim());
         const user = document.getElementById('cfg-smtp-user').value.trim();
         const password = document.getElementById('cfg-smtp-pass').value.trim();
-        const fromName = document.getElementById('cfg-smtp-from-name').value.trim() || 'Prayas Foundation Trust';
+        const fromName = document.getElementById('cfg-smtp-from-name').value.trim();
         const saveBtn = document.getElementById('btn-save-smtp-config');
         const feedback = document.getElementById('smtp-config-feedback');
 
         saveBtn.disabled = true;
         saveBtn.innerHTML = '⏳ Saving Credentials...';
 
-        // 1. Always store locally in browser
         try {
-          localStorage.setItem('prayas_smtp_config', JSON.stringify({ host, port, user, password, from_name: fromName }));
-        } catch (e) {}
+          const res = await fetchWithRetry('/admin/smtp-config', {
+            method: 'POST',
+            body: JSON.stringify({ host, port, user, password, from_name: fromName })
+          }, 1, 1000);
 
-        // 2. Sync to Backend Server
-        let serverSaved = false;
-        try {
-          let res;
-          try {
-            res = await fetchWithRetry('/admin/smtp-config', {
-              method: 'POST',
-              body: JSON.stringify({ host, port, user, password, from_name: fromName })
-            }, 1, 1500);
-          } catch (e1) {
-            res = await fetch('http://127.0.0.1:8000/api/admin/smtp-config', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ host, port, user, password, from_name: fromName })
-            });
+          if (res.ok) {
+            feedback.style.display = 'block';
+            feedback.style.background = 'rgba(16, 185, 129, 0.15)';
+            feedback.style.color = '#047857';
+            feedback.innerHTML = '✓ SMTP configuration saved and reloaded successfully! Testing connection...';
+            await refreshSmtpStatus();
+            await runDiagnostics({ host, port, user, password });
+          } else {
+            feedback.style.display = 'block';
+            feedback.style.background = 'rgba(239, 68, 68, 0.12)';
+            feedback.style.color = '#dc2626';
+            feedback.innerHTML = 'Failed to save configuration.';
           }
-
-          if (res && res.ok) {
-            serverSaved = true;
-          }
-        } catch (err) {}
-
-        feedback.style.display = 'block';
-        feedback.style.background = 'rgba(16, 185, 129, 0.15)';
-        feedback.style.borderColor = '#10b981';
-        feedback.style.color = '#047857';
-
-        if (serverSaved) {
-          feedback.innerHTML = `✅ <strong>SMTP Credentials Saved!</strong> Successfully configured for <u>${user}</u>. Testing live connection...`;
-          await refreshSmtpStatus();
-          await runDiagnostics({ host, port, user, password });
-        } else {
-          feedback.innerHTML = `✅ <strong>SMTP Configuration Saved!</strong> Credentials stored for <u>${user}</u>.`;
+        } catch (err) {
+          feedback.style.display = 'block';
+          feedback.style.background = 'rgba(239, 68, 68, 0.12)';
+          feedback.style.color = '#dc2626';
+          feedback.innerHTML = `Error saving configuration: ${err.message}`;
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.innerHTML = '💾 Save & Apply SMTP Configuration';
         }
-
-        saveBtn.disabled = false;
-        saveBtn.innerHTML = '💾 Save & Apply SMTP Configuration';
       });
     }
 

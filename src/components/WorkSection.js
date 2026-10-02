@@ -54,7 +54,7 @@ export function createWorkSection(content, currentLang, showHeader = true) {
             const photoCount = (album.photos || []).length;
 
             return `
-              <div class="liquid-glass-card work-album-card hover-lift" data-album-id="${album.id}" data-category="${album.category}" onclick="window.openAlbumDetail ? window.openAlbumDetail('${album.id}') : (window.location.href = './work.html?album=${album.id}')" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 24px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.35s ease;">
+              <div class="liquid-glass-card work-album-card hover-lift" data-album-id="${album.id}" data-category="${album.category}" onclick="window.openAlbumDetail ? window.openAlbumDetail('${album.id}') : null" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 24px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.35s ease;">
                 
                 <!-- Album Cover Image Frame -->
                 <div style="position: relative; height: 240px; width: 100%; overflow: hidden; background: var(--surface-subtle);">
@@ -63,7 +63,7 @@ export function createWorkSection(content, currentLang, showHeader = true) {
                     alt="${title}" 
                     loading="lazy" 
                     decoding="async" 
-                    onerror="this.onerror=null; this.src='${album.remote_cover || './assets/celebrations.jpg'}';"
+                    onerror="this.onerror=null; this.src='${album.remote_cover || '/assets/celebrations.jpg'}';"
                     style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" 
                     class="album-cover-img"
                   />

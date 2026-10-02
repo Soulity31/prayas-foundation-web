@@ -5,7 +5,7 @@ import { createWorkSection } from '../components/WorkSection.js';
 import { createWorkModal } from '../components/WorkModal.js';
 import { createChatbot, setupChatbotComponent } from '../components/Chatbot.js';
 import { createDonateModal, setupDonateModalComponent } from '../components/DonateModal.js';
-import { createLegalModals, setupLegalModalsComponent } from '../components/LegalModals.js';
+import { createLegalModals } from '../components/LegalModals.js';
 import { createFooter } from '../components/Footer.js';
 import { searchKnowledgeBase } from '../data/botKnowledge.js';
 import { initPerformanceOptimizer, triggerPageLoadProgress } from '../utils/performance.js';
@@ -123,21 +123,12 @@ window.togglePrayasMenu = function(open) {
 window.closeWorkModal = function() {
   const modal = document.getElementById('work-album-modal');
   if (modal) {
-    modal.classList.remove('open');
     modal.style.setProperty('display', 'none', 'important');
-    modal.style.setProperty('opacity', '0', 'important');
-    modal.style.setProperty('visibility', 'hidden', 'important');
-    modal.style.setProperty('pointer-events', 'none', 'important');
   }
   const lb = document.getElementById('work-fullscreen-lightbox');
-  if (lb) {
-    lb.classList.remove('open');
-    lb.style.setProperty('display', 'none', 'important');
-    lb.style.setProperty('opacity', '0', 'important');
-    lb.style.setProperty('visibility', 'hidden', 'important');
-    lb.style.setProperty('pointer-events', 'none', 'important');
+  if (!lb || lb.style.display === 'none') {
+    document.body.style.overflow = '';
   }
-  document.body.style.overflow = '';
 };
 
 window.openWorkLightbox = function(index) {
@@ -153,70 +144,37 @@ window.openWorkLightbox = function(index) {
   const counter = document.getElementById('work-lb-counter');
 
   if (lb && img) {
-    // Ensure lightbox is attached to body and is the absolute last child (highest stacking)
-    document.body.appendChild(lb);
-
+    if (lb.parentElement !== document.body) {
+      document.body.appendChild(lb);
+    }
     const currentPhoto = currentLightboxPhotos[currentLightboxIndex];
-    const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || './assets/celebrations.jpg';
-    
+    const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || '/assets/celebrations.jpg';
     img.onerror = function() {
-      this.onerror = function() { this.src = './assets/celebrations.jpg'; };
+      this.onerror = function() { this.src = '/assets/celebrations.jpg'; };
       this.src = remoteFallback;
     };
     img.src = currentPhoto;
 
     if (counter) counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxPhotos.length}`;
     
-    lb.classList.add('open');
     lb.style.setProperty('display', 'flex', 'important');
-    lb.style.setProperty('opacity', '1', 'important');
-    lb.style.setProperty('pointer-events', 'auto', 'important');
-    lb.style.setProperty('visibility', 'visible', 'important');
     lb.style.setProperty('align-items', 'center', 'important');
     lb.style.setProperty('justify-content', 'center', 'important');
     lb.style.setProperty('position', 'fixed', 'important');
     lb.style.setProperty('inset', '0', 'important');
-    lb.style.setProperty('z-index', '10000050', 'important');
+    lb.style.setProperty('z-index', '1000000', 'important');
     document.body.style.overflow = 'hidden';
-
-    // Touch swipe support for mobile
-    if (!lb.dataset.touchBound) {
-      lb.dataset.touchBound = 'true';
-      let touchStartX = 0;
-      let touchEndX = 0;
-      lb.addEventListener('touchstart', (e) => {
-        if (e.changedTouches && e.changedTouches[0]) {
-          touchStartX = e.changedTouches[0].screenX;
-        }
-      }, { passive: true });
-      lb.addEventListener('touchend', (e) => {
-        if (e.changedTouches && e.changedTouches[0]) {
-          touchEndX = e.changedTouches[0].screenX;
-          if (touchStartX - touchEndX > 45) {
-            window.nextWorkPhoto();
-          } else if (touchEndX - touchStartX > 45) {
-            window.prevWorkPhoto();
-          }
-        }
-      }, { passive: true });
-    }
   }
 };
 
 window.closeWorkLightbox = function() {
   const lb = document.getElementById('work-fullscreen-lightbox');
   if (lb) {
-    lb.classList.remove('open');
     lb.style.setProperty('display', 'none', 'important');
-    lb.style.setProperty('opacity', '0', 'important');
-    lb.style.setProperty('visibility', 'hidden', 'important');
-    lb.style.setProperty('pointer-events', 'none', 'important');
   }
   const modal = document.getElementById('work-album-modal');
-  if (!modal || modal.style.display === 'none' || !modal.classList.contains('open')) {
+  if (!modal || modal.style.display === 'none') {
     document.body.style.overflow = '';
-  } else {
-    document.body.style.overflow = 'hidden';
   }
 };
 
@@ -225,11 +183,11 @@ window.nextWorkPhoto = function() {
   currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxPhotos.length;
   const img = document.getElementById('work-lb-img');
   const counter = document.getElementById('work-lb-counter');
-  if (img && activeAlbum) {
+  if (img) {
     const currentPhoto = currentLightboxPhotos[currentLightboxIndex];
-    const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || './assets/celebrations.jpg';
+    const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || '/assets/celebrations.jpg';
     img.onerror = function() {
-      this.onerror = function() { this.src = './assets/celebrations.jpg'; };
+      this.onerror = function() { this.src = '/assets/celebrations.jpg'; };
       this.src = remoteFallback;
     };
     img.src = currentPhoto;
@@ -242,42 +200,17 @@ window.prevWorkPhoto = function() {
   currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxPhotos.length) % currentLightboxPhotos.length;
   const img = document.getElementById('work-lb-img');
   const counter = document.getElementById('work-lb-counter');
-  if (img && activeAlbum) {
+  if (img) {
     const currentPhoto = currentLightboxPhotos[currentLightboxIndex];
-    const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || './assets/celebrations.jpg';
+    const remoteFallback = (activeAlbum.remote_photos && activeAlbum.remote_photos[currentLightboxIndex]) || '/assets/celebrations.jpg';
     img.onerror = function() {
-      this.onerror = function() { this.src = './assets/celebrations.jpg'; };
+      this.onerror = function() { this.src = '/assets/celebrations.jpg'; };
       this.src = remoteFallback;
     };
     img.src = currentPhoto;
   }
   if (counter) counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxPhotos.length}`;
 };
-
-// Global keyboard listeners for gallery/lightbox
-if (!window._workKeyboardBound) {
-  window._workKeyboardBound = true;
-  window.addEventListener('keydown', (e) => {
-    const lb = document.getElementById('work-fullscreen-lightbox');
-    const isLbOpen = lb && (lb.classList.contains('open') || lb.style.display === 'flex');
-    if (isLbOpen) {
-      if (e.key === 'Escape') {
-        window.closeWorkLightbox();
-      } else if (e.key === 'ArrowRight') {
-        window.nextWorkPhoto();
-      } else if (e.key === 'ArrowLeft') {
-        window.prevWorkPhoto();
-      }
-    } else {
-      const modal = document.getElementById('work-album-modal');
-      if (modal && (modal.classList.contains('open') || modal.style.display === 'flex')) {
-        if (e.key === 'Escape') {
-          window.closeWorkModal();
-        }
-      }
-    }
-  });
-}
 
 function renderPage() {
   const app = document.getElementById('app');
@@ -295,7 +228,7 @@ function renderPage() {
       <section class="hero-gradient section-padding" style="padding-top: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border);">
         <div class="container text-center" style="max-width: 850px; margin: 0 auto;">
           <div style="margin-bottom: 1rem;">
-            <a href="./index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
+            <a href="/index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
               ${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}
             </a>
             <span style="color: var(--foreground-subtle); margin: 0 0.65rem; font-size: 1.05rem;">/</span>
@@ -402,23 +335,20 @@ function attachPageListeners() {
       });
     });
 
-    // 5. Keyboard navigation for Modal and Lightbox (Single Event Binding)
-    if (!window._workKeydownBound) {
-      window._workKeydownBound = true;
-      window.addEventListener('keydown', (e) => {
-        const lb = document.getElementById('work-fullscreen-lightbox');
-        if (lb && (lb.classList.contains('open') || lb.style.display === 'flex')) {
-          if (e.key === 'Escape') window.closeWorkLightbox();
-          if (e.key === 'ArrowRight') window.nextWorkPhoto();
-          if (e.key === 'ArrowLeft') window.prevWorkPhoto();
-        } else {
-          const modal = document.getElementById('work-album-modal');
-          if (modal && (modal.classList.contains('open') || modal.style.display === 'flex')) {
-            if (e.key === 'Escape') window.closeWorkModal();
-          }
+    // 5. Keyboard navigation for Modal and Lightbox
+    window.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('work-fullscreen-lightbox');
+      if (lb && lb.style.display === 'flex') {
+        if (e.key === 'Escape') window.closeWorkLightbox();
+        if (e.key === 'ArrowRight') window.nextWorkPhoto();
+        if (e.key === 'ArrowLeft') window.prevWorkPhoto();
+      } else {
+        const modal = document.getElementById('work-album-modal');
+        if (modal && modal.style.display === 'flex') {
+          if (e.key === 'Escape') window.closeWorkModal();
         }
-      });
-    }
+      }
+    });
 
     // 6. Navigation Drawer Listeners
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -473,7 +403,6 @@ function attachPageListeners() {
       });
     }
     setupDonateModalComponent(currentLang);
-    setupLegalModalsComponent();
 
     // 8. Chatbot Listeners
     setupChatbotComponent(currentLang);
@@ -516,16 +445,16 @@ function openAlbumDetail(albumOrId) {
   gridEl.innerHTML = photos.map((p, idx) => {
     const fallback = remotePhotos[idx] || p;
     return `
-      <div class="hover-lift photo-grid-item" style="position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; background: var(--surface-subtle); cursor: pointer; border: 1.5px solid var(--border); user-select: none;" onclick="window.openWorkLightbox && window.openWorkLightbox(${idx})">
+      <div class="hover-lift" style="position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; background: var(--surface-subtle); cursor: pointer; border: 1.5px solid var(--border);" onclick="window.openWorkLightbox(${idx})">
         <img 
           src="${p}" 
           alt="${album.title_en} - Photo ${idx + 1}" 
           loading="lazy" 
           decoding="async" 
           onerror="this.onerror=null; this.src='${fallback}';"
-          style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block;" 
+          style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" 
         />
-        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.5rem; pointer-events: none;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.5rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
           🔍
         </div>
       </div>
@@ -534,9 +463,6 @@ function openAlbumDetail(albumOrId) {
 
   modal.classList.add('open');
   modal.style.setProperty('display', 'flex', 'important');
-  modal.style.setProperty('opacity', '1', 'important');
-  modal.style.setProperty('pointer-events', 'auto', 'important');
-  modal.style.setProperty('visibility', 'visible', 'important');
   modal.style.setProperty('align-items', 'center', 'important');
   modal.style.setProperty('justify-content', 'center', 'important');
   modal.style.setProperty('position', 'fixed', 'important');
@@ -563,26 +489,5 @@ function updateThemeIcons() {
   }
 }
 
-function init() {
-  triggerPageLoadProgress();
-  renderPage();
-
-  // Auto-open album if passed in query string (?album=ram-katha-2024)
-  try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const albumParam = urlParams.get('album');
-    if (albumParam) {
-      setTimeout(() => {
-        openAlbumDetail(albumParam);
-      }, 150);
-    }
-  } catch (e) {
-    // Silent fallback
-  }
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init, { once: true });
-} else {
-  init();
-}
+// Render on load
+renderPage();

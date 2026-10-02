@@ -4,7 +4,7 @@ import { createSchoolSection } from '../components/SchoolSection.js';
 import { createPersonModal } from '../components/PersonModal.js';
 import { createChatbot, setupChatbotComponent } from '../components/Chatbot.js';
 import { createDonateModal, setupDonateModalComponent } from '../components/DonateModal.js';
-import { createLegalModals, setupLegalModalsComponent } from '../components/LegalModals.js';
+import { createLegalModals } from '../components/LegalModals.js';
 import { createFooter } from '../components/Footer.js';
 import { searchKnowledgeBase } from '../data/botKnowledge.js';
 import { initPerformanceOptimizer, triggerPageLoadProgress } from '../utils/performance.js';
@@ -133,7 +133,7 @@ function renderPage() {
       <section class="hero-gradient section-padding" style="padding-top: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border);">
         <div class="container text-center" style="max-width: 850px; margin: 0 auto;">
           <div style="margin-bottom: 1rem;">
-            <a href="./index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
+            <a href="/index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
               ${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}
             </a>
             <span style="color: var(--foreground-subtle); margin: 0 0.65rem; font-size: 1.05rem;">/</span>
@@ -166,7 +166,7 @@ function renderPage() {
             <div class="liquid-glass-card" style="padding: 1rem; border-radius: 28px;">
               <div style="aspect-ratio: 16/10; border-radius: var(--radius-xl); overflow: hidden;">
                 <img 
-                  src="./assets/hero-prayas.jpg" 
+                  src="/assets/hero-prayas.jpg" 
                   alt="Mumbai Public School Building, Malvani Township" 
                   style="width: 100%; height: 100%; object-fit: cover;" 
                 />
@@ -297,8 +297,37 @@ function attachPageListeners() {
   }
   setupDonateModalComponent(currentLang);
 
-  // 5. Legal Modals (Privacy Policy & Terms of Use)
-  setupLegalModalsComponent();
+  const privacyModal = document.getElementById('privacy-modal');
+  const termsModal = document.getElementById('terms-modal');
+  const openPrivacyBtn = document.getElementById('open-privacy-btn');
+  const openTermsBtn = document.getElementById('open-terms-btn');
+  const closePrivacyBtn = document.getElementById('close-privacy-modal-btn');
+  const closeTermsBtn = document.getElementById('close-terms-modal-btn');
+
+  if (openPrivacyBtn && privacyModal) {
+    openPrivacyBtn.addEventListener('click', () => {
+      privacyModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (closePrivacyBtn && privacyModal) {
+    closePrivacyBtn.addEventListener('click', () => {
+      privacyModal.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+  if (openTermsBtn && termsModal) {
+    openTermsBtn.addEventListener('click', () => {
+      termsModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (closeTermsBtn && termsModal) {
+    closeTermsBtn.addEventListener('click', () => {
+      termsModal.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
 
   // 6. Person Full Detail Modal (Pillars of Strength)
   setupPersonFullDetailModal();

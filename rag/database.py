@@ -858,12 +858,12 @@ def test_smtp_connection(
     t0 = time.time()
     try:
         ip_addr = socket.gethostbyname(target_host)
-        steps.append(f"✓ DNS Resolution: {target_host} resolved to {ip_addr} ({int((time.time() - t0)*1000)}ms)")
+        steps.append(f"[OK] DNS Resolution: {target_host} resolved to {ip_addr} ({int((time.time() - t0)*1000)}ms)")
     except Exception as e:
         return {
             "success": False,
             "latency_ms": int((time.time() - start_all)*1000),
-            "steps": steps + [f"✗ DNS Resolution failed: {str(e)}"],
+            "steps": steps + [f"[FAIL] DNS Resolution failed: {str(e)}"],
             "error": f"Cannot resolve hostname {target_host}: {str(e)}"
         }
 
@@ -872,23 +872,23 @@ def test_smtp_connection(
     try:
         if target_port == 465:
             steps.append(f"Connecting via SSL/TLS on port {target_port}...")
-            server = smtplib.SMTP_SSL(target_host, target_port, timeout=12)
-            steps.append(f"✓ SSL Handshake established ({int((time.time() - t1)*1000)}ms)")
+            server = smtplib.SMTP_SSL(target_host, target_port, timeout=15)
+            steps.append(f"[OK] SSL Handshake established ({int((time.time() - t1)*1000)}ms)")
         else:
             steps.append(f"Connecting via STARTTLS on port {target_port}...")
-            server = smtplib.SMTP(target_host, target_port, timeout=12)
+            server = smtplib.SMTP(target_host, target_port, timeout=15)
             server.ehlo()
             if server.has_extn("STARTTLS"):
                 server.starttls()
                 server.ehlo()
-                steps.append(f"✓ STARTTLS Encryption negotiated ({int((time.time() - t1)*1000)}ms)")
+                steps.append(f"[OK] STARTTLS Encryption negotiated ({int((time.time() - t1)*1000)}ms)")
             else:
-                steps.append(f"ℹ️ Plain connection on port {target_port} (No STARTTLS)")
+                steps.append(f"[INFO] Plain connection on port {target_port} (No STARTTLS)")
 
         # Step 4: Auth Check
         t2 = time.time()
         server.login(target_user, target_pass)
-        steps.append(f"✓ SMTP Authentication successful for {target_user} ({int((time.time() - t2)*1000)}ms)")
+        steps.append(f"[OK] SMTP Authentication successful for {target_user} ({int((time.time() - t2)*1000)}ms)")
         server.quit()
 
         total_ms = int((time.time() - start_all) * 1000)
@@ -905,14 +905,14 @@ def test_smtp_connection(
         return {
             "success": False,
             "latency_ms": int((time.time() - start_all)*1000),
-            "steps": steps + [f"✗ Authentication Failed: {str(auth_err)}"],
+            "steps": steps + [f"[FAIL] Authentication Failed: {str(auth_err)}"],
             "error": "Authentication Failed. For Gmail, make sure 2-Step Verification is enabled and use a 16-character App Password (not your regular account password)."
         }
     except Exception as err:
         return {
             "success": False,
             "latency_ms": int((time.time() - start_all)*1000),
-            "steps": steps + [f"✗ Socket/Connection Error: {str(err)}"],
+            "steps": steps + [f"[FAIL] Socket/Connection Error: {str(err)}"],
             "error": f"Connection Error ({type(err).__name__}): {str(err)}"
         }
 
@@ -960,31 +960,41 @@ def dispatch_smtp_message(
         pdf_filename=pdf_filename
     )
 
-    try:
-        if port == 465:
-            with smtplib.SMTP_SSL(host, port, timeout=3) as server:
-                server.login(user, password)
-                server.sendmail(user, [to_email], msg.as_string())
-        else:
-            with smtplib.SMTP(host, port, timeout=3) as server:
-                server.ehlo()
-                if server.has_extn("STARTTLS"):
-                    server.starttls()
+    ports_to_try = [port]
+    if port == 587 and 465 not in ports_to_try:
+        ports_to_try.append(465)
+    elif port == 465 and 587 not in ports_to_try:
+        ports_to_try.append(587)
+
+    last_err = None
+    for try_port in ports_to_try:
+        try:
+            if try_port == 465:
+                with smtplib.SMTP_SSL(host, try_port, timeout=15) as server:
+                    server.login(user, password)
+                    server.sendmail(user, [to_email], msg.as_string())
+            else:
+                with smtplib.SMTP(host, try_port, timeout=15) as server:
                     server.ehlo()
-                server.login(user, password)
-                server.sendmail(user, [to_email], msg.as_string())
+                    if server.has_extn("STARTTLS"):
+                        server.starttls()
+                        server.ehlo()
+                    server.login(user, password)
+                    server.sendmail(user, [to_email], msg.as_string())
 
-        log_email_dispatch(to_email, subject, email_type, "DELIVERED", f"{host}:{port}", None)
-        return {"sent": True, "error": None}
+            log_email_dispatch(to_email, subject, email_type, "DELIVERED", f"{host}:{try_port}", None)
+            return {"sent": True, "error": None}
 
-    except smtplib.SMTPAuthenticationError as auth_err:
-        err_str = f"Authentication Failed: Username or App Password incorrect. For Gmail, use a 16-character App Password. ({auth_err})"
-        log_email_dispatch(to_email, subject, email_type, "FAILED", f"{host}:{port}", err_str)
-        return {"sent": False, "error": err_str}
-    except Exception as err:
-        err_str = f"SMTP Dispatch Error ({type(err).__name__}): {str(err)}"
-        log_email_dispatch(to_email, subject, email_type, "FAILED", f"{host}:{port}", err_str)
-        return {"sent": False, "error": err_str}
+        except smtplib.SMTPAuthenticationError as auth_err:
+            err_str = f"Authentication Failed: Username or App Password incorrect. For Gmail, use a 16-character App Password. ({auth_err})"
+            log_email_dispatch(to_email, subject, email_type, "FAILED", f"{host}:{try_port}", err_str)
+            return {"sent": False, "error": err_str}
+        except Exception as err:
+            last_err = err
+
+    err_str = f"SMTP Dispatch Error ({type(last_err).__name__}): {str(last_err)}"
+    log_email_dispatch(to_email, subject, email_type, "FAILED", f"{host}:{ports_to_try[-1]}", err_str)
+    return {"sent": False, "error": err_str}
 
 
 # =========================================================================

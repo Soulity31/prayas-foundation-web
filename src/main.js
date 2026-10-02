@@ -11,7 +11,7 @@ import { createContactSection } from './components/ContactSection.js';
 import { createGalleryModal } from './components/GalleryModal.js';
 import { createPersonModal } from './components/PersonModal.js';
 import { createDonateModal, setupDonateModalComponent } from './components/DonateModal.js';
-import { createLegalModals, setupLegalModalsComponent } from './components/LegalModals.js';
+import { createLegalModals } from './components/LegalModals.js';
 import { createChatbot, setupChatbotComponent } from './components/Chatbot.js';
 import { createFooter } from './components/Footer.js';
 import { searchKnowledgeBase } from './data/botKnowledge.js';
@@ -152,19 +152,19 @@ export function renderHome() {
         <div style="background: var(--surface-subtle); padding: 1.75rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
           <div class="container">
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem;">
-              <a href="./about.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
+              <a href="/about.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
                 🏛️ ${isMr ? 'आमच्याबद्दल आणि नेतृत्व' : isHi ? 'हमारे बारे में एवं नेतृत्व' : 'About Us & Leadership Tree'}
               </a>
-              <a href="./school.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
+              <a href="/school.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
                 🏫 ${isMr ? 'मुंबई पब्लिक स्कूल मालवणी' : isHi ? 'मुंबई पब्लिक स्कूल मालवणी' : 'Mumbai Public School Campus'}
               </a>
-              <a href="./impact.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
+              <a href="/impact.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
                 📊 ${isMr ? 'खान अकादमी मूल्यमापन विश्लेषण' : isHi ? 'खान अकादमी मूल्यांकन विश्लेषण' : 'Khan Academy Score Analytics'}
               </a>
-              <a href="./programs.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
+              <a href="/programs.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
                 🎯 ${isMr ? '१६ प्रमुख कार्यक्रम व उपक्रम' : isHi ? '16 प्रमुख कार्यक्रम व गतिविधियाँ' : '16 Flagship Programs'}
               </a>
-              <a href="./contact.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
+              <a href="/contact.html" class="glass-badge hover-lift" style="padding: 0.55rem 1.1rem; font-weight: 700; color: var(--foreground); font-size: 0.875rem;">
                 🤝 ${isMr ? 'स्वयंसेवक आणि 80G देणगी' : isHi ? 'स्वयंसेवक व 80G दान' : 'Volunteer & 80G Donation'}
               </a>
             </div>
@@ -324,8 +324,44 @@ function attachHomeListeners() {
   }
   setupDonateModalComponent(currentLang);
 
-  // 5. Legal Modals (Privacy Policy & Terms of Use)
-  setupLegalModalsComponent();
+  // 5. Legal Modals
+  const privacyModal = document.getElementById('privacy-modal');
+  const termsModal = document.getElementById('terms-modal');
+  const openPrivacyBtn = document.getElementById('open-privacy-btn');
+  const openTermsBtn = document.getElementById('open-terms-btn');
+  const closePrivacyBtn = document.getElementById('close-privacy-modal-btn');
+  const closeTermsBtn = document.getElementById('close-terms-modal-btn');
+
+  if (openPrivacyBtn && privacyModal) {
+    openPrivacyBtn.addEventListener('click', () => {
+      if (privacyModal.parentElement !== document.body) document.body.appendChild(privacyModal);
+      privacyModal.classList.add('open');
+      privacyModal.style.setProperty('display', 'flex', 'important');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (closePrivacyBtn && privacyModal) {
+    closePrivacyBtn.addEventListener('click', () => {
+      privacyModal.classList.remove('open');
+      privacyModal.style.setProperty('display', 'none', 'important');
+      document.body.style.overflow = '';
+    });
+  }
+  if (openTermsBtn && termsModal) {
+    openTermsBtn.addEventListener('click', () => {
+      if (termsModal.parentElement !== document.body) document.body.appendChild(termsModal);
+      termsModal.classList.add('open');
+      termsModal.style.setProperty('display', 'flex', 'important');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (closeTermsBtn && termsModal) {
+    closeTermsBtn.addEventListener('click', () => {
+      termsModal.classList.remove('open');
+      termsModal.style.setProperty('display', 'none', 'important');
+      document.body.style.overflow = '';
+    });
+  }
 
   // 6. Click-to-Open Full Person Detail Modal
   setupPersonFullDetailModal();
@@ -656,9 +692,9 @@ function setupStepByStepProgramEvents() {
     if (lightboxImg && item) {
       lightboxImg.onerror = function() {
         this.onerror = null;
-        this.src = './assets/celebrations.jpg';
+        this.src = '/assets/celebrations.jpg';
       };
-      lightboxImg.src = item.img || './assets/celebrations.jpg';
+      lightboxImg.src = item.img || '/assets/celebrations.jpg';
       lightboxImg.alt = item.title || 'Program Preview';
       if (lightboxTitle) lightboxTitle.textContent = item.title || '';
       if (lightboxDesc) lightboxDesc.textContent = item.desc || '';

@@ -5,7 +5,7 @@ import { createPartnersSection } from '../components/PartnersSection.js';
 import { createPersonModal } from '../components/PersonModal.js';
 import { createChatbot, setupChatbotComponent } from '../components/Chatbot.js';
 import { createDonateModal, setupDonateModalComponent } from '../components/DonateModal.js';
-import { createLegalModals, setupLegalModalsComponent } from '../components/LegalModals.js';
+import { createLegalModals } from '../components/LegalModals.js';
 import { createFooter } from '../components/Footer.js';
 import { searchKnowledgeBase } from '../data/botKnowledge.js';
 import { initPerformanceOptimizer, triggerPageLoadProgress, throttleRAF } from '../utils/performance.js';
@@ -121,46 +121,49 @@ function renderPage() {
   const app = document.getElementById('app');
   if (!app) return;
 
-  const m = siteContent[currentLang].mission;
-  const l = siteContent[currentLang].leadership;
-  const isMr = currentLang === 'mr';
-  const isHi = currentLang === 'hi';
+  try {
+    const langData = siteContent[currentLang] || siteContent['mr'] || siteContent['en'];
+    const m = langData.mission || langData.about || siteContent['en'].mission;
+    const l = langData.leadership || siteContent['en'].leadership;
+    const isMr = currentLang === 'mr';
+    const isHi = currentLang === 'hi';
+    const pillars = (m && m.pillars) || (langData.about && langData.about.pillars) || (siteContent['en'].mission && siteContent['en'].mission.pillars) || [];
 
-  app.innerHTML = `
-    ${createNavbar(siteContent, currentLang, 'about')}
-    
-    <main style="flex: 1;">
+    app.innerHTML = `
+      ${createNavbar(siteContent, currentLang, 'about')}
       
-      <!-- Page Hero Header with Breadcrumbs -->
-      <section class="hero-gradient section-padding" style="padding-top: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border);">
-        <div class="container text-center" style="max-width: 850px; margin: 0 auto;">
-          <div style="margin-bottom: 1rem;">
-            <a href="./index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
-              ${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}
-            </a>
-            <span style="color: var(--foreground-subtle); margin: 0 0.65rem; font-size: 1.05rem;">/</span>
-            <span style="color: var(--foreground-muted); font-size: 1.05rem; font-weight: 700;">
-              ${isMr ? 'आमच्याबद्दल' : isHi ? 'हमारे बारे में' : 'About Us'}
+      <main style="flex: 1;">
+        
+        <!-- Page Hero Header with Breadcrumbs -->
+        <section class="hero-gradient section-padding" style="padding-top: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border);">
+          <div class="container text-center" style="max-width: 850px; margin: 0 auto;">
+            <div style="margin-bottom: 1rem;">
+              <a href="/index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
+                ${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}
+              </a>
+              <span style="color: var(--foreground-subtle); margin: 0 0.65rem; font-size: 1.05rem;">/</span>
+              <span style="color: var(--foreground-muted); font-size: 1.05rem; font-weight: 700;">
+                ${isMr ? 'आमच्याबद्दल' : isHi ? 'हमारे बारे में' : 'About Us'}
+              </span>
+            </div>
+
+            <span class="glass-badge-gold" style="margin-bottom: 1rem; font-size: 1rem; padding: 0.45rem 1.25rem;">
+              ${m.tagline || (isMr ? 'आमचा उद्देश आणि ध्येय' : isHi ? 'हमारा उद्देश्य व मिशन' : 'Our Purpose & Mission')}
             </span>
+            <h1 class="font-display font-bold text-foreground" style="font-size: clamp(2.4rem, 4.5vw, 3.5rem); margin-bottom: 1.25rem; line-height: 1.2;">
+              ${isMr ? 'आमची यशोगाथा, ध्येय आणि नेतृत्व रचना' : isHi ? 'हमारी कहानी, मिशन और संगठनात्मक नेतृत्व' : 'Our Story, Mission & Leadership'}
+            </h1>
+            <p class="text-foreground-muted text-lg" style="line-height: 1.7; font-size: 1.2rem;">
+              ${m.desc || ''}
+            </p>
           </div>
+        </section>
 
-          <span class="glass-badge-gold" style="margin-bottom: 1rem; font-size: 1rem; padding: 0.45rem 1.25rem;">
-            ${m.tagline}
-          </span>
-          <h1 class="font-display font-bold text-foreground" style="font-size: clamp(2.4rem, 4.5vw, 3.5rem); margin-bottom: 1.25rem; line-height: 1.2;">
-            ${isMr ? 'आमची यशोगाथा, ध्येय आणि नेतृत्व रचना' : isHi ? 'हमारी कहानी, मिशन और संगठनात्मक नेतृत्व' : 'Our Story, Mission & Leadership'}
-          </h1>
-          <p class="text-foreground-muted text-lg" style="line-height: 1.7; font-size: 1.2rem;">
-            ${m.desc}
-          </p>
-        </div>
-      </section>
-
-      <!-- 3 Core Pillars Section -->
-      <section class="section-padding" style="background: var(--surface);">
-        <div class="container">
-          <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;" class="md:grid-cols-3">
-            ${m.pillars.map((p, i) => `
+        <!-- 3 Core Pillars Section -->
+        <section class="section-padding" style="background: var(--surface);">
+          <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;" class="md:grid-cols-3">
+              ${pillars.map((p, i) => `
               <div class="liquid-glass-card hover-lift" style="padding: 2.25rem; border-radius: 24px;">
                 <div style="width: 56px; height: 56px; border-radius: var(--radius-lg); background: ${i === 0 ? 'rgba(16, 185, 129, 0.15)' : i === 1 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(13, 148, 136, 0.15)'}; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: ${i === 0 ? 'var(--primary)' : i === 1 ? 'var(--accent)' : 'var(--secondary)'};">
                   ${i === 0 ? `
@@ -192,7 +195,7 @@ function renderPage() {
               <div class="lg:col-span-4 text-center" style="display: flex; flex-direction: column; align-items: center;">
                 <div style="position: relative; width: 230px; height: 230px; border-radius: 50%; padding: 6px; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); box-shadow: var(--shadow-lg); margin-bottom: 1.5rem;">
                   <img 
-                    src="./assets/brijesh-singh.png" 
+                    src="/assets/brijesh-singh.png" 
                     alt="Shri Brijesh Singh - Founder & Chairman, Prayas Foundation" 
                     style="width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 50%; background: var(--surface-card);"
                     loading="lazy"
@@ -223,7 +226,7 @@ function renderPage() {
                   <p>${l.bio3}</p>
                 </div>
 
-                <blockquote class="founder-quote-box" style="border-left: 4px solid var(--primary); padding: 1.25rem 1.75rem; font-style: italic; font-weight: 700; font-size: 1.15rem; line-height: 1.6; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-top: 1.5rem;">
+                <blockquote style="border-left: 4px solid var(--primary); padding-left: 1.5rem; font-style: italic; color: var(--foreground); font-weight: 700; font-size: 1.12rem; background: var(--primary-subtle); padding-top: 1rem; padding-bottom: 1rem; border-radius: 0 var(--radius-md) var(--radius-md) 0;">
                   "${l.quote}"
                 </blockquote>
               </div>
@@ -258,7 +261,7 @@ function renderPage() {
                 : 'Prayas Foundation is fully compliant with Section 135 of the Companies Act for CSR implementations. We provide detailed impact reporting, utilization certificates, and annual audits.'}
             </p>
             <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
-              <a href="./contact.html" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.75rem 1.75rem;">
+              <a href="/contact.html" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.75rem 1.75rem;">
                 ${isMr ? 'CSR भागीदारीसाठी संपर्क साधा' : isHi ? 'CSR साझेदारी हेतु संपर्क करें' : 'Contact for CSR Collaboration'}
               </a>
               <a href="tel:+919820500726" class="btn btn-secondary" style="font-size: 1.05rem; padding: 0.75rem 1.75rem;">
@@ -282,6 +285,20 @@ function renderPage() {
   `;
 
   attachPageListeners();
+  } catch (err) {
+    console.error('About page rendering error:', err);
+    if (app && !app.innerHTML.trim()) {
+      app.innerHTML = `
+        ${createNavbar(siteContent, currentLang, 'about')}
+        <main style="flex: 1; padding: 4rem 1rem; text-align: center;">
+          <h2 style="font-size: 2rem; margin-bottom: 1rem;">Prayas Foundation</h2>
+          <p style="color: var(--foreground-muted); max-width: 600px; margin: 0 auto 2rem;">Dedicated to quality education at Mumbai Public School Malvani, health, digital literacy, and community welfare.</p>
+          <a href="/index.html" class="btn btn-primary">Return to Home / मुख्य पृष्ठ</a>
+        </main>
+        ${createFooter(siteContent, currentLang)}
+      `;
+    }
+  }
 }
 
 function attachPageListeners() {
@@ -362,8 +379,38 @@ function attachPageListeners() {
   }
   setupDonateModalComponent(currentLang);
 
-  // 5. Legal Modals (Privacy Policy & Terms of Use)
-  setupLegalModalsComponent();
+  // 5. Legal Modals
+  const privacyModal = document.getElementById('privacy-modal');
+  const termsModal = document.getElementById('terms-modal');
+  const openPrivacyBtn = document.getElementById('open-privacy-btn');
+  const openTermsBtn = document.getElementById('open-terms-btn');
+  const closePrivacyBtn = document.getElementById('close-privacy-modal-btn');
+  const closeTermsBtn = document.getElementById('close-terms-modal-btn');
+
+  if (openPrivacyBtn && privacyModal) {
+    openPrivacyBtn.addEventListener('click', () => {
+      privacyModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (closePrivacyBtn && privacyModal) {
+    closePrivacyBtn.addEventListener('click', () => {
+      privacyModal.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+  if (openTermsBtn && termsModal) {
+    openTermsBtn.addEventListener('click', () => {
+      termsModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (closeTermsBtn && termsModal) {
+    closeTermsBtn.addEventListener('click', () => {
+      termsModal.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
 
   // 6. Scroll-Driven Progressive Step-by-Step Organisational Hierarchy
   setupOrgScrollTiers();

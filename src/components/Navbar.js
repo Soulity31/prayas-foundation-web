@@ -1,16 +1,100 @@
+if (typeof window !== 'undefined') {
+  if (!window.setPrayasLanguage) {
+    window.setPrayasLanguage = function(lang) {
+      localStorage.setItem('prayas_lang', lang || 'mr');
+      window.closeLanguageModal && window.closeLanguageModal();
+      window.location.reload();
+    };
+  }
+  if (!window.openLanguageModal) {
+    window.openLanguageModal = function() {
+      const overlay = document.getElementById('language-modal-overlay');
+      if (overlay) {
+        if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
+        overlay.style.setProperty('display', 'flex', 'important');
+        overlay.style.setProperty('opacity', '1', 'important');
+        overlay.style.setProperty('visibility', 'visible', 'important');
+        overlay.style.setProperty('pointer-events', 'auto', 'important');
+        overlay.classList.add('open');
+      }
+      document.body.style.overflow = 'hidden';
+    };
+  }
+  if (!window.closeLanguageModal) {
+    window.closeLanguageModal = function() {
+      const overlay = document.getElementById('language-modal-overlay');
+      if (overlay) {
+        overlay.style.setProperty('display', 'none', 'important');
+        overlay.style.setProperty('opacity', '0', 'important');
+        overlay.style.setProperty('visibility', 'hidden', 'important');
+        overlay.style.setProperty('pointer-events', 'none', 'important');
+        overlay.classList.remove('open');
+      }
+      document.body.style.overflow = '';
+    };
+  }
+  if (!window.openPrayasMenu) {
+    window.openPrayasMenu = function() {
+      const overlay = document.getElementById('drawer-overlay');
+      const drawer = document.getElementById('mobile-drawer');
+      if (overlay) {
+        if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
+        overlay.style.setProperty('display', 'block', 'important');
+        overlay.style.setProperty('opacity', '1', 'important');
+        overlay.style.setProperty('visibility', 'visible', 'important');
+        overlay.style.setProperty('pointer-events', 'auto', 'important');
+      }
+      if (drawer) {
+        if (drawer.parentElement !== document.body) document.body.appendChild(drawer);
+        drawer.style.setProperty('display', 'flex', 'important');
+        drawer.style.setProperty('opacity', '1', 'important');
+        drawer.style.setProperty('visibility', 'visible', 'important');
+        drawer.style.setProperty('pointer-events', 'auto', 'important');
+        drawer.style.setProperty('z-index', '99999', 'important');
+      }
+      document.body.style.overflow = 'hidden';
+    };
+  }
+  if (!window.closePrayasMenu) {
+    window.closePrayasMenu = function() {
+      const overlay = document.getElementById('drawer-overlay');
+      const drawer = document.getElementById('mobile-drawer');
+      if (overlay) {
+        overlay.style.setProperty('display', 'none', 'important');
+        overlay.style.setProperty('opacity', '0', 'important');
+        overlay.style.setProperty('visibility', 'hidden', 'important');
+        overlay.style.setProperty('pointer-events', 'none', 'important');
+      }
+      if (drawer) {
+        drawer.style.setProperty('display', 'none', 'important');
+        drawer.style.setProperty('opacity', '0', 'important');
+        drawer.style.setProperty('visibility', 'hidden', 'important');
+        drawer.style.setProperty('pointer-events', 'none', 'important');
+      }
+      document.body.style.overflow = '';
+    };
+  }
+  if (!window.togglePrayasMenu) {
+    window.togglePrayasMenu = function(open) {
+      if (open) window.openPrayasMenu();
+      else window.closePrayasMenu();
+    };
+  }
+}
+
 export function createNavbar(content, currentLang, activePage = 'home') {
   const isMr = currentLang === 'mr';
   const isHi = currentLang === 'hi';
-  const t = (content[currentLang] || content['mr']).nav;
+  const t = (content[currentLang] || content['mr'] || content['en']).nav;
 
   const pages = [
-    { id: 'home', href: './index.html', label: t.home, icon: '🏠' },
-    { id: 'about', href: './about.html', label: t.about, icon: '📖' },
-    { id: 'school', href: './school.html', label: t.school, icon: '🏫' },
-    { id: 'programs', href: './programs.html', label: t.programs, icon: '🎯' },
-    { id: 'work', href: './work.html', label: t.work || (isMr ? 'आमचे कार्य' : isHi ? 'हमारा कार्य' : 'Our Work'), icon: '🌟' },
-    { id: 'impact', href: './impact.html', label: t.impact, icon: '📊' },
-    { id: 'contact', href: './contact.html', label: t.contact, icon: '📞' }
+    { id: 'home', href: '/index.html', label: t.home, icon: '🏠' },
+    { id: 'about', href: '/about.html', label: t.about, icon: '📖' },
+    { id: 'school', href: '/school.html', label: t.school, icon: '🏫' },
+    { id: 'programs', href: '/programs.html', label: t.programs, icon: '🎯' },
+    { id: 'work', href: '/work.html', label: t.work || (isMr ? 'आमचे कार्य' : isHi ? 'हमारा कार्य' : 'Our Work'), icon: '🌟' },
+    { id: 'impact', href: '/impact.html', label: t.impact, icon: '📊' },
+    { id: 'contact', href: '/contact.html', label: t.contact, icon: '📞' }
   ];
 
   const langBtnText = isMr ? 'भाषा' : isHi ? 'भाषा' : 'Language';
@@ -20,8 +104,8 @@ export function createNavbar(content, currentLang, activePage = 'home') {
       <div class="nav-inner-container flex items-center justify-between" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         
         <!-- Brand Logo & Name -->
-        <a href="./index.html" class="nav-brand flex items-center hover-scale" style="display: flex; align-items: center; text-decoration: none; min-width: 0;">
-          <img src="./assets/prayas-logo.png" alt="Prayas Foundation Logo" class="nav-brand-logo" />
+        <a href="/index.html" class="nav-brand flex items-center hover-scale" style="display: flex; align-items: center; text-decoration: none; min-width: 0;">
+          <img src="/assets/prayas-logo.png" alt="Prayas Foundation Logo" class="nav-brand-logo" />
           <span class="nav-brand-text font-display font-bold text-foreground block">Prayas Foundation</span>
         </a>
 
@@ -29,7 +113,7 @@ export function createNavbar(content, currentLang, activePage = 'home') {
         <div class="nav-tools-wrap flex items-center" style="display: flex; align-items: center;">
           
           <!-- Home Button (Icon-only on mobile, Icon+Text on desktop) -->
-          <a href="./index.html" class="nav-btn nav-home-btn hover-lift ${activePage === 'home' ? 'active' : ''}" title="${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}" aria-label="Home">
+          <a href="/index.html" class="nav-btn nav-home-btn hover-lift ${activePage === 'home' ? 'active' : ''}" title="${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}" aria-label="Home">
             <span class="nav-btn-icon" style="font-size: 1.05rem; line-height: 1;">🏠</span>
             <span class="nav-btn-text nav-home-text">${isMr ? 'होम' : isHi ? 'होम' : 'Home'}</span>
           </a>
@@ -41,8 +125,10 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           </button>
 
           <!-- Language Selection Trigger Button (Opens Language Pop-up Modal) -->
-          <button id="lang-toggle-btn" class="nav-btn nav-lang-btn glass-badge hover-scale" type="button" title="Select Language / भाषा निवडा" aria-label="Language" onclick="window.openLanguageModal && window.openLanguageModal()" style="padding: 0.45rem 0.85rem; display: flex; align-items: center; justify-content: center;">
-            <span class="nav-btn-text font-bold" id="lang-label" style="font-size: 0.95rem; font-family: var(--font-display);">${langBtnText}</span>
+          <button id="lang-toggle-btn" class="nav-btn nav-lang-btn glass-badge hover-scale" type="button" title="Select Language / भाषा निवडा" aria-label="Language" onclick="window.openLanguageModal && window.openLanguageModal()">
+            <span class="nav-lang-icon" style="font-size: 1.15rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;" aria-hidden="true">🌐</span>
+            <span class="nav-btn-text font-bold" id="lang-label">${langBtnText}</span>
+            <span class="nav-lang-badge font-bold" style="font-size: 0.74rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--primary); font-family: var(--font-display);">${currentLang}</span>
           </button>
 
           <!-- Theme Switcher (Icon-only) -->
@@ -83,14 +169,33 @@ export function createNavbar(content, currentLang, activePage = 'home') {
     <div id="mobile-drawer" class="mobile-drawer" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92%; max-width: 450px; max-height: 88vh; background: #ffffff; color: #0f172a; border-radius: 20px; border: 2px solid #10b981; z-index: 99999; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55); padding: 1.5rem; flex-direction: column; overflow-y: auto;" onclick="event.stopPropagation()">
       
       <!-- Modal Header -->
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 2px solid #e2e8f0;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.85rem; border-bottom: 2px solid #e2e8f0;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <img src="./assets/prayas-logo.png" alt="Prayas Logo" style="height: 38px; width: auto;" />
+          <img src="/assets/prayas-logo.png" alt="Prayas Logo" style="height: 38px; width: auto;" />
           <span class="font-display font-bold block" style="font-size: 1.2rem; line-height: 1.2; color: #0f172a;">Prayas Foundation</span>
         </div>
         <button id="close-drawer-btn" type="button" class="hover-lift" style="width: 36px; height: 36px; border-radius: 50%; background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 800;" aria-label="Close Menu" onclick="window.closePrayasMenu ? window.closePrayasMenu() : (window.togglePrayasMenu && window.togglePrayasMenu(false))">
           ✕
         </button>
+      </div>
+
+      <!-- Mobile Quick Language Switcher -->
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 0.75rem; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 700; color: #475569;">
+          <span style="font-size: 1.1rem;">🌐</span>
+          <span>${isMr ? 'भाषा निवडा (Select Language):' : isHi ? 'भाषा चुनें (Select Language):' : 'Select Language:'}</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem;">
+          <button type="button" class="lang-select-option hover-scale" data-lang="mr" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; border: 1.5px solid ${currentLang === 'mr' ? '#10b981' : '#cbd5e1'}; background: ${currentLang === 'mr' ? '#10b981' : '#ffffff'}; color: ${currentLang === 'mr' ? '#ffffff' : '#0f172a'};" onclick="window.setPrayasLanguage && window.setPrayasLanguage('mr')">
+            🚩 मराठी
+          </button>
+          <button type="button" class="lang-select-option hover-scale" data-lang="hi" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; border: 1.5px solid ${currentLang === 'hi' ? '#10b981' : '#cbd5e1'}; background: ${currentLang === 'hi' ? '#10b981' : '#ffffff'}; color: ${currentLang === 'hi' ? '#ffffff' : '#0f172a'};" onclick="window.setPrayasLanguage && window.setPrayasLanguage('hi')">
+            🇮🇳 हिन्दी
+          </button>
+          <button type="button" class="lang-select-option hover-scale" data-lang="en" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; border: 1.5px solid ${currentLang === 'en' ? '#10b981' : '#cbd5e1'}; background: ${currentLang === 'en' ? '#10b981' : '#ffffff'}; color: ${currentLang === 'en' ? '#ffffff' : '#0f172a'};" onclick="window.setPrayasLanguage && window.setPrayasLanguage('en')">
+            🌐 English
+          </button>
+        </div>
       </div>
 
       <!-- Navigation Links -->
@@ -128,13 +233,16 @@ export function createNavbar(content, currentLang, activePage = 'home') {
         
         <!-- Header -->
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1.5px solid var(--border);">
-          <div>
-            <h3 class="font-display font-bold text-foreground" style="font-size: 1.15rem; margin: 0; line-height: 1.2;">
-              ${isMr ? 'भाषा निवडा' : isHi ? 'भाषा चुनें' : 'Choose Language'}
-            </h3>
-            <p style="font-size: 0.78rem; color: var(--foreground-muted); margin: 0;">
-              ${isMr ? 'आपली पसंतीची भाषा निवडा' : isHi ? 'अपनी पसंदीदा भाषा चुनें' : 'Select your preferred language'}
-            </p>
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span style="font-size: 1.35rem;">🌐</span>
+            <div>
+              <h3 class="font-display font-bold text-foreground" style="font-size: 1.15rem; margin: 0; line-height: 1.2;">
+                ${isMr ? 'भाषा निवडा' : isHi ? 'भाषा चुनें' : 'Choose Language'}
+              </h3>
+              <p style="font-size: 0.78rem; color: var(--foreground-muted); margin: 0;">
+                ${isMr ? 'आपली पसंतीची भाषा निवडा' : isHi ? 'अपनी पसंदीदा भाषा चुनें' : 'Select your preferred language'}
+              </p>
+            </div>
           </div>
           <button type="button" class="hover-lift" style="width: 34px; height: 34px; border-radius: 50%; background: var(--surface-subtle); color: var(--foreground); border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800;" onclick="window.closeLanguageModal && window.closeLanguageModal()">
             ✕
@@ -147,6 +255,7 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           <!-- Marathi (Default) -->
           <button type="button" class="lang-select-option hover-lift ${currentLang === 'mr' ? 'is-active-lang' : ''}" data-lang="mr" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.15rem; border-radius: 14px; border: 1.5px solid ${currentLang === 'mr' ? 'var(--primary)' : 'var(--border)'}; background: ${currentLang === 'mr' ? 'var(--primary-light-bg)' : 'var(--surface)'}; cursor: pointer; text-align: left; transition: all 0.2s ease;">
             <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <span style="font-size: 1.45rem;">🚩</span>
               <strong style="font-size: 1.05rem; color: ${currentLang === 'mr' ? 'var(--primary)' : 'var(--foreground)'}; font-weight: 800;">मराठी (Marathi)</strong>
             </div>
             ${currentLang === 'mr' ? '<span style="background: var(--primary); color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px;">✓ Active</span>' : ''}
@@ -155,6 +264,7 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           <!-- Hindi -->
           <button type="button" class="lang-select-option hover-lift ${currentLang === 'hi' ? 'is-active-lang' : ''}" data-lang="hi" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.15rem; border-radius: 14px; border: 1.5px solid ${currentLang === 'hi' ? 'var(--primary)' : 'var(--border)'}; background: ${currentLang === 'hi' ? 'var(--primary-light-bg)' : 'var(--surface)'}; cursor: pointer; text-align: left; transition: all 0.2s ease;">
             <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <span style="font-size: 1.45rem;">🇮🇳</span>
               <strong style="font-size: 1.05rem; color: ${currentLang === 'hi' ? 'var(--primary)' : 'var(--foreground)'}; font-weight: 800;">हिन्दी (Hindi)</strong>
             </div>
             ${currentLang === 'hi' ? '<span style="background: var(--primary); color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px;">✓ Active</span>' : ''}
@@ -163,6 +273,7 @@ export function createNavbar(content, currentLang, activePage = 'home') {
           <!-- English -->
           <button type="button" class="lang-select-option hover-lift ${currentLang === 'en' ? 'is-active-lang' : ''}" data-lang="en" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.15rem; border-radius: 14px; border: 1.5px solid ${currentLang === 'en' ? 'var(--primary)' : 'var(--border)'}; background: ${currentLang === 'en' ? 'var(--primary-light-bg)' : 'var(--surface)'}; cursor: pointer; text-align: left; transition: all 0.2s ease;">
             <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <span style="font-size: 1.45rem;">🌐</span>
               <strong style="font-size: 1.05rem; color: ${currentLang === 'en' ? 'var(--primary)' : 'var(--foreground)'}; font-weight: 800;">English</strong>
             </div>
             ${currentLang === 'en' ? '<span style="background: var(--primary); color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px;">✓ Active</span>' : ''}

@@ -60,24 +60,22 @@ export function createDonateModal(content, currentLang) {
 
   return `
     <div id="donate-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="donate-modal-title">
-      <div class="modal-panel" style="max-width: 680px; max-height: 90vh; padding: 2rem 2.25rem; position: relative;">
+      <div class="modal-panel" style="max-width: 680px; max-height: 90vh; padding: 2rem 2.25rem;">
         
-        <!-- Corner Cross Close Button (Picture 2 Fix) -->
-        <button id="close-donate-modal-btn" class="modal-close-corner-btn hover-lift" type="button" aria-label="Close Donation Modal" title="Close Modal">
-          ✕
-        </button>
-
         <!-- Header -->
-        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; padding-right: 2.8rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem;">
           <div>
             <span class="glass-badge-gold" style="margin-bottom: 0.5rem; display: inline-flex; align-items: center; gap: 0.4rem;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
               ${texts.taxBadge}
             </span>
-            <h3 id="donate-modal-title" class="font-display font-bold text-foreground" style="font-size: clamp(1.3rem, 3.5vw, 1.65rem); line-height: 1.2; margin: 0;">
+            <h3 id="donate-modal-title" class="font-display font-bold text-foreground" style="font-size: 1.65rem; line-height: 1.2; margin: 0;">
               ${texts.title}
             </h3>
           </div>
+          <button id="close-donate-modal-btn" class="lightbox-btn" style="background: var(--surface-subtle); color: var(--foreground); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--border);" aria-label="Close Modal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
 
         <p class="text-foreground-muted" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
@@ -386,22 +384,17 @@ export function createDonateModal(content, currentLang) {
 
           <!-- Direct Status Banner: Automatically Sent to Email -->
           <div id="email-receipt-status-banner" style="margin-bottom: 1.25rem; font-size: 0.92rem; padding: 0.85rem 1.1rem; border-radius: 12px; background: rgba(16, 185, 129, 0.15); color: #047857; border: 1.5px solid #10b981; text-align: center; font-weight: 700; line-height: 1.45;">
-            ✅ Your official Section 80G receipt has been generated successfully.
+            ✅ Your official Section 80G receipt has been sent to your email.
           </div>
 
-          <!-- 3 Instant Action Buttons: View/Print PDF, Email via Gmail, Send WhatsApp -->
-          <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1rem;">
-            <button type="button" id="btn-action-print-receipt" class="btn btn-primary hover-lift" style="padding: 0.85rem 1rem; font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 12px; width: 100%;">
-              🖨️ View & Print Official 80G Receipt (PDF)
+          <!-- 2 Clean Action Buttons: Download PDF & Share Receipt Link -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+            <button type="button" id="btn-action-print-receipt" class="btn btn-primary" style="padding: 0.85rem 1rem; font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 12px;">
+              🖨️ Download / Print PDF
             </button>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;">
-              <button type="button" id="btn-action-email-receipt" class="btn btn-secondary hover-lift" style="padding: 0.75rem 0.85rem; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.4rem; border-radius: 12px; color: #0284c7; border-color: #0284c7;">
-                ✉️ Email via Gmail
-              </button>
-              <button type="button" id="btn-action-whatsapp-receipt" class="btn btn-secondary hover-lift" style="padding: 0.75rem 0.85rem; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.4rem; border-radius: 12px; color: #16a34a; border-color: #16a34a;">
-                📱 Send on WhatsApp
-              </button>
-            </div>
+            <button type="button" id="btn-action-share-link" class="btn btn-secondary" style="padding: 0.85rem 1rem; font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 12px; border-color: var(--primary); color: var(--primary);">
+              🔗 Share Receipt Link
+            </button>
           </div>
 
           <div style="text-align: center; margin-top: 0.5rem;">
@@ -446,39 +439,6 @@ export function setupDonateModalComponent(currentLang) {
   const successScreen = document.getElementById('donation-success-screen');
   const feedback = document.getElementById('donation-submit-feedback');
   const closeSuccessBtn = document.getElementById('close-success-donate-btn');
-  const closeCornerBtn = document.getElementById('close-donate-modal-btn');
-
-  window.openDonateModal = function() {
-    if (modal) {
-      modal.classList.add('open');
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-  };
-
-  window.closeDonateModal = function() {
-    if (modal) {
-      modal.classList.remove('open');
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-      if (form) form.style.display = 'flex';
-      if (successScreen) successScreen.style.display = 'none';
-    }
-  };
-
-  if (closeCornerBtn) {
-    closeCornerBtn.addEventListener('click', () => window.closeDonateModal());
-  }
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) window.closeDonateModal();
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) {
-      window.closeDonateModal();
-    }
-  });
 
   let selectedAmount = 2500;
   let activePaymentMode = 'UPI (QR Code)';
@@ -847,8 +807,7 @@ export function setupDonateModalComponent(currentLang) {
         }
 
         const btnPrintReceipt = document.getElementById('btn-action-print-receipt');
-        const btnEmailReceipt = document.getElementById('btn-action-email-receipt');
-        const btnWhatsappReceipt = document.getElementById('btn-action-whatsapp-receipt');
+        const btnShareLink = document.getElementById('btn-action-share-link');
 
         if (btnPrintReceipt) {
           btnPrintReceipt.onclick = () => {
@@ -856,15 +815,32 @@ export function setupDonateModalComponent(currentLang) {
           };
         }
 
-        if (btnEmailReceipt) {
-          btnEmailReceipt.onclick = () => {
-            openEmailReceipt(currentDonation, email);
-          };
-        }
-
-        if (btnWhatsappReceipt) {
-          btnWhatsappReceipt.onclick = () => {
-            openWhatsAppReceipt(currentDonation, phone);
+        if (btnShareLink) {
+          const pdfLink = `${window.location.origin.replace(':3000', ':8000')}/api/donations/${currentDonation.id}/download-pdf`;
+          btnShareLink.onclick = async () => {
+            if (navigator.share) {
+              try {
+                await navigator.share({
+                  title: `Prayas Foundation Receipt #${currentDonation.tax_80g_receipt_no || currentDonation.id}`,
+                  text: `Official donation receipt for INR ₹${Number(currentDonation.amount || 0).toLocaleString('en-IN')} - Prayas Foundation`,
+                  url: pdfLink
+                });
+                return;
+              } catch (e) {}
+            }
+            try {
+              await navigator.clipboard.writeText(pdfLink);
+              btnShareLink.innerHTML = '✓ Link Copied!';
+              btnShareLink.style.background = '#10b981';
+              btnShareLink.style.color = '#ffffff';
+              setTimeout(() => {
+                btnShareLink.innerHTML = '🔗 Share Receipt Link';
+                btnShareLink.style.background = '';
+                btnShareLink.style.color = '';
+              }, 2500);
+            } catch (err) {
+              prompt('Receipt Download Link (Ctrl+C, Enter):', pdfLink);
+            }
           };
         }
 
