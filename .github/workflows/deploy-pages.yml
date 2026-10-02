@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -37,6 +37,9 @@ jobs:
       - name: Build Website Bundle
         run: npm run build
 
+      - name: Ensure .nojekyll in build output
+        run: touch ./dist/.nojekyll
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -48,3 +51,12 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Deploy to gh-pages branch (Failover for Branch-Based Pages Source)
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          keep_files: false
+

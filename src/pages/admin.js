@@ -300,7 +300,7 @@ export async function renderAdmin() {
           <button id="btn-refresh-dashboard" class="btn btn-sm btn-secondary hover-lift" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; border-radius: 999px; font-weight: 700;">
             <span>🔄 Refresh DB</span>
           </button>
-          <a href="/index.html" class="btn btn-sm btn-secondary hover-lift" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; border-radius: 999px; font-weight: 700; text-decoration: none;">
+          <a href="./index.html" class="btn btn-sm btn-secondary hover-lift" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; border-radius: 999px; font-weight: 700; text-decoration: none;">
             <span>🏠 Back to Website</span>
           </a>
         </div>

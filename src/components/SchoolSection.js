@@ -28,7 +28,7 @@ export function createSchoolSection(content, currentLang) {
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem; justify-items: center;">
             ${council.map(c => {
               const isCgPower = c.logo || (c.name && (c.name.toLowerCase().includes('cg power') || c.name.includes('सीजी पॉवर') || c.name.includes('सीजी पावर')));
-              const logoPath = isCgPower ? (c.logo || '/assets/cg-power.png') : null;
+              const logoPath = isCgPower ? (c.logo || './assets/cg-power.png') : null;
               const personData = {
                 name: c.name,
                 role: c.role,

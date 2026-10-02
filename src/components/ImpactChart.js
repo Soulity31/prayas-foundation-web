@@ -65,7 +65,7 @@ export function createImpactChart(content, currentLang) {
         <!-- Top Title & Filter Controls -->
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem;">
           <div style="display: flex; align-items: center; gap: 0.85rem;">
-            <img src="/assets/khan-academy.jpg" alt="Khan Academy" style="width: 44px; height: 44px; border-radius: 12px; object-fit: cover; box-shadow: 0 6px 16px rgba(0,0,0,0.35); flex-shrink: 0;" />
+            <img src="./assets/khan-academy.jpg" alt="Khan Academy" style="width: 44px; height: 44px; border-radius: 12px; object-fit: cover; box-shadow: 0 6px 16px rgba(0,0,0,0.35); flex-shrink: 0;" />
             <div>
               <h3 class="font-display font-bold text-lg md:text-2xl" style="margin-bottom: 0.15rem; color: #f8fafc; line-height: 1.25;">
                 ${imp.chartTitle}

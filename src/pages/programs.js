@@ -134,7 +134,7 @@ function renderPage() {
       <section class="hero-gradient section-padding" style="padding-top: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border);">
         <div class="container text-center" style="max-width: 850px; margin: 0 auto;">
           <div style="margin-bottom: 1rem;">
-            <a href="/index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
+            <a href="./index.html" class="hover-lift" style="color: var(--primary); font-weight: 800; font-size: 1.05rem;">
               ${isMr ? 'मुख्य पृष्ठ' : isHi ? 'मुख्य पृष्ठ' : 'Home'}
             </a>
             <span style="color: var(--foreground-subtle); margin: 0 0.65rem; font-size: 1.05rem;">/</span>
@@ -277,9 +277,9 @@ function attachPageListeners() {
     if (lightboxImg && item) {
       lightboxImg.onerror = function() {
         this.onerror = null;
-        this.src = '/assets/celebrations.jpg';
+        this.src = './assets/celebrations.jpg';
       };
-      lightboxImg.src = item.img || '/assets/celebrations.jpg';
+      lightboxImg.src = item.img || './assets/celebrations.jpg';
       lightboxImg.alt = item.title || 'Program Preview';
       if (lightboxTitle) lightboxTitle.textContent = item.title || '';
       if (lightboxDesc) lightboxDesc.textContent = item.desc || '';

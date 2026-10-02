@@ -11,7 +11,7 @@ export function createHero(content, currentLang) {
 
   return `
     <!-- Top Hero Section: School Picture Background with Generous Text Line Spacing -->
-    <section class="hero-gradient" id="hero" style="position: relative; padding: 8.5rem 1.5rem 6.5rem; overflow: hidden; background: linear-gradient(180deg, rgba(15, 23, 42, 0.36) 0%, rgba(15, 23, 42, 0.45) 50%, rgba(15, 23, 42, 0.72) 100%), url('/assets/hero-prayas.jpg') center center/cover no-repeat; min-height: 85vh; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 100px rgba(0,0,0,0.5);">
+    <section class="hero-gradient" id="hero" style="position: relative; padding: 8.5rem 1.5rem 6.5rem; overflow: hidden; background: linear-gradient(180deg, rgba(15, 23, 42, 0.36) 0%, rgba(15, 23, 42, 0.45) 50%, rgba(15, 23, 42, 0.72) 100%), url('./assets/hero-prayas.jpg') center center/cover no-repeat; min-height: 85vh; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 100px rgba(0,0,0,0.5);">
       
       <!-- Subtle Top & Bottom Soft Gradient Edge Blends -->
       <div style="position: absolute; top: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), transparent); pointer-events: none;"></div>

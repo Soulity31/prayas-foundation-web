@@ -21,7 +21,7 @@ export function createGalleryModal() {
         
         <!-- Main Display Image Frame -->
         <div class="lightbox-img-frame" style="width: 100%; max-height: 58vh; overflow: hidden; background: #000000; display: flex; align-items: center; justify-content: center;">
-          <img id="lightbox-main-img" src="/assets/celebrations.jpg" alt="Program Detail" class="lightbox-image" onerror="this.onerror=null; this.src='/assets/celebrations.jpg';" style="width: 100%; height: 100%; max-height: 58vh; object-fit: contain; display: block;" />
+          <img id="lightbox-main-img" src="./assets/celebrations.jpg" alt="Program Detail" class="lightbox-image" onerror="this.onerror=null; this.src='./assets/celebrations.jpg';" style="width: 100%; height: 100%; max-height: 58vh; object-fit: contain; display: block;" />
         </div>
 
         <!-- Caption Box (High Contrast) -->

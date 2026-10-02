@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prayas Foundation | Redirecting...</title>
+  <script>
+    (function() {
+      var path = window.location.pathname;
+      var search = window.location.search || '';
+      var hash = window.location.hash || '';
+      
+      // Known pages in the application
+      var pages = ['about', 'school', 'programs', 'impact', 'work', 'contact', 'partners', 'admin'];
+      
+      // Determine if hosted on GitHub Pages with subpath /prayas-foundation-web
+      var repoPrefix = '';
+      if (path.indexOf('/prayas-foundation-web') === 0) {
+        repoPrefix = '/prayas-foundation-web';
+        path = path.slice('/prayas-foundation-web'.length);
+      }
+      
+      // Strip trailing and leading slashes
+      var clean = path.replace(/\/+$/, '').replace(/^\/+/, '');
+      
+      // Check if clean matches a known page
+      var match = clean.split('/')[0];
+      if (pages.indexOf(match) !== -1) {
+        window.location.replace(repoPrefix + '/' + match + '.html' + search + hash);
+        return;
+      }
+      
+      // Default to home page
+      window.location.replace(repoPrefix + '/index.html' + search + hash);
+    })();
+  </script>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding: 4rem 1rem; background: #0f172a; color: #f8fafc;">
+  <div style="max-width: 480px; margin: 0 auto; background: #1e293b; padding: 2rem; border-radius: 16px; border: 1px solid #334155;">
+    <h2 style="color: #10b981; margin-bottom: 0.5rem;">Prayas Foundation</h2>
+    <p style="color: #94a3b8; margin-bottom: 1.5rem;">Redirecting to requested page...</p>
+    <a href="./index.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #10b981; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold;">Go to Home Page</a>
+  </div>
+</body>
+</html>
