@@ -166,60 +166,60 @@ export function createNavbar(content, currentLang, activePage = 'home') {
     <!-- Navigation Pop-Up Modal -->
     <div id="drawer-overlay" class="drawer-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 99998;" onclick="window.closePrayasMenu ? window.closePrayasMenu() : (window.togglePrayasMenu && window.togglePrayasMenu(false))"></div>
 
-    <div id="mobile-drawer" class="mobile-drawer" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92%; max-width: 450px; max-height: 88vh; background: #ffffff; color: #0f172a; border-radius: 20px; border: 2px solid #10b981; z-index: 99999; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55); padding: 1.5rem; flex-direction: column; overflow-y: auto;" onclick="event.stopPropagation()">
+    <div id="mobile-drawer" class="mobile-drawer" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92%; max-width: 450px; max-height: 88vh; border-radius: 20px; border: 2px solid #10b981; z-index: 99999; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65); padding: 1.5rem; flex-direction: column; overflow-y: auto;" onclick="event.stopPropagation()">
       
       <!-- Modal Header -->
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.85rem; border-bottom: 2px solid #e2e8f0;">
+      <div class="drawer-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.85rem; border-bottom: 2px solid var(--border);">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
           <img src="./assets/prayas-logo.png" alt="Prayas Logo" style="height: 38px; width: auto;" />
-          <span class="font-display font-bold block" style="font-size: 1.2rem; line-height: 1.2; color: #0f172a;">Prayas Foundation</span>
+          <span class="drawer-brand-text font-display font-bold block" style="font-size: 1.2rem; line-height: 1.2;">Prayas Foundation</span>
         </div>
-        <button id="close-drawer-btn" type="button" class="hover-lift" style="width: 36px; height: 36px; border-radius: 50%; background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 800;" aria-label="Close Menu" onclick="window.closePrayasMenu ? window.closePrayasMenu() : (window.togglePrayasMenu && window.togglePrayasMenu(false))">
+        <button id="close-drawer-btn" type="button" class="drawer-close-btn hover-lift" style="width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 800;" aria-label="Close Menu" onclick="window.closePrayasMenu ? window.closePrayasMenu() : (window.togglePrayasMenu && window.togglePrayasMenu(false))">
           ✕
         </button>
       </div>
 
       <!-- Mobile Quick Language Switcher -->
-      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 0.75rem; margin-bottom: 1rem;">
-        <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 700; color: #475569;">
+      <div class="drawer-lang-section" style="border-radius: 14px; padding: 0.75rem; margin-bottom: 1rem;">
+        <div class="drawer-lang-title" style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 700;">
           <span style="font-size: 1.1rem;">🌐</span>
           <span>${isMr ? 'भाषा निवडा (Select Language):' : isHi ? 'भाषा चुनें (Select Language):' : 'Select Language:'}</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem;">
-          <button type="button" class="lang-select-option hover-scale" data-lang="mr" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; border: 1.5px solid ${currentLang === 'mr' ? '#10b981' : '#cbd5e1'}; background: ${currentLang === 'mr' ? '#10b981' : '#ffffff'}; color: ${currentLang === 'mr' ? '#ffffff' : '#0f172a'};" onclick="window.setPrayasLanguage && window.setPrayasLanguage('mr')">
+          <button type="button" class="lang-select-option drawer-lang-btn hover-scale ${currentLang === 'mr' ? 'is-active' : ''}" data-lang="mr" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center;" onclick="window.setPrayasLanguage && window.setPrayasLanguage('mr')">
             🚩 मराठी
           </button>
-          <button type="button" class="lang-select-option hover-scale" data-lang="hi" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; border: 1.5px solid ${currentLang === 'hi' ? '#10b981' : '#cbd5e1'}; background: ${currentLang === 'hi' ? '#10b981' : '#ffffff'}; color: ${currentLang === 'hi' ? '#ffffff' : '#0f172a'};" onclick="window.setPrayasLanguage && window.setPrayasLanguage('hi')">
+          <button type="button" class="lang-select-option drawer-lang-btn hover-scale ${currentLang === 'hi' ? 'is-active' : ''}" data-lang="hi" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center;" onclick="window.setPrayasLanguage && window.setPrayasLanguage('hi')">
             🇮🇳 हिन्दी
           </button>
-          <button type="button" class="lang-select-option hover-scale" data-lang="en" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; border: 1.5px solid ${currentLang === 'en' ? '#10b981' : '#cbd5e1'}; background: ${currentLang === 'en' ? '#10b981' : '#ffffff'}; color: ${currentLang === 'en' ? '#ffffff' : '#0f172a'};" onclick="window.setPrayasLanguage && window.setPrayasLanguage('en')">
+          <button type="button" class="lang-select-option drawer-lang-btn hover-scale ${currentLang === 'en' ? 'is-active' : ''}" data-lang="en" style="padding: 0.55rem 0.25rem; border-radius: 10px; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center;" onclick="window.setPrayasLanguage && window.setPrayasLanguage('en')">
             🌐 English
           </button>
         </div>
       </div>
 
       <!-- Navigation Links -->
-      <nav style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem;">
+      <nav class="drawer-nav" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem;">
         ${pages.map(p => `
-          <a href="${p.href}" class="hover-lift" style="display: flex; align-items: center; gap: 0.85rem; padding: 0.75rem 1rem; border-radius: 12px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.15s ease; ${activePage === p.id ? 'background: #10b981; color: #ffffff; box-shadow: 0 4px 12px rgba(16,185,129,0.25);' : 'background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0;'}">
-            <span style="font-size: 1.2rem;">${p.icon}</span>
-            <span style="flex: 1;">${p.label}</span>
-            ${activePage === p.id ? '<span style="font-size: 0.7rem; font-weight: 800; background: rgba(255,255,255,0.25); padding: 0.2rem 0.5rem; border-radius: 999px; text-transform: uppercase;">Active</span>' : '<span style="color: #94a3b8; font-size: 0.9rem;">→</span>'}
+          <a href="${p.href}" class="drawer-nav-item hover-lift ${activePage === p.id ? 'is-active' : ''}" style="display: flex; align-items: center; gap: 0.85rem; padding: 0.75rem 1rem; border-radius: 12px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.15s ease;">
+            <span class="drawer-nav-icon" style="font-size: 1.2rem;">${p.icon}</span>
+            <span class="drawer-nav-label" style="flex: 1;">${p.label}</span>
+            ${activePage === p.id ? '<span class="drawer-nav-badge" style="font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 999px; text-transform: uppercase;">Active</span>' : '<span class="drawer-nav-arrow" style="font-size: 0.9rem;">→</span>'}
           </a>
         `).join('')}
       </nav>
 
       <!-- Bottom Actions & Contact Links -->
-      <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.65rem; padding-top: 1rem; border-top: 2px solid #e2e8f0;">
-        <button id="mobile-donate-btn" type="button" class="btn btn-accent" style="width: 100%; justify-content: center; font-weight: 800; padding: 0.75rem; font-size: 1rem; border-radius: 12px;" onclick="window.openDonateModal ? window.openDonateModal() : null">
+      <div class="drawer-footer" style="margin-top: auto; display: flex; flex-direction: column; gap: 0.65rem; padding-top: 1rem; border-top: 2px solid var(--border);">
+        <button id="mobile-donate-btn" type="button" class="btn btn-accent drawer-donate-btn" style="width: 100%; justify-content: center; font-weight: 800; padding: 0.75rem; font-size: 1rem; border-radius: 12px;" onclick="window.openDonateModal ? window.openDonateModal() : null">
           ❤️ ${t.donate}
         </button>
         
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;">
-          <a href="tel:+919820500726" style="padding: 0.65rem 0.5rem; background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+          <a href="tel:+919820500726" class="drawer-call-btn hover-lift" style="padding: 0.65rem 0.5rem; border-radius: 10px; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
             📞 ${t.callUs}
           </a>
-          <a href="https://wa.me/919820500726" target="_blank" rel="noopener noreferrer" style="padding: 0.65rem 0.5rem; background: #25d366; color: #ffffff; border-radius: 10px; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+          <a href="https://wa.me/919820500726" target="_blank" rel="noopener noreferrer" class="drawer-wa-btn hover-lift" style="padding: 0.65rem 0.5rem; background: #25d366; color: #ffffff !important; border-radius: 10px; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
             💬 ${t.whatsapp}
           </a>
         </div>
